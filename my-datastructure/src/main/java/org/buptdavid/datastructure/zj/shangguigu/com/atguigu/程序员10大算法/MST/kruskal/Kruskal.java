@@ -15,6 +15,9 @@ public class Kruskal {
     private static final int INF = Integer.MAX_VALUE;
 
     public static void main(String[] args) {
+        /*介绍：http://data.biancheng.net/view/41.html*/
+
+
         //邻接矩阵的关系使用二维数组表示,99999这个大数，表示两个点不联通
        /* int[][] edges = new int[][]{
                 {99999, 5, 7, 99999, 99999, 99999, 2},
