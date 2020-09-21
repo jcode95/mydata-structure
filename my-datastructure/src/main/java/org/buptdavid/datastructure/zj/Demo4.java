@@ -1,9 +1,6 @@
 package org.buptdavid.datastructure.zj;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * @author jiezhou
@@ -26,11 +23,34 @@ public class Demo4 {
         Set<Integer> set = new Demo4().tranMineSet(null);
 */
 //        new Demo4().a();
-//        System.out.println(set);
+        for (int i = 0; i < 100; i++) {
+            System.out.println(refreshTaskByColor(2));
+        }
+
 
     }
 
-
+    /**
+     * 随机取到比beginColor 大或者等于beginColor 的 color
+     * @param beginColor
+     * @return
+     */
+    public static int refreshTaskByColor(int beginColor) {
+        float ranRate = new Random().nextFloat();
+        List<Float> rateList =  new ArrayList<>();
+        rateList.add(0.2F);
+        rateList.add(0.3F);
+        rateList.add(0.37F);
+        rateList.add(0.13F);
+        float rate = 0;
+        for (int i = beginColor-1; i < rateList.size(); i++) {
+            rate = rateList.get(i) + rate;
+            if (ranRate < rate) {
+                return i+=2;
+            }
+        }
+        return beginColor;
+    }
     private Set<Integer> tranMineSet(String dataStr) {
         Set<Integer> set = new HashSet<>();
         if (dataStr != null && dataStr != "") {
