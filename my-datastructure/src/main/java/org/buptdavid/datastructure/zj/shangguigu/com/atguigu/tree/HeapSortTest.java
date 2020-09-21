@@ -36,6 +36,7 @@ public class HeapSortTest {
     }
 
     /**
+     * 通过arr数组构建大顶堆，长度到数组的length
      * @param arr
      * @param i      从左到右，从下到上第一个不是叶子节点的节点对应数组的下标
      * @param length 当前要排序的长度
@@ -43,12 +44,12 @@ public class HeapSortTest {
     public void maxHeap(int[] arr, int i, int length) {
 
         int temp = arr[i];//当前节点
-        for (int j = i * 2 + 1; j < length; j = j * 2 + 1) {
+        for (int j = i * 2 + 1; j < length; j = j * 2 + 1) {//j = i * 2 + 1 得到左节点在数组里面的下标 j+1就是右子节点的下标
             //找当前节点的左右节点，找出最大的节点的i
             if (j + 1 < length && arr[j] < arr[j + 1]) {//左节点小于右节点
                 j++;//让j指向右节点
             }
-            if (arr[j] > temp) {
+            if (arr[j] > temp) {//如果当前节点小于左右子节点，就让最大的一个左右节点与当前i节点交换数据
                 arr[i] = arr[j];
                 arr[j] = temp;
                 i = j;
