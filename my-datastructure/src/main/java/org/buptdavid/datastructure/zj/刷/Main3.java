@@ -10,6 +10,13 @@ package org.buptdavid.datastructure.zj.刷;
 public class Main3 {
 
     public static void main(String[] args) {
+        /*　logx(y) =loge(y) / loge(x)，换底公式 */
+        double v1 = Math.log(4240960833d);//java 里面 log=loge
+        double v2 = Math.log(1024d);
+        System.out.println(v1/v2);
+        System.out.println(4240960833d/1024/1024/1024+"G");
+
+
 
 
     }
