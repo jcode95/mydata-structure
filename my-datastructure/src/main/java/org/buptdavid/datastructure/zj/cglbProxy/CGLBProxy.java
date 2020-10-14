@@ -30,8 +30,8 @@ public class CGLBProxy implements MethodInterceptor{
     //回调方法
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-        System.out.println("wo shi CGLB de dong tai daili " );
-        //反射方法 前调用
+        System.out.println("我是cglb动态代理" );
+        //反射方法前调用
         System.out.println("before ---> invokesuper()");
         Object retureObject = methodProxy.invokeSuper(o, objects);
         //反射方法后调用
