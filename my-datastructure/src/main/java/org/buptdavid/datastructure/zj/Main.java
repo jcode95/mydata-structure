@@ -589,8 +589,9 @@ public class Main{
 import java.util.*;
 public class Main {
     public static void main(String[] arg) {
-
-
+        Long time=10L;
+        long currentTime=6L;
+        System.out.println(String.valueOf(time - currentTime + "-1"));
 
 
     }
