@@ -1,6 +1,7 @@
 package org.buptdavid.datastructure.zj.design_mode.Facade;
 
 /**
+ *门面模式
  * @author jiezhou
  * @CalssName: Client
  * @Package org.buptdavid.datastructure.zj.design_mode.Facade
