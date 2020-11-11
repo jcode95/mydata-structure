@@ -187,14 +187,14 @@ class LinkedList {
     }
 
 
-    //修改(根据编号来下指定节点)
+    //修改(根据编号修改指定节点)
     public void edit(int id, String... var) {
         Node temp = headNode;
         if (headNode == null) {
             System.out.println("链表为空....");
             return;
         }
-        //找打id的节点
+        //找指定id的节点
         while (true) {
             if (temp == null) {//遍历完了，退出循环
                 break;
@@ -213,7 +213,7 @@ class LinkedList {
         }
     }
 
-    //获取倒数弟K个节点并打印
+    //获取倒数第K个节点并打印
     public Node getNodeByK(int k) {
         Node temp = headNode;
         if (temp == null) {
