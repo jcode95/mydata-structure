@@ -150,7 +150,10 @@ class ArrayStack {
     }
 
 
-    //出栈
+    /**
+     * 出栈
+     * @return
+     */
     public String pop() {
         //判断栈是否为空
         if (isEmpty()) {
@@ -161,18 +164,24 @@ class ArrayStack {
         return value;
     }
 
-    //入栈并返回栈顶的值
+    /**
+     * 入栈并返回栈顶的值
+     * @param value
+     * @return
+     */
     public String push(String value) {
-        //判断栈是否为空
+        //判断栈是否满
         if (isFull()) {
-            throw new RuntimeException("栈为空，不能出栈！");
+            throw new RuntimeException("栈为满，不能入栈！");
         }
         top++;
         arr[top] = value;
         return arr[top];
     }
 
-    //遍历栈
+    /**
+     * 遍历栈
+     */
     public void list() {
         //判断栈是否为空
         if (isEmpty()) {
