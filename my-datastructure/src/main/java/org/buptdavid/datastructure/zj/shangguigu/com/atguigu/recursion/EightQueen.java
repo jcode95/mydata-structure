@@ -63,7 +63,7 @@ public class EightQueen {
         }
         for (int i = 0; i < n; i++) {
             //arr[i] == arr[n] 同一列
-            //Math.abs(n - i) == Math.abs(arr[n] - arr[i]) 同一个对角线
+            //Math.abs(n - i) == Math.abs(arr[n] - arr[i]) 同一个对角线（对边与邻边相等，对角45度，即为在对角线上）
             if (arr[i] == arr[n] || Math.abs(n - i) == Math.abs(arr[n] - arr[i])) {
                 return false;
             }
