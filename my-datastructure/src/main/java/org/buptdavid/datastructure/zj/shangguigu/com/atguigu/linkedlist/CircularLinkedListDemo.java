@@ -17,7 +17,9 @@ public class CircularLinkedListDemo {
         linkedList.add(5);
         linkedList.list();
         System.out.println("----------------");
-//        linkedList.del(3);
+        linkedList.del1(3);
+        CircularNode node = new CircularNode(5, 5 + "", 5 + "");
+        CircularNode upNode = linkedList.getUpNode(node);
         linkedList.list();
         System.out.println("-------约瑟夫---------");
         String countBoy = linkedList.countBoy(1, 2);
@@ -85,13 +87,13 @@ class CircularLinkedList {
             return null;
         }
         CircularNode skipNode = null;
-        CircularNode startNode=getNode(startId);
-        if(startNode==null){
+        CircularNode startNode = getNode(startId);
+        if (startNode == null) {
             System.out.println("节点未在链表中找到！");
             return null;
         }
         while (tmp != null) {
-            for (int i = 1; i <skip; i++) {
+            for (int i = 1; i < skip; i++) {
                 skipNode = startNode.next;
                 startNode = startNode.next;
             }
@@ -133,6 +135,60 @@ class CircularLinkedList {
     }
 
     //删除节点，删除之后还是环形链表
+    public void del1(int id) {
+        CircularNode delNode = getNode(id);
+        CircularNode tmp = first;
+        if (delNode == null) {
+            System.out.println("不能删除空节点！");
+            return;
+        }
+        if (tmp == null) {
+            System.out.println("链表为空，删除失败！");
+            return;
+        }
+        if (tmp.next.equals(first)) {
+            if (first.equals(delNode)) {
+                first.next = null;
+                first = null;
+            }
+        }
+        //获取指定节点的前一个节点
+        CircularNode upNode = getUpNode(delNode);
+        if (upNode == null) {
+            System.out.println("找不到要删除的节点的上一个节点！");
+            return;
+        }
+        if (upNode.equals(delNode)) {//是当前本身，也就是说当前环形链表只有一个节点，并且删除的节点就是当前的节点
+            first.next = null;
+            first = null;
+            return;
+        }
+        upNode.next = delNode.next;
+    }
+
+    /**
+     * 获取指定节点的上一个节点
+     *
+     * @param node
+     * @return
+     */
+    public CircularNode getUpNode(CircularNode node) {
+        if (first == null) {
+            return null;
+        }
+        CircularNode currNode = first;
+        while (true) {
+            if (currNode.next.equals(node)) {
+                return currNode;
+            }
+            if (currNode.next.equals(first)) {//没有找到
+                return null;
+            }
+            currNode = currNode.next;
+        }
+    }
+
+    //删除节点，删除之后还是环形链表
     public void del(int id) {
         CircularNode delNode = new CircularNode(id, id + "", id + "");
         CircularNode tmp = first;
@@ -146,23 +202,20 @@ class CircularLinkedList {
         }
         CircularNode upNode = null;
         while (true) {
-            if (tmp.next == first) {
-                if (tmp.equals(delNode)) {
-                    //找到要删除的节点了,此时是需要删除的最后一个节点（注意，如果是只有一个节点的情况要处理）
-                    if(first.next.equals(first)){
+            if (tmp.next.equals(first)) {
+                if (tmp.equals(delNode)) {//找到要删除的节点了,此时是需要删除的最后一个节点（注意，如果是只有一个节点的情况要处理）
+                    if (first.next.equals(first)) {
                         //只有一个节点且是循环依赖自身,直接让其等于null
-                        first.next=null;
-                        first=null;
-                    }else{
+                        first.next = null;
+                        first = null;
+                    } else {
                         upNode.next = first;
                     }
                 }
                 break;
             }
-            if (tmp.equals(delNode)) {
-                //找到要删除的节点了
-                if (tmp.equals(first)) {
-                    //如果要删除的是第一个节点
+            if (tmp.equals(delNode)) {  //找到要删除的节点了
+                if (tmp.equals(first)) {//如果要删除的是第一个节点
                     CircularNode lastNode = getLastNode();
                     first = tmp.next;
                     //修改最后一个节点
