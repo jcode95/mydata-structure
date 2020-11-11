@@ -134,7 +134,10 @@ class CircularLinkedList {
         return null;
     }
 
-    //删除节点，删除之后还是环形链表
+    /**
+     * 删除节点，删除之后还是环形链表
+     * @param id
+     */
     public void del1(int id) {
         CircularNode delNode = getNode(id);
         CircularNode tmp = first;
