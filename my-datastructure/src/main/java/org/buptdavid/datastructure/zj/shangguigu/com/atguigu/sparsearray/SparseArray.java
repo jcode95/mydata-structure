@@ -10,14 +10,15 @@ package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sparsearray;
 public class SparseArray {
     public static void main(String[] args) {
         //先创建一个原始的二维数组
-        //0：表示没有旗子，1：黑子 2：篮子
+        //0：表示没有棋子，1：黑子 2：篮子
         int[][] chessArr1 = new int[11][11];
         chessArr1[1][2] = 1;
         chessArr1[2][4] = 2;
         for (int[] row : chessArr1) {
             for (int data : row) {
-                System.out.println(data);
+                System.out.print(data+" ");
             }
+            System.out.println();
         }
         int row = 0;
         for (int i = 0; i < chessArr1.length; i++) {
@@ -28,26 +29,27 @@ public class SparseArray {
             }
         }
         //创建稀疏数组
-        int[][] sparseArr = new int[row + 1][3];
-        sparseArr[0][0] = 11;
-        sparseArr[0][1] = 11;
+        int[][] sparseArr = new int[row + 1][3];//第一行记录的是原数组总共有多少列多少行，有几个要记录的值
+        sparseArr[0][0] = chessArr1.length;
+        sparseArr[0][1] = chessArr1[0].length;
         sparseArr[0][2] = row;
-        int count = 1;
+        int count = 1;//从第二行开始填充稀疏数组
         for (int i = 0; i < chessArr1.length; i++) {
             for (int j = 0; j < chessArr1[i].length; j++) {
                 if (chessArr1[i][j] != 0) {
-                    sparseArr[count][0] = i;
-                    sparseArr[count][1] = j;
-                    sparseArr[count][2] = chessArr1[i][j];
+                    sparseArr[count][0] = i;//行
+                    sparseArr[count][1] = j;//列
+                    sparseArr[count][2] = chessArr1[i][j];//值
                     count++;
                 }
             }
         }
-        System.out.println("----------------------------------------");
+        System.out.println("-------------------稀疏数组如下---------------------");
         for (int[] rows : sparseArr) {
             for (int data : rows) {
-                System.out.println(data);
+                System.out.print(data+" ");
             }
+            System.out.println();
         }
     }
 }
