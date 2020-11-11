@@ -31,7 +31,7 @@ public class ArrayStackTest {
     /**
      * 计算表达式的值
      *
-     * @param str 表达式字符串
+     * @param str 表达式字符串  中缀表达式
      * @return
      */
     public double compute(String str) {

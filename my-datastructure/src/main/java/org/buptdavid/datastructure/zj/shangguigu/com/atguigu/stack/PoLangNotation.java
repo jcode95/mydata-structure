@@ -27,7 +27,7 @@ public class PoLangNotation {
         System.out.println(result);
     }
 
-    //通过中缀表达式回去后缀表达式（逆波兰表达式）
+    //通过中缀表达式获取后缀表达式（逆波兰表达式）
     //  1+((2+3)*4)-5
     public String processPoLang(String string) {
         //定义两个栈
@@ -51,7 +51,7 @@ public class PoLangNotation {
                         s1.push(currOP);
                         flg = false;
                     } else {
-                        String upOP = s1.peek();
+                        String upOP = s1.peek();//获取栈顶元素，不出栈
                         if (s1.isEmpty() || chackNotation(upOP, currOP) || upOP.equals("(")) {
                             s1.push(currStr);
                             flg = false;
