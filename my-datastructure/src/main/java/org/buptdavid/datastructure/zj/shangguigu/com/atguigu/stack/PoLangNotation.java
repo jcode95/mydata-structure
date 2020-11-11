@@ -27,8 +27,11 @@ public class PoLangNotation {
         System.out.println(result);
     }
 
-    //通过中缀表达式获取后缀表达式（逆波兰表达式）
-    //  1+((2+3)*4)-5
+    /**
+     *  通过中缀表达式获取后缀表达式（逆波兰表达式）
+     * @param string  1+((2+3)*4)-5
+     * @return 1 2 3 + 4 * + 5 -
+     */
     public String processPoLang(String string) {
         //定义两个栈
         Stack<String> s1 = new Stack<>();//字符栈
@@ -145,7 +148,11 @@ public class PoLangNotation {
         return c >= '0' && c <= '9';
     }
 
-
+    /**
+     * 计算 后缀表达式（逆波兰表达式）
+     * @param ls
+     * @return
+     */
     private static double call(List<String> ls) {
         //创建一个栈
         Stack<String> stack = new Stack<String>();
