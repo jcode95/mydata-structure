@@ -1,20 +1,22 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
 
+import java.util.Arrays;
+
 /**
  * @author jiezhou
  * @CalssName: MergetSort
  * @Package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sparsearray.sort
- * @Description: 归并排序
+ * @Description: 归并排序 O(log~n)
  * @date 2020/8/18/14:55
  */
 public class MergeSort {
     public static void main(String[] args) {
-//        int[] arr = new int[]{3, -10, 4, 20, 5, 8, 10, 23};
-//        int[] temp = new int[arr.length];
-//        mergeSort(arr, 0, arr.length-1, temp);
-//        System.out.println(Arrays.toString(arr));
+        int[] arr = new int[]{3, -10, 4, 20, 5, 8, 10, 23};
+        int[] temp = new int[arr.length];
+        mergeSort(arr, 0, arr.length-1, temp);
+        System.out.println(Arrays.toString(arr));
 
-        int[] arr = new int[80000000];
+       /* int[] arr = new int[80000000];
         for (int i = 0; i < 80000000; i++) {
             int v = (int) (Math.random() * 80000000);
             arr[i] = v;
@@ -23,7 +25,7 @@ public class MergeSort {
         long s = System.currentTimeMillis();
         mergeSort(arr, 0, arr.length - 1, temp);
         long s1 = System.currentTimeMillis();
-        System.out.println((s1 - s) / 1000);
+        System.out.println((s1 - s) / 1000);*/
     }
 
 

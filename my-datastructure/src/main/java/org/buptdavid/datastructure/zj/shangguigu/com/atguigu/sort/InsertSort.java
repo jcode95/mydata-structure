@@ -4,7 +4,7 @@ package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
  * @author jiezhou
  * @CalssName: InsertSort
  * @Package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sparsearray.sort
- * @Description: 插入排序
+ * @Description: 插入排序 O(n^2)
  * @date 2020/8/17/12:19
  */
 public class InsertSort {
