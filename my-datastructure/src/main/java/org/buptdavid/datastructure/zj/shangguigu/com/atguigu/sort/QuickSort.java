@@ -1,21 +1,19 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
 
-import java.util.Arrays;
-
 /**
  * @author jiezhou
  * @CalssName: QuickSort
  * @Package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sparsearray.sort
- * @Description: 快速排序 O(log~n)
+ * @Description: 快速排序
  * @date 2020/8/18/10:20
  */
 public class QuickSort {
 
     public static void main(String[] args) {
-        int[] arr1 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, -1};
-        sort(arr1, 0, arr1.length - 1);
-        System.out.println(Arrays.toString(arr1));
-        /*long s = System.currentTimeMillis();
+//        int[] arr1 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, -1};
+//        sort(arr1, 0, arr1.length - 1);
+//        System.out.println(Arrays.toString(arr1));
+        long s = System.currentTimeMillis();
         int[] arr = new int[80000000];
         for (int i = 0; i < 80000000; i++) {
             int v = (int) (Math.random() * 80000000);
@@ -23,7 +21,7 @@ public class QuickSort {
         }
         sort(arr, 0, arr.length - 1);
         long s1 = System.currentTimeMillis();
-        System.out.println((s1 - s) / 1000);*/
+        System.out.println((s1 - s) / 1000);
     }
 
 
@@ -70,41 +68,5 @@ public class QuickSort {
         }
         sort(arr, startIndex, j);//左边
         sort(arr, i, endIndex);//右边
-    }
-
-    public static void sort1(int[] arr, int startIndex, int endIndex) {
-        if (startIndex > endIndex) {
-            return;
-        }
-        int midIndex = (startIndex + endIndex) / 2;
-        int midValue = arr[midIndex];
-        int i = startIndex;
-        int j = endIndex;
-        while (i < j) {
-            while (arr[i] > midValue) {
-                i++;
-            }
-            while (arr[j] < midValue) {
-                j--;
-            }
-            if (i >= j) {
-                break;
-            }
-            int tmp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = tmp;
-            if (arr[i] == midValue) {
-                j--;
-            }
-            if (arr[j] == midValue) {
-                i++;
-            }
-        }
-        if (i == j) {
-            i++;
-            j--;
-        }
-        sort1(arr,i,midIndex);
-        sort1(arr,midIndex+1,endIndex);
     }
 }
