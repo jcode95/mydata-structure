@@ -27,7 +27,7 @@ public class FibonacciSearch implements ISearch {
         int k = 0;
         int[] F = createFibonacci(20);//创建一个斐波那契数组
         //计算arr.length位于斐波那契数列的位置
-        while (arr.length - 1 > F[k] - 1) {
+        while (arr.length > F[k] ) {
             k++;
         }
         //创建一个temp的新数组长度为  F[k] - 1，并且吧arr里面的值放到temp里面，后面不足的补上arr[arr.length-1]的值构成一个有序数组
@@ -58,7 +58,7 @@ public class FibonacciSearch implements ISearch {
     }
 
     /**
-     * 创建斐波那契数列啦辅助查找
+     * 创建斐波那契数列来辅助查找
      *
      * @param i
      * @return
