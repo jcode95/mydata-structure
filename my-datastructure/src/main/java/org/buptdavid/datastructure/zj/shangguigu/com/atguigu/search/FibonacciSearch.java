@@ -42,10 +42,10 @@ public class FibonacciSearch implements ISearch {
             int mid = left + F[k - 1] - 1;
             if (temp[mid] > value) {
                 right = mid - 1;
-                k -= 1;              //斐波那契数列下标减一位
+                k -= 1;              //F[k-1]=F[k-1-1]+F[k-2-1]=F[k-2]+F[k-3],F[k-1]-->F[k-2]，看分解后的第一个 k要-1
             } else if (temp[mid] < value) {
                 left = mid + 1;
-                k -= 2;
+                k -= 2; //F[k-1]=F[k-1-1]+F[k-2-1]=F[k-2]+F[k-3],F[k-1]-->F[k-3]  看分解后的第二个 k要-2
             } else {//找到了
                 if (mid > arr.length - 1) {
                     return arr.length - 1;
