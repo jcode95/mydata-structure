@@ -16,7 +16,7 @@ public class CountDownLatchDemo implements Runnable{
         try {
             Thread.sleep(2000);//模拟任务
             i.incrementAndGet();
-            System.out.println("执行子完任务");
+            System.out.println("执行完子任务");
             countDownLatch.countDown();//countDownLatch里面的数减一
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class CountDownLatchDemo implements Runnable{
         if(i.intValue()==10){//检查是否都执行完（是否与预期的一样）
             //执行最终任务
             Thread.sleep(2000);//模拟最终任务执行
-            System.out.println("最终任务执行");
+            System.out.println("执行最终任务~~~");
             //关闭(线程池)资源
             scheduledExecutorService.shutdown();
         }
