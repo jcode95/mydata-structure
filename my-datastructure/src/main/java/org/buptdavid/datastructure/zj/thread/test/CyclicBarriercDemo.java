@@ -3,12 +3,19 @@ package org.buptdavid.datastructure.zj.thread.test;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
+/**
+ * 循环栅栏和CountDownLatch类似，但是比CountDownLatch更加复杂强大
+ */
 public class CyclicBarriercDemo {
     static  CyclicBarrier cyclicBarrier=new CyclicBarrier(5,new A());
 
     public static void main(String[] args) throws InterruptedException, BrokenBarrierException {
         for (int i = 0; i < 5; i++) {
-            new Thread(new B(i)).start();
+            Thread thread = new Thread(new B(i));
+
+            thread.interrupt();//设置中断标识
+            thread.start();
+
         }
 //        System.out.println("总汇报工作");
     }
@@ -48,7 +55,16 @@ public class CyclicBarriercDemo {
     }
 
 
-
+/*
+*
+* @PostConstruct与@PreConstruct注解
+，Servlet增加了两个影响Servlet生命周期的注解（Annotation）：@PostConstruct和@PreConstruct。这两个注解被用来修饰一个非静态的void()方法.而且这个方法不能有抛出异常声明。
+1.@PostConstruct说明
+被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于Serclet的inti()方法。被@PostConstruct修饰的方法会在构造函数之后，init()方法之前运行。
+2.@PreConstruct说明
+被@PreConstruct修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。被@PreConstruct修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前。（详见下面的程序实践）
+*
+* */
 
 
 }
