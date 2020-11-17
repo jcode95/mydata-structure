@@ -4,7 +4,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- *signal与wait的使用
+ *signal与await的使用
  */
 public class SignalTest {
 
