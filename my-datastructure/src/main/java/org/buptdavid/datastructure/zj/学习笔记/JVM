@@ -1,0 +1,8 @@
+什么时候执行MinorGC？什么时候执行FullGC？
+	虚拟机会判断老年代中连续的空闲空间是否大于新生代所有的对象的总空间
+	1、如果大于，直接MinorGC
+	2、如果小于，再判断是否开启handlerPromotionFailure,没有开启直接Full GC
+	3，如果开启HandlerPromotionFailure，JVM会判断老年代连续空间是否大于历次晋升的大小，如果小于直接执行Full GC,如果大于执行MinorGC
+
+
+
