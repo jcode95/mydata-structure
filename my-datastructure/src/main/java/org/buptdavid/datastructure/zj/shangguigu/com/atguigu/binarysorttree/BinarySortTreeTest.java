@@ -67,7 +67,7 @@ class BinarySortTree {
             return;
         }
         //处理只有根节点情况,删除根节点
-        if (root.left == null || root.right == null) {
+        if (root.left == null && root.right == null) {
             root = null;
             return;
         }
@@ -78,7 +78,7 @@ class BinarySortTree {
             if (parentNode.left != null && parentNode.left.data == data) {//是左节点
                 parentNode.left = null;//删除
             }
-            if (parentNode.right != null && parentNode.right.data == data) {//是左节点
+            if (parentNode.right != null && parentNode.right.data == data) {//是右节点
                 parentNode.right = null;//删除
             }
         } else if (delNode.left != null && delNode.right != null) {//目标节点不是叶子节点,并且左右子树都不为空

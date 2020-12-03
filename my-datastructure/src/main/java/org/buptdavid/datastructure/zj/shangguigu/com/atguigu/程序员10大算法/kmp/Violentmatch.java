@@ -28,10 +28,11 @@ public class Violentmatch {
                 i++;
                 j++;
             } else {
-                i = i - j + 1;
+                i = i - j + 1;//i往前挪j个位置，然后再往后挪1个位置
                 j = 0;
             }
         }
+        //退出条件
         if (j == c2Length) {
             return i - j;
         } else {

@@ -586,13 +586,81 @@ public class Main{
     }
 }*/
 
-import java.util.*;
+
+import scala.Int;
+
+import java.util.Arrays;
+
 public class Main {
-    public static void main(String[] arg) {
-        Long time=10L;
-        long currentTime=6L;
-        System.out.println(String.valueOf(time - currentTime + "-1"));
+    /*public static void main(String[] arg) {
+        int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+//        int[] arr = new int[]{-56, 1, 1, 2, 2, 2, 20, 25, 44, 47, 50, 56, 90};
+        int i = search(arr, 9);
+        System.out.println(i);
 
+    }
 
+    public static int search(int[] arr, int value) {
+        int left = 0;
+        int right = arr.length - 1;
+        //创建斐波那契辅助数列
+        int[] F = createF(arr.length + 4);
+
+        //获取数组长度定位到斐波那契数列的下标
+        int k = 0;
+        while (arr.length > F[k]) {
+            k++;
+        }
+        //创建辅助数组temp
+        int[] temp = Arrays.copyOf(arr, F[k]);
+        //填充temp数组
+        for (int i = arr.length; i < temp.length; i++) {
+            temp[i] = arr[arr.length - 1];
+        }
+
+        while (left <= right) {
+            int mid = left + F[k - 1] - 1;
+            if (temp[mid] > value) {
+                right = mid - 1;
+                k -= 1;
+            } else if (temp[mid] < value) {
+                left = mid + 1;
+                k -= 2;
+            } else {
+                if (mid > arr.length - 1) {
+                    return arr.length - 1;
+                } else {
+                    return mid;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private static int[] createF(int length) {
+        int[] F = new int[length];
+        F[0] = 1;
+        F[1] = 1;
+        for (int i = 2; i < F.length; i++) {
+            F[i] = F[i - 1] + F[i - 2];
+        }
+        return F;
+    }*/
+    public static void main(String[] args) {
+        int a=1000;
+        int b=1000;
+        System.out.println(a==b);/*不考虑[-128,127] 始终返回true*/
+        Integer a1=8;
+        Integer b1=8;
+        System.out.println(a1==b1);/*考虑[-128,127] 在区间之内返回true，否则返回false*/
+        Integer a2=new Integer(1000);
+        int b2=1000;
+        System.out.println(a2==b2);/*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*/
+        Integer a3=new Integer(8);
+        Integer b3=8;
+        System.out.println(a3==b3);/*不考虑[-128,127] 始终返回false，Integer是包装类*/
+        Integer a4=new Integer(1000);
+        Integer b4=new Integer(1000);
+        System.out.println(a4==b4);/*不考虑[-128,127] 始终返回false，Integer是包装类*/
     }
 }

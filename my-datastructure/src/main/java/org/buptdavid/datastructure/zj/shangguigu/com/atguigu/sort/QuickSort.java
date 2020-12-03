@@ -1,5 +1,7 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
 
+import java.util.Arrays;
+
 /**
  * @author jiezhou
  * @CalssName: QuickSort
@@ -11,9 +13,10 @@ public class QuickSort {
 
     public static void main(String[] args) {
 //        int[] arr1 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, -1};
-//        sort(arr1, 0, arr1.length - 1);
-//        System.out.println(Arrays.toString(arr1));
-        long s = System.currentTimeMillis();
+        int[] arr1 = {8, 8, 1, 7, 2};
+        sort1(arr1, 0, arr1.length - 1);
+        System.out.println(Arrays.toString(arr1));
+        /*long s = System.currentTimeMillis();
         int[] arr = new int[80000000];
         for (int i = 0; i < 80000000; i++) {
             int v = (int) (Math.random() * 80000000);
@@ -21,7 +24,7 @@ public class QuickSort {
         }
         sort(arr, 0, arr.length - 1);
         long s1 = System.currentTimeMillis();
-        System.out.println((s1 - s) / 1000);
+        System.out.println((s1 - s) / 1000);*/
     }
 
 
@@ -68,5 +71,47 @@ public class QuickSort {
         }
         sort(arr, startIndex, j);//左边
         sort(arr, i, endIndex);//右边
+    }
+
+
+    public static void sort1(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        //获取基准数
+        int midIndex = (left + right) / 2;
+        int midV = arr[midIndex];
+        int l = left;
+        int r = right;
+
+        while (l < r) {
+            while (arr[l] < midV) {
+                l++;
+            }
+            while (arr[r] > midV) {
+                r--;
+            }
+            if (l >= r) {
+                break;
+            }
+            //交换
+            int temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+            if (arr[l] == midV) {
+                r--;
+            }
+            if (arr[r] == midV) {
+                l++;
+            }
+        }
+        if (l == r) {
+            l++;
+            r--;
+        }
+        //左边
+        sort1(arr,left,r);
+        //右边
+        sort1(arr,l,right);
     }
 }

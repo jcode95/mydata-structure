@@ -16,6 +16,8 @@ public class HanoiTower {
 
 
     /**
+     *
+     *  这个方法的目的就是 从a借助b移动到c
      * @param num 汉诺塔的盘的数量
      * @param a   柱子a
      * @param b   柱子b

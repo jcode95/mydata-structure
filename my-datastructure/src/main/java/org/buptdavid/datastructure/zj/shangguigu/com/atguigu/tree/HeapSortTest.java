@@ -25,7 +25,7 @@ public class HeapSortTest {
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
             this.maxHeap(arr, i, arr.length);
         }
-        for(int j = arr.length-1;j >0; j--) {
+        for (int j = arr.length - 1; j > 0; j--) {
             //交换
             temp = arr[j];
             arr[j] = arr[0];
@@ -37,6 +37,7 @@ public class HeapSortTest {
 
     /**
      * 通过arr数组构建大顶堆，长度到数组的length
+     *
      * @param arr
      * @param i      从左到右，从下到上第一个不是叶子节点的节点对应数组的下标
      * @param length 当前要排序的长度
@@ -57,6 +58,6 @@ public class HeapSortTest {
                 break;
             }
         }
-
+        arr[i] = temp;
     }
 }

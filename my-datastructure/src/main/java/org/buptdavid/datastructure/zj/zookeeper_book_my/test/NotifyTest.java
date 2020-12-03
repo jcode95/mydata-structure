@@ -4,7 +4,7 @@ package org.buptdavid.datastructure.zj.zookeeper_book_my.test;
  * @author jiezhou
  * @CalssName: NotifyTest
  * @Package book.test
- * @Description: 查看notify或者notifyAll方法在字节码中的是否纯在mon
+ * @Description: 查看notify或者notifyAll方法在字节码中的是否存在mon
  * @date 2020/7/4/10:48
  */
 public  class NotifyTest {

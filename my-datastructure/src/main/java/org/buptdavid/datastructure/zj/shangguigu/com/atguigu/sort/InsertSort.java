@@ -10,7 +10,7 @@ package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
 public class InsertSort {
     public static void main(String[] args) {
         int[] arr = {3, -10, -4, 20, 5, 8, 10, 23, 0};
-        sort1(arr);
+        sort(arr);
         list(arr);
 
     }

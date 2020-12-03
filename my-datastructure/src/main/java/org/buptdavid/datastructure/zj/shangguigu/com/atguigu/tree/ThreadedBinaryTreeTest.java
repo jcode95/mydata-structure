@@ -128,7 +128,7 @@ class ThreadedBinaryTree {
             node.left = pre;
             node.leftType = 1;
         }
-        //2.2 处理当前节点的后继节点
+        //2.2 处理当前节点的后继节点,是在下次处理的
         if (pre != null && pre.right == null) {
             pre.right = node;
             pre.rightType = 1;

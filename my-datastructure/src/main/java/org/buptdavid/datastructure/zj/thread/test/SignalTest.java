@@ -17,7 +17,7 @@ public class SignalTest {
                 lock.lock();//加锁
                 try {
                     System.out.println("condition  awaiting  ....");
-                    condition.await();//等待
+                    condition.await();//等待,释放锁
                     System.out.println("condition  awaitend ");
 
                 } catch (InterruptedException e) {
@@ -32,7 +32,7 @@ public class SignalTest {
         Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                lock.lock();
+                lock.lock();//获取锁
                 try {
                     System.out.println("condition  signaling  ....");
                     condition.signal();//相当于notify

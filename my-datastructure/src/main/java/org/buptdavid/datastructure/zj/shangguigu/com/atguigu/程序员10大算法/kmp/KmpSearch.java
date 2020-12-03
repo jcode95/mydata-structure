@@ -37,27 +37,7 @@ public class KmpSearch {
         }
     }*/
 
-    /*public static int kmp(String str, String pattern) {
-        // KMP算法主体逻辑。str是主串，pattern是模式串
-        //预处理，生成next数组
-        int[] next = getNexts(pattern);
-        int j = 0;
-        //主循环，遍历主串字符
-        for (int i = 0; i < str.length(); i++) {
-            while (j > 0 && str.charAt(i) != pattern.charAt(j)) {
-                //遇到坏字符时，查询next数组并改变模式串的起点
-                j = next[j];
-            }
-            if (str.charAt(i) == pattern.charAt(j)) {
-                j++;
-            }
-            if (j == pattern.length()) {
-                //匹配成功，返回下标
-                return i - pattern.length() + 1;
-            }
-        }
-        return -1;
-    }*/
+
 
     // 生成Next数组
     /*private static int[] getNexts(String pattern) {
@@ -99,15 +79,16 @@ public class KmpSearch {
     }*/
 
     public static void main(String[] args) {
+//        String str = "ATGTGAGCTGGTGTGTGCFAA";
         String str = "ATGTGAGCTGGTGTGTGCFAA";
 //        String pattern = "GTGTGCF";
 //        String pattern = "ABCDABD";
-        String pattern = "AA";
+        String pattern = "abab";
 //        int index = kmp(str, pattern);
 //        System.out.println("首次出现位置：" + index);
-        int[] next = getArr(pattern);
+        int[] next = getArr1(pattern);
         System.out.println(Arrays.toString(next));
-        System.out.println(kmpMy(str, pattern));
+        System.out.println(kmpMy1(str, pattern));
     }
 
     private static int kmpMy(String secStr, String pStr) {
@@ -141,4 +122,39 @@ public class KmpSearch {
         }
         return next;
     }
+
+
+    public static int kmpMy1(String sString, String pString) {
+        //获取kmp的前缀和后缀的数组
+        int[] next = getArr1(pString);
+        for (int i = 0, j = 0; i < sString.length(); i++) {
+            while (j > 0 && sString.charAt(i) != pString.charAt(j)) {
+                j = next[j - 1];
+            }
+            if (sString.charAt(i) == pString.charAt(j)) {
+                j++;
+            }
+            if (j == pString.length()) {
+                return i - j + 1;
+            }
+        }
+        return -1;
+    }
+
+    private static int[] getArr1(String pString) {
+        int[] next = new int[pString.length()];
+        int j = 0;
+        for (int i = 1; i < pString.length(); i++) {
+            while (j > 0 && pString.charAt(i) != pString.charAt(j)) {
+                j = next[j - 1];
+            }
+            if (pString.charAt(i) == pString.charAt(j)) {
+                j++;
+            }
+            next[i] = j;
+        }
+        return next;
+    }
+
+
 }
