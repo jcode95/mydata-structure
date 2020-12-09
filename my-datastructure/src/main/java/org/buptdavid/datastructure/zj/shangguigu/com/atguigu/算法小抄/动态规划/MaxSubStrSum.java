@@ -23,19 +23,16 @@ public class MaxSubStrSum {
 
     public static int process(int[] arr) {
         int[] dp = new int[arr.length];
-        dp[0] = -2;
+        dp[0] = arr[0];
+        int max = dp[0];
         for (int i = 1; i < arr.length; i++) {
-            for (int k = 0; k < dp.length && i > k; k++) {
-                dp[i] = Math.max(dp[k] + arr[i], arr[i]);
-            }
+//            for (int k = 0; k < dp.length && i > k; k++) {
+//                dp[i] = Math.max(dp[k] + arr[i], arr[i]);
+//            }
+            dp[i] = Math.max(dp[i - 1] + arr[i], arr[i]);
+            max = Math.max(max, dp[i]);
         }
-
-        //找出dp最大的值就是求的值
-        int result = 0;
-        for (int i = 0; i < dp.length; i++) {
-            result = Math.max(dp[i], result);
-        }
-        return result;
+        return max;
     }
 
 
