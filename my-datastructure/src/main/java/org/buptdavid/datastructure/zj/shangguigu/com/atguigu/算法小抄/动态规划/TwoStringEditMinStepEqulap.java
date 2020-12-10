@@ -94,7 +94,8 @@ public class TwoStringEditMinStepEqulap {
                     /*
                     * dp(i, j - 1) + 1, # 插⼊
                     * # 解释：
-                    * # 我直接在 s1[i] 插⼊⼀个和 s2[j] ⼀样的字符 # 那么 s2[j] 就被匹配了，前移 j，继续跟 i 对⽐
+                    * # 我直接在 s1[i] 插⼊⼀个和 s2[j] ⼀样的字符
+                    * # 那么 s2[j] 就被匹配了，前移 j，继续跟 i 对⽐
                     * # 别忘了操作数加⼀
                     *dp(i - 1, j) + 1, # 删除
                     * # 解释：
@@ -103,7 +104,7 @@ public class TwoStringEditMinStepEqulap {
                     * # 操作数加⼀
                     *
                     * */
-                    dp[i][j] = Math.min(Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1), dp[i - 1][j - 1] + 1);
+                    dp[i][j] = Math.min(Math.min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;//想象为一个二维数组，取左上三角的最小值+1
                 }
             }
         }
