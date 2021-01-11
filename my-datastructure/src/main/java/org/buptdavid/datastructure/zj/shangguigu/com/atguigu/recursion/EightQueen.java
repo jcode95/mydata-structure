@@ -30,8 +30,8 @@ public class EightQueen {
         //依次放入皇后并判断皇后是否符合条件
         for (int i = 0; i < MAX; i++) {
             //先把第n个皇后放到该行的第1列
-            arr[n] = i;
-            if (chack(n)) {
+            arr[n] = i;// arr[n] 第n个皇后在n行arr[n]列
+            if (chack(n)) {//如果可以放，再放第后一个皇后，如果不可以放，就放在当前行的后一列，在继续校验
                 process(n + 1);
             }
         }
@@ -62,7 +62,7 @@ public class EightQueen {
             return false;
         }
         for (int i = 0; i < n; i++) {
-            //arr[i] == arr[n] 同一列
+            //arr[i] == arr[n] 表示在同一列
             //Math.abs(n - i) == Math.abs(arr[n] - arr[i]) 同一个对角线（对边与邻边相等，对角45度，即为在对角线上）
             if (arr[i] == arr[n] || Math.abs(n - i) == Math.abs(arr[n] - arr[i])) {
                 return false;
