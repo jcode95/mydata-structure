@@ -14,7 +14,7 @@ import java.util.Objects;
 public class CircularLinkedListDemo {
     public static void main(String[] args) {
         CircularLinkedList linkedList = new CircularLinkedList();
-        linkedList.add(5);
+        linkedList.create(5);
         linkedList.list();
         System.out.println("----------------");
         linkedList.del1(3);
@@ -31,8 +31,10 @@ public class CircularLinkedListDemo {
 class CircularLinkedList {
     private CircularNode first;
 
-    //添加节点，构建成环形链表
-    public void add(int nums) {
+    /**
+     * @param nums  构建一个nums 个节点的环形链表
+     */
+    public void create(int nums) {
         if (nums < 1) {
             System.out.println("nums:" + nums + "error");
         }
@@ -149,6 +151,7 @@ class CircularLinkedList {
             System.out.println("链表为空，删除失败！");
             return;
         }
+        //对只有一个节点的环形链表进行del处理
         if (tmp.next.equals(first)) {
             if (first.equals(delNode)) {
                 first.next = null;
