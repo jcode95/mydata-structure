@@ -67,7 +67,7 @@ public class ArrayStackTest {
                         //取出数字栈的两个数
                         double a = Double.parseDouble(numStack.pop());
                         double b = Double.parseDouble(numStack.pop());
-                        double result = processOP(a, b, stackOP);//做运算(注意“/“ 运算，var1必须是第一个参数)
+                        double result = processOP(a, b, stackOP);//做运算(注意“/“和“-” 运算，var1必须是第一个参数)
                         //将结果压入数字栈里面
                         numStack.push(result + "");
                     } else {
@@ -152,6 +152,7 @@ class ArrayStack {
 
     /**
      * 出栈
+     *
      * @return
      */
     public String pop() {
@@ -166,6 +167,7 @@ class ArrayStack {
 
     /**
      * 入栈并返回栈顶的值
+     *
      * @param value
      * @return
      */

@@ -1,5 +1,6 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.leetcode.动态规划;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -11,14 +12,14 @@ import java.util.Stack;
  */
 public class LargestRectangleArea84 {
     public static void main(String[] args) {
-        int[] arr = new int[]{2, 1, 5, 6, 2, 3};
+//        int[] arr = new int[]{2, 1, 5, 6, 2, 3};
+        int[] arr = new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7};
         System.out.println(largestRectangleArea1(arr));
 
     }
 
     /**
-     *
-     *  暴力解法，性能很差
+     * 暴力解法，性能很差
      * 输入: [2,1,5,6,2,3]
      * 输出: 10
      */
@@ -38,23 +39,28 @@ public class LargestRectangleArea84 {
     }
 
     /**
-     *
      * 解法二，使用栈
-     *  思路：
-     *      栈里面存的就是在当前下标下，左边比当前下标还要小的柱子的下标，，如果比栈顶的下标柱子还大，就需要出栈来计算面积，否则就需要入栈
+     * 思路：
+     * 栈里面存的就是在当前下标下，左边比当前下标还要小的柱子的下标，，如果比栈顶的下标柱子还大，就需要出栈来计算面积，否则就需要入栈
      * 输入: [2,1,5,6,2,3]
      * 输出: 10
      */
     public static int largestRectangleArea1(int[] heights) {
         //栈
-        Stack<Integer> stack = new Stack<>();//存的是比前一个柱子的高小的下标
+        Stack<Integer> stack = new Stack<>();//当前比前一个柱子的高的下标
         int maxAre = 0;
-        for (int i = 0; i < heights.length; i++) {
-            if (!stack.isEmpty() && stack.peek() < heights[i]) {
+        int n = heights.length;
+        if (n == 1) {
+            return heights[0];
+        }
+        int[] newArr = Arrays.copyOf(heights, n + 1);
+        for (int i = 0; i <= n; i++) {
+            if (!stack.isEmpty() && heights[stack.peek()] > newArr[i]) {
                 //出栈计算面积
                 Integer index = stack.pop();
-                int area = heights[index] * (i - index + 1);
+                int area = newArr[index] * ((stack.isEmpty() ? i : (i - stack.peek() - 1)));
                 maxAre = Math.max(maxAre, area);
+                i--;
             } else {
                 //入栈
                 stack.push(i);
