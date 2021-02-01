@@ -650,8 +650,8 @@ public class Main {
         int a=1000;
         int b=1000;
         System.out.println(a==b);/*不考虑[-128,127] 始终返回true*/
-        Integer a1=8;
-        Integer b1=8;
+        Integer a1=128;
+        Integer b1=128;
         System.out.println(a1==b1);/*考虑[-128,127] 在区间之内返回true，否则返回false*/
         Integer a2=new Integer(1000);
         int b2=1000;
@@ -662,5 +662,8 @@ public class Main {
         Integer a4=new Integer(1000);
         Integer b4=new Integer(1000);
         System.out.println(a4==b4);/*不考虑[-128,127] 始终返回false，Integer是包装类*/
+        Integer a5=1;
+        int b5=1;
+        System.out.println(a5==b5);/*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*/
     }
 }
