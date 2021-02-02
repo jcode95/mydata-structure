@@ -41,6 +41,7 @@ public class MergeSort {
             mergeSort(arr, left, mid, temp);
             //向右分
             mergeSort(arr, mid + 1, right, temp);
+            /*合并*/
             merge(arr, left, mid, right, temp);
 
         }
