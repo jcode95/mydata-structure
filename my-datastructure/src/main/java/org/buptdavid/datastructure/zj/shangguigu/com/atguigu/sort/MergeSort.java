@@ -62,6 +62,7 @@ public class MergeSort {
 
         //先把左右两边的数据合并
         while (i <= mid && j <= right) {
+            /*比较两边值大小，看谁小就放在另一个的前面*/
             if (arr[i] <= arr[j]) {
                 temp[t] = arr[i];
                 t++;
@@ -72,7 +73,7 @@ public class MergeSort {
                 j++;
             }
         }
-
+        /*以下两个while，就是防止出现一边的一个值太大，出现放不完的情况*/
         while (i <= mid) {
             temp[t] = arr[i];
             t++;
@@ -83,7 +84,7 @@ public class MergeSort {
             t++;
             j++;
         }
-        //吧temp数组的值填充到arr中
+        //最后，把temp数组的值填充到arr中
         t = 0;
         int tempLeft = left;
         while (tempLeft <= right) {
