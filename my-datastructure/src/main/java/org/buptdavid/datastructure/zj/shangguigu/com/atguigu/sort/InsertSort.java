@@ -23,7 +23,7 @@ public class InsertSort {
     public static void sort1(int[] arr) {
         for (int i = 1; i < arr.length; i++) {
             int currValue = arr[i];//当前值
-            int insertIndex = i - 1;//前一个值下标
+            int insertIndex = i - 1;//前一个值下标,默认看成要目标插入下标
             while (insertIndex >= 0 && currValue < arr[insertIndex]) {
                 arr[insertIndex + 1] = arr[insertIndex];
                 insertIndex--;
