@@ -10,33 +10,14 @@ package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
 public class InsertSort {
     public static void main(String[] args) {
         int[] arr = {3, -10, -4, 20, 5, 8, 10, 23, 0};
-        sort(arr);
+        sort1(arr);
         list(arr);
-
     }
 
     private static void list(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.println(arr[i]);
         }
-    }
-
-    public static void sort(int[] arr) {
-
-        for (int i = 1; i < arr.length; i++) {
-            int tarIndex = 0;//初始下标
-            while (tarIndex < i) {
-                if (arr[i] < arr[tarIndex]) {
-                    int tmp = arr[i];
-                    arr[i] = arr[tarIndex];
-                    arr[tarIndex] = tmp;
-                }
-                tarIndex++;
-            }
-
-        }
-
-
     }
 
     public static void sort1(int[] arr) {
