@@ -7,6 +7,7 @@ import java.util.Arrays;
  * @CalssName: MergetSort
  * @Package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sparsearray.sort
  * @Description: 归并排序 O(log~n)
+ * 分而治之的思想（分：就把大问题递归分解为小问题，治：把各个小问题合并得到原问题的解）
  * @date 2020/8/18/14:55
  */
 public class MergeSort {
@@ -93,7 +94,7 @@ public class MergeSort {
 
 
     public static void sort1(int[] arr, int[] tmp, int left, int right) {
-        if(left>=right){
+        if (left >= right) {
             return;
         }
         int mid = (left + right) / 2;
