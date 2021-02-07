@@ -11,10 +11,10 @@ import java.util.Arrays;
  */
 public class ShellSort {
     public static void main(String[] args) {
-//        int[] arr1 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, -1};
-//        sort3(arr1);
-//        System.out.println(Arrays.toString(arr1));
-        long s = System.currentTimeMillis();
+        int[] arr1 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, -1};
+        sort3(arr1);
+        System.out.println(Arrays.toString(arr1));
+        /*long s = System.currentTimeMillis();
         int[] arr=new int[800000];
         for (int i = 0; i < 800000; i++) {
             int v = (int) (Math.random() * 800000);
@@ -22,7 +22,7 @@ public class ShellSort {
         }
         sort1(arr);
         long s1 = System.currentTimeMillis();
-        System.out.println((s1-s)/1000);
+        System.out.println((s1-s)/1000);*/
 
 
     }
@@ -90,6 +90,7 @@ public class ShellSort {
                     arr[tarIndex + gap] = arr[tarIndex];
                     tarIndex -= gap;
                 }
+//                arr[tarIndex + gap] = currValue;
                 if (i != tarIndex + gap) {//优化
                     arr[tarIndex + gap] = currValue;
                 }

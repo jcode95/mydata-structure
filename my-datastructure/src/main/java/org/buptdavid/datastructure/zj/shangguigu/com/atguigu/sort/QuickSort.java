@@ -12,8 +12,8 @@ import java.util.Arrays;
 public class QuickSort {
 
     public static void main(String[] args) {
-//        int[] arr1 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, -1};
-        int[] arr1 = {8, 8, 1, 7, 2};
+        int[] arr1 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, -1};
+//        int[] arr1 = {8, 8, 1, 7, 2};
         sort1(arr1, 0, arr1.length - 1);
         System.out.println(Arrays.toString(arr1));
         /*long s = System.currentTimeMillis();
@@ -45,10 +45,10 @@ public class QuickSort {
         int j = endIndex;
         int tmp = 0;
         while (i < j) {
-            while (arr[i] < pivot) {
+            while (arr[i] <= pivot) {
                 i++;
             }
-            while (arr[j] > pivot) {
+            while (arr[j] >= pivot) {
                 j--;
             }
             if (i >= j) {//左边全部小于pivot，右边全部大于pivot，退出
@@ -58,12 +58,6 @@ public class QuickSort {
             tmp = arr[i];
             arr[i] = arr[j];
             arr[j] = tmp;
-            if (arr[i] == pivot) {
-                j--;
-            }
-            if (arr[j] == pivot) {
-                i++;
-            }
         }
         if (i == j) {
             i++;

@@ -39,14 +39,7 @@ public class Student implements Cloneable ,Serializable{
         return super.clone();
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", a=" + a +
-                '}';
-    }
+
 
     public A getA() {
         return a;

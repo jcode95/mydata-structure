@@ -20,15 +20,10 @@ public class CloneTest {
 
         try {
             Student students = (Student) student.clone();
-            students.setName("lishi");
             if(students==student){
-                System.out.println("浅拷贝=================");
-                System.out.println("原来："+student.toString());
-                System.out.println("拷贝之后："+students.toString());
-            }else{
                 System.out.println("深拷贝==================");
-                System.out.println("原来："+student.toString());
-                System.out.println("拷贝之后："+students.toString());
+            }else{
+                System.out.println("浅拷贝=================");
             }
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
@@ -39,9 +34,9 @@ public class CloneTest {
         //使用流来拷贝对象
         Student student1 = CloneTest1.clones(student);
         if(student1==student){
-            System.out.println("浅拷贝=================");
-            System.out.println("原来："+student.toString());
-            System.out.println("拷贝之后："+student1.toString());
+            System.out.println("浅拷贝==================");
+        }else{
+            System.out.println("深拷贝=================");
         }
 
 
