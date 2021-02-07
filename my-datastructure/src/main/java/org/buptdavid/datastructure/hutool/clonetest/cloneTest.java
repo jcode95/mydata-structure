@@ -1,7 +1,9 @@
 package org.buptdavid.datastructure.hutool.clonetest;
 
 import cn.hutool.core.clone.Cloneable;
+import cn.hutool.core.util.ObjectUtil;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -15,15 +17,22 @@ public class cloneTest {
     public static void main(String[] args) {
         Proson proson = new Proson("hutool", true, 18, new School("XXX大学"));
         Proson cloneProson = proson.clone();
-        cloneProson.setSchool(new School("ssss"));
-        System.out.println(cloneProson.equals(proson));
+        System.out.println("浅克隆,也就是属性对象会指向同一个地址...  ");
+
+        //深度克隆
+        Proson dpProson = ObjectUtil.cloneByStream(proson);
+        System.out.println("深度克隆，也就是属性对象会克隆出来到新地址...  ");
     }
-
-
 }
 
-
-class Proson implements Cloneable<Proson> {
+/**
+ * 深克隆
+ * 我们知道实现Cloneable接口后克隆的对象是浅克隆，要想实现深克隆，请使用：
+ * ObjectUtil.cloneByStream(obj)
+ * Copy to clipboardErrorCopied
+ * 前提是对象必须实现Serializable接口（属性对象也需要实现此接口）。
+ */
+class Proson implements Cloneable<Proson>, Serializable {//或者 都可以 extends CloneSupport<Proson>
     private String name;
     private boolean sex;
     private int age;
@@ -96,7 +105,7 @@ class Proson implements Cloneable<Proson> {
     }
 }
 
-class School {
+class School implements Serializable {
     private String name;//学校名称
 
     public School(String name) {
