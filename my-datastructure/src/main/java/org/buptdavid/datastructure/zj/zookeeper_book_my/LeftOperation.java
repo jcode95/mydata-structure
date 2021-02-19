@@ -6,17 +6,17 @@ package org.buptdavid.datastructure.zj.zookeeper_book_my;
 public class LeftOperation {
 
     public static void main(String[] args) {
-        int a=-7;
-        System.out.println("移位前：a="+Integer.toBinaryString(a));
-        int b=a<<2;
-        System.out.println("向左移动2位后：a="+Integer.toBinaryString(b));
-        int c=a/4;
+        int a = -7;
+        System.out.println("移位前：a=" + Integer.toBinaryString(a));
+        int b = a << 2;
+        System.out.println("向左移动2位后：a=" + Integer.toBinaryString(b));
+        int c = a / 4;
         System.out.println(a);
         System.out.println(b);
-        int d=-7;
-        int e=7;
-        System.out.println("d:"+Integer.toBinaryString(d));
-        System.out.println("e:"+Integer.toBinaryString(e));
+        int d = -7;
+        int e = 7;
+        System.out.println("d:" + Integer.toBinaryString(d));
+        System.out.println("e:" + Integer.toBinaryString(e));
 
         /***
          * 在计算机中都是用补码去表示（我们看的时候也是用补码去换算的）
@@ -34,7 +34,8 @@ public class LeftOperation {
          * 00000000000000000000000000000110
          * 00000000000000000000000000000111     1+1*2+1*4=7
          * 10000000000000000000000000000111    -7的原码
-         *
+         * 11111111111111111111111111111000    -7的反码
+         * 11111111111111111111111111111001   -7的补码，也就是程序输出的（程序输出的都是补码，对于负数；来说  原码取反+1 ， 最高位用1表示就ok了）正数补码与原码相同，这是规定
          *
          *
          *
@@ -51,25 +52,18 @@ public class LeftOperation {
          */
 
 
-
-
-
-
-
-
-
     }
-    public String ss(){
+
+    public String ss() {
         String localIpChange = "2143243";
         String str = null;
         if (localIpChange != null) {
             str = localIpChange;
         }
-        do
-        {
+        do {
 //            return str;
             str = "sdasd";
-        } while (str!=null);
+        } while (str != null);
         return "可试看20分钟";
     }
 }

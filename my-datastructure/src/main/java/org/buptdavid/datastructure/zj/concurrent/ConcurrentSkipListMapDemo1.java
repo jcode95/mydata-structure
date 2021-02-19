@@ -1,6 +1,5 @@
 package org.buptdavid.datastructure.zj.concurrent;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 
@@ -8,8 +7,8 @@ public class ConcurrentSkipListMapDemo1 {
 
 
     public static void main(String[] args) {
-//        ConcurrentSkipListMap<Integer, Integer> integerIntegerConcurrentSkipListMap = new ConcurrentSkipListMap<Integer, Integer>();
-        HashMap<Integer, Integer> integerIntegerConcurrentSkipListMap = new HashMap<Integer, Integer>();
+        ConcurrentSkipListMap<Integer, Integer> integerIntegerConcurrentSkipListMap = new ConcurrentSkipListMap<Integer, Integer>();
+//        HashMap<Integer, Integer> integerIntegerConcurrentSkipListMap = new HashMap<Integer, Integer>();
         for (int i = 0; i < 100;i++ ) {
             if(i%2==0){
                 integerIntegerConcurrentSkipListMap.put(i,i+10);

@@ -51,7 +51,7 @@ public class ForkJoinTaskTest extends RecursiveTask<Long> {
 
     public static void main(String[] args) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        ForkJoinTaskTest countTast = new ForkJoinTaskTest(0L, 4L);
+        ForkJoinTaskTest countTast = new ForkJoinTaskTest(0L, 10000L);
         ForkJoinTask<Long> result = forkJoinPool.submit(countTast);
         try {
             Long aLong = result.get();
@@ -64,7 +64,7 @@ public class ForkJoinTaskTest extends RecursiveTask<Long> {
         }
 
         Long a = 0L;
-        for (int i = 0; i < 4L; i++) {
+        for (int i = 0; i < 10000L; i++) {
             a += i;
         }
         System.out.println("a=" + a);
