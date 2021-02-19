@@ -17,7 +17,7 @@ public class SignalTest {
                 lock.lock();//加锁
                 try {
                     System.out.println("condition  awaiting  ....");
-                    condition.await();//等待,释放锁
+                    condition.await();//await：释放当前锁持有的锁，生成线程等待node，存储到condition中的单链表中，等被唤醒的时候，在加入到锁的等待队列
                     System.out.println("condition  awaitend ");
 
                 } catch (InterruptedException e) {
@@ -30,7 +30,7 @@ public class SignalTest {
             }
         });
         Thread thread2 = new Thread(new Runnable() {
-            @Override
+            /*@Override
             public void run() {
                 lock.lock();//获取锁
                 try {
@@ -42,13 +42,27 @@ public class SignalTest {
                         lock.unlock();
                     }
                 }
+            }*/
+            @Override
+            public void run() {
+                try {
+                    if(lock.tryLock()){
+                        System.out.println("condition  signaling  ....");
+                        condition.signal();//相当于notify,signal：唤醒condition等待队列里的一个线程（firstWaiter）、signalAll： 循环唤醒condition等待队列里的所有线程
+                        System.out.println("condition  signalend ");
+                    }
+                }finally {
+                    if(lock.isLocked()){
+                        lock.unlock();
+                    }
+                }
             }
         });
 
 
         thread.start();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
