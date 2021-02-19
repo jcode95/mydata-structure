@@ -64,8 +64,9 @@ public class ReentrantLockTest {
             public void run() {
                 try {
                     lock.lock();
-                    System.out.println("thread ---1 "+lock.isHeldByCurrentThread());
+                    System.out.println("await start ...");
                     condition.await();//await：释放当前锁持有的锁，生成线程等待node，存储到condition中的单链表中，等被唤醒的时候，在加入到锁的等待队列
+                    System.out.println("await end ...");
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {
@@ -80,7 +81,9 @@ public class ReentrantLockTest {
             public void run() {
                 try {
                     lock.lock();
-                    System.out.println("thread ---2 "+lock.isHeldByCurrentThread());
+                    System.out.println("signal start ...");
+                    condition.signal();
+                    System.out.println("signal end ...");
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {
@@ -90,10 +93,9 @@ public class ReentrantLockTest {
                 }
             }
         };
-
         thread1.start();
         try {
-            Thread.sleep(5111);
+            Thread.sleep(5000);//不会释放对象锁资源以及监控的状态，当指定的时间到了之后又会自动恢复运行状态
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
