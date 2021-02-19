@@ -16,7 +16,7 @@ public class TimerTaskDemo {
 
     public static void main(String[] args) throws InterruptedException {
         Timer timer = new Timer();
-        timer.schedule(new TimerTaskTest(),1000,2000);
+        timer.schedule(new TimerTaskTest(),1000,2000);//启动之后1秒钟开始执行，间隔2秒执行一次
     }
 
     static class TimerTaskTest extends TimerTask{

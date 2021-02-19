@@ -14,14 +14,14 @@ public class SmipWaitOrNotify {
         @Override
         public void run() {
             synchronized (object) {
-                System.out.println(System.currentTimeMillis()+" T1 start!");
+                System.out.println(System.currentTimeMillis() + " T1 start!");
                 try {
-                    System.out.println(System.currentTimeMillis()+" T1 wait for Object");
-                    object.wait();
+                    System.out.println(System.currentTimeMillis() + " T1 wait for Object");
+                    object.wait();//会释放锁，唤醒需要调用Object的notifyAll或者notify方法、让线程放弃当前的对象的锁，进入等待此对象的等待锁定池
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(System.currentTimeMillis()+" T1 end!");
+                System.out.println(System.currentTimeMillis() + " T1 end!");
             }
         }
     }
@@ -29,10 +29,10 @@ public class SmipWaitOrNotify {
     public static class T2 extends Thread {
         @Override
         public void run() {
-            synchronized (object){
-                System.out.println(System.currentTimeMillis()+" T2 start!");
+            synchronized (object) {
+                System.out.println(System.currentTimeMillis() + " T2 start!");
                 object.notifyAll();
-                System.out.println(System.currentTimeMillis()+" T2 end!");
+                System.out.println(System.currentTimeMillis() + " T2 end!");
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {

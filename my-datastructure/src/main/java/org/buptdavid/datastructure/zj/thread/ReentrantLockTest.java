@@ -95,6 +95,10 @@ public class ReentrantLockTest {
         };
         thread1.start();
         try {
+            /*
+            * sleep()方法是Thread类里面的，主要的意义就是让当前线程停止执行，让出cpu给其他的线程，但是不会释放对象锁资源以及监控的状态，当指定的时间到了之后又会自动恢复运行状态。
+              wait()方法是Object类里面的，主要的意义就是让线程放弃当前的对象的锁，进入等待此对象的等待锁定池，只有针对此对象调动notify方法后本线程才能够进入对象锁定池准备获取对象锁进入运行状态。
+            * */
             Thread.sleep(5000);//不会释放对象锁资源以及监控的状态，当指定的时间到了之后又会自动恢复运行状态
         } catch (InterruptedException e) {
             e.printStackTrace();

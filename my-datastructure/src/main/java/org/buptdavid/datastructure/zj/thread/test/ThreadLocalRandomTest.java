@@ -51,52 +51,54 @@ public class ThreadLocalRandomTest {
         System.out.println("s200006:"+s200006);
 */
 
-        AtomicInteger q=new AtomicInteger(0);
-        AtomicInteger w=new AtomicInteger(0);
-        AtomicInteger e=new AtomicInteger(0);
+        AtomicInteger q = new AtomicInteger(0);
+        AtomicInteger w = new AtomicInteger(0);
+        AtomicInteger e = new AtomicInteger(0);
         for (int i = 0; i < 100000; i++) {
             int a = a();
-            if(a==-1){
+            if (a == -1) {
                 q.incrementAndGet();
             }
-            if(a==0){
+            if (a == 0) {
                 w.incrementAndGet();
             }
-            if(a==1){
+            if (a == 1) {
                 e.incrementAndGet();
             }
         }
 
-        System.out.println("q:"+q);
-        System.out.println("w:"+w);
-        System.out.println("e:"+e);
+        System.out.println("q:" + q);
+        System.out.println("w:" + w);
+        System.out.println("e:" + e);
 
     }
 
-    public static  class ThreadTest implements Runnable{
-        int val=0;
-        ThreadTest(int val){
-            this.val=val;
+    public static class ThreadTest implements Runnable {
+        int val = 0;
+
+        ThreadTest(int val) {
+            this.val = val;
         }
+
         @Override
         public void run() {
-            System.out.println("线程名称"+Thread.currentThread().getName()+"值："+val);
-            List<Integer> arr=new ArrayList<>();
+            System.out.println("线程名称" + Thread.currentThread().getName() + "值：" + val);
+            List<Integer> arr = new ArrayList<>();
             arr.add(val);
 
             //比较
-            Boolean flg=false;
+            Boolean flg = false;
             for (int j = 0; j < arr.size(); j++) {
-                for (int i = j+1; i < arr.size() - 1; i++) {
-                    if(arr.get(j)==arr.get(i)){
-                        System.out.println("true"+arr.get(j));
+                for (int i = j + 1; i < arr.size() - 1; i++) {
+                    if (arr.get(j) == arr.get(i)) {
+                        System.out.println("true" + arr.get(j));
 
-                        flg=true;
+                        flg = true;
                         break;
                     }
                 }
             }
-            if(!flg){
+            if (!flg) {
                 System.out.println("false");
             }
 
@@ -107,10 +109,8 @@ public class ThreadLocalRandomTest {
     /**
      * 返回这个概率里面的随机值
      *
-     * @param min
-     *            包含最小
-     * @param max
-     *            包含最大
+     * @param min 包含最小
+     * @param max 包含最大
      * @return
      */
     public static int randomNum(int min, int max) {
@@ -120,16 +120,17 @@ public class ThreadLocalRandomTest {
         }
         return min + ThreadLocalRandom.current().nextInt(num);
     }
+
     /**
      * 权重随机（效率佳）
      * 200003|200004|200005|200005           4000|2000|1000|500
-     *                                        4000/7500
+     * 4000/7500
      * map
-     *
-     *0----500---1000-------2000-------4000
+     * <p>
+     * 0----500---1000-------2000-------4000
      */
 
-    public static int random(Map<String ,String> map) {
+    public static int random(Map<String, String> map) {
         Set<Map.Entry<String, String>> entries = map.entrySet();
         ThreadLocalRandom random = ThreadLocalRandom.current();
         int sum = 0;
@@ -160,24 +161,24 @@ public class ThreadLocalRandomTest {
         红
 
     * */
-    public static int a(){
+    public static int a() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         int afterWeight = 10;
         int currWeight = 20;
         int beforeWeight = 20;
-        int sum=afterWeight+currWeight+beforeWeight;
+        int sum = afterWeight + currWeight + beforeWeight;
         int randomInt = random.nextInt(sum) + 1;
         int sum_temp = 0;
-        sum_temp+=afterWeight;
-        if(randomInt <= sum_temp){
+        sum_temp += afterWeight;
+        if (randomInt <= sum_temp) {
             return -1;
         }
-        sum_temp+=currWeight;
-        if(randomInt <= sum_temp){
+        sum_temp += currWeight;
+        if (randomInt <= sum_temp) {
             return 0;
         }
-        sum_temp+=beforeWeight;
-        if(randomInt<=sum_temp){
+        sum_temp += beforeWeight;
+        if (randomInt <= sum_temp) {
             return 1;
         }
         return -2;

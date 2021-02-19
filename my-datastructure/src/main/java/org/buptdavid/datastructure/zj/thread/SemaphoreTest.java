@@ -19,7 +19,7 @@ public class SemaphoreTest implements Runnable{
 
             s.acquire();//获取一个准入的许可（相当于都阻塞到这）
 
-//            Thread.sleep(3000);
+            Thread.sleep(3000);
             System.out.println("线程id："+Thread.currentThread().getId());
             s.release();//释放许可
 
@@ -31,7 +31,7 @@ public class SemaphoreTest implements Runnable{
     public static void main(String[] args) {
         ScheduledExecutorService exe = Executors.newScheduledThreadPool(20);
         final SemaphoreTest semaphoreTest = new SemaphoreTest();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 11; i++) {
             exe.execute(semaphoreTest);
         }
         exe.shutdown();
