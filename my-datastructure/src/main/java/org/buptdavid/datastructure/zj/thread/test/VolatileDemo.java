@@ -1,5 +1,9 @@
 package org.buptdavid.datastructure.zj.thread.test;
 
+/**
+ * volatile 禁止指令重排序，可见性，不保证原子性，保证可见性的原因（在写操作后加入一条store内存屏障，将工作内存中的变量的值刷回主内存，
+ * 在读操作前加入一条load内存屏障，读取变量在主内存中的值）也就是在内存屏障的前后禁止指令重排序
+ */
 public class VolatileDemo {
 
 //    private static AtomicInteger _longVal = new AtomicInteger(0);

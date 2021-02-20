@@ -26,7 +26,7 @@ public class ThreadPoolExecuteTest {
         for (int i = 0; i <50 ; i++) {
             if(i%2==0){
                 Future future = executor.submit(new TaskTest1());
-                count.incrementAndGet();
+                count.incrementAndGet();//unsafe类加cas思想实现
 //                Thread.sleep(50000000);
                 try {
                     Object o = future.get();

@@ -11,6 +11,7 @@ public class Singleton {
     private Singleton(){}
     
     public static Singleton getInstance(){
+        /*双层检查不是绝对的安全，因为还有指令重排，所以必须加上volatile关键字禁止指令重排*/
         if(instance == null){
             synchronized(Singleton.class){
                 if(instance == null){

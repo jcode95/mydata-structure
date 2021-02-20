@@ -7,13 +7,12 @@ import java.util.concurrent.CyclicBarrier;
  * 循环栅栏和CountDownLatch类似，但是比CountDownLatch更加复杂强大
  */
 public class CyclicBarriercDemo {
-    static  CyclicBarrier cyclicBarrier=new CyclicBarrier(5,new A());
+    static  CyclicBarrier cyclicBarrier=new CyclicBarrier(5,new A());//底层是使用ReentrantLock加锁和Condition,阻塞是使用condition的await+for(;;),唤醒是使用condition的signalAll
 
     public static void main(String[] args) throws InterruptedException, BrokenBarrierException {
         for (int i = 0; i < 5; i++) {
             Thread thread = new Thread(new B(i));
-
-            thread.interrupt();//设置中断标识
+//            thread.interrupt();//设置中断标识
             thread.start();
 
         }

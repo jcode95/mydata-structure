@@ -1,5 +1,7 @@
 package org.buptdavid.datastructure.designPatterns.singleton;
 
+import org.buptdavid.datastructure.designPatterns.singleton.threadSafety.Singleton2Volatile;
+
 /**
  * 五种单例模式的实现
  * @author weijielu
@@ -30,6 +32,17 @@ public class Singleton {
         // 高效的线程安全的单例模式实现类
         org.buptdavid.datastructure.designPatterns.singleton.threadSafetyVolatile.Singleton instance5 = 
                 org.buptdavid.datastructure.designPatterns.singleton.threadSafetyVolatile.Singleton.getInstance();
+
+        for (int i = 0; i < 100; i++) {
+            Thread thread = new Thread() {
+                @Override
+                public void run() {
+                    Singleton2Volatile instance = Singleton2Volatile.getInstance();
+                }
+            };
+            thread.start();
+        }
+
     }
 
 }

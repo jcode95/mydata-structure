@@ -19,12 +19,14 @@ public class ReadWritLockDemo {
     private static Lock readLock = reentrantReadWriteLock.readLock();
     private static Lock writLock = reentrantReadWriteLock.writeLock();
 
-    private int value = 10000;
+    private volatile int value = 10000;
 
-    public Object handeRead(Lock lock) throws InterruptedException {
+    public int handeRead(Lock lock) throws InterruptedException {
         try {
             lock.lock();
+            System.out.println("正在读取...");
             Thread.sleep(1000);
+            System.out.println("读取完成...");
             return value;
         } finally {
             lock.unlock();
@@ -34,8 +36,10 @@ public class ReadWritLockDemo {
     public void handWrit(Lock lock, int value) throws InterruptedException {
         try {
             lock.lock();
+            System.out.println("正在写入...");
             Thread.sleep(1000);
             this.value = value;
+            System.out.println("写入完成...");
         } finally {
             lock.unlock();
         }
@@ -44,14 +48,13 @@ public class ReadWritLockDemo {
 
     public static void main(String[] args) throws InterruptedException {
         final ReadWritLockDemo readWritLockDemo = new ReadWritLockDemo();
-
         long millis1 = System.currentTimeMillis();
         Runnable runnableRead = new Runnable() {
             @Override
             public void run() {
                 try {
-                    Object o = readWritLockDemo.handeRead(readLock);
-                    System.out.println("o=" + o);
+                    int value = readWritLockDemo.handeRead(readLock);
+                    System.out.println("value = " + value);
 //                    readWritLockDemo.handeRead(reentrantLock);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -76,7 +79,7 @@ public class ReadWritLockDemo {
             new Thread(runnableRead).start();
         }
 
-        for (int i = 18; i < 20; i++) {
+        for (int i = 18; i < 30; i++) {
             new Thread(runnableWrit).start();
         }
 

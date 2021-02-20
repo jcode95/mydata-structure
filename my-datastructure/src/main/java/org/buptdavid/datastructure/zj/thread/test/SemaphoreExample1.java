@@ -44,10 +44,10 @@ public class SemaphoreExample1 {
         @Override
         public void run() {
           try {
-            semaphore.acquire();// 获取一个许可，所以可运行线程数量为20/1=20
+            semaphore.acquire();// 获取一个许可
 //            test(threadnum);
             System.out.println(Thread.currentThread().getName() + ":doSomething start-" + getFormatTimeStr());
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             semaphore.release();// 释放一个许可
           } catch (InterruptedException e) {
             // TODO Auto-generated catch block
