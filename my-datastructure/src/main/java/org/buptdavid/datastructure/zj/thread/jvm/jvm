@@ -1,0 +1,18 @@
+-Xms 初始堆空间 =-XX:initialHeapSize     默认是根据系统运行内存的64分之一
+-Xmx 初始堆空间最大值 =-XX:MaxHeapSize    默认是根据系统运行内存的4分之一
+-Xss 初始栈空间
+
+java -XX:+PrintFlagsInitial 出厂初始化的
+java -XX:+PrintFlagsFinal   自己改过的   有冒号的代表人为改过的值
+
+java -XX:+PrintCommandLineFlags -version
+        -XX:InitialHeapSize=134217728 -XX:MaxHeapSize=2147483648 -XX:+PrintCommandLineFlags -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:-UseLargePagesIndividualAllocation -XX:
+        +UseParallelGC
+
+        可以查看jvm使用的垃圾回收器
+
+
+JVM参数类型
+    1、标配参数
+    2、X参数
+    3、XX参数 1）boolean类型  -XX:(+/-)属性  ，2）KV设值类型 -XX:属性key=属性值value
