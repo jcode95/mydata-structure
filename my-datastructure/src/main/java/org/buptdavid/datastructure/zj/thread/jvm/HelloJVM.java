@@ -9,12 +9,14 @@ package org.buptdavid.datastructure.zj.thread.jvm;
  */
 public class HelloJVM {
 
-    public static void main(String[] args) throws InterruptedException {
+    public Object instance=null;
+    private static final int  _1MB=1024*1024;
+    private byte[] bigSize=new byte[2*_1MB];
 
-
-        Thread.sleep(Integer.MAX_VALUE);
-
+    public static void main(String[] args) {
+        System.out.println(" = " );
     }
+   
 
     /**
      * eg:如何查看正在运行的java程序的jvm的参数值？

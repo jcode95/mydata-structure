@@ -1,7 +1,7 @@
 -Xms 初始堆空间 =-XX:initialHeapSize     默认是根据系统运行内存的64分之一
 -Xmx 初始堆空间最大值 =-XX:MaxHeapSize    默认是根据系统运行内存的4分之一
 -Xss 初始栈空间
-
+jinfo -flag 参数名 进程号
 java -XX:+PrintFlagsInitial 出厂初始化的
 java -XX:+PrintFlagsFinal   自己改过的   有冒号的代表人为改过的值
 
@@ -16,3 +16,45 @@ JVM参数类型
     1、标配参数
     2、X参数
     3、XX参数 1）boolean类型  -XX:(+/-)属性  ，2）KV设值类型 -XX:属性key=属性值value
+
+
+2、打印GC的详细信息：
+-XX:+PrintGCDetails
+解释：打印GC详细信息。
+-XX:+PrintGCTimeStamps
+
+
+
+[GC (Allocation Failure) [PSYoungGen: 2048K->512K(2560K)] 2048K->848K(9728K), 0.0018557 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+
+
+GC在新生代
+FullGC在老年代
+
+修改新生代里面的（eden，from,to）的分配(默认就是8  )
+-XX:SurvivorRatio=4
+eden space 29184K, 1% used [0x00000000d5580000,0x00000000d55c90d0,0x00000000d7200000)
+from space 7168K, 0% used [0x00000000d7200000,0x00000000d7200000,0x00000000d7900000)
+to   space 7168K,
+4:1:1(默认是8:1:1)
+-XX:SurvivorRatio=4
+(4:1:1)
+-XX:SurvivorRatio=5
+(5:1:1)
+-XX:SurvivorRatio=6
+(6:1:1)
+-XX:SurvivorRatio=8
+(8:1:1)
+
+
+修改新生代和老年代的分配(默认就是2 )
+-XX:NewRatio=2
+(1:2)
+-XX:NewRatio=3
+(1:3)
+-XX:NewRatio=4
+(1:4)
+
+
+设置垃圾最大年龄
+-XX:MaxTenuringThreshold=15  (默认是15) 当这个设置为0时，直接进入老年代，（设置也只能设置[0-15]之间）
