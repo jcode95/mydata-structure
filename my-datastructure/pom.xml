@@ -59,6 +59,11 @@
       <artifactId>fastjson</artifactId>
       <version>1.2.24</version>
     </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>dubbo</artifactId>
+      <version>2.6.0</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
     <dependency>
       <groupId>commons-logging</groupId>
@@ -71,15 +76,11 @@
       <artifactId>fontbox</artifactId>
       <version>2.0.11</version>
     </dependency>
-
-
-
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>2.2.4</version>
     </dependency>
-    <!--spring-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -87,10 +88,9 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>5.1.9.RELEASE</version>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.0.5.RELEASE</version>
     </dependency>
-
     <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor -->
     <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor -->
     <dependency>
@@ -110,16 +110,23 @@
       <version>2.0.4</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>5.1.2.RELEASE</version>
-    </dependency>
+
     <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity</artifactId>
       <version>1.7</version>
     </dependency>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>2.4.7</version>
+    </dependency>
 
+    <!--hutool-->
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>4.5.7</version>
+    </dependency>
   </dependencies>
 </project>
