@@ -1,0 +1,175 @@
+redis 命令：
+
+1，字符串（string）
+	可以存储：
+		（1），字节串（byte string）
+		（2），整数
+		（3），浮点数
+
+				命令          实例							描述
+
+				set		  set key-name	value				添加一个字符串实例
+				get 	  get key-name                      获取对应key 的value
+				incr      incr key-name              	将键存储的值加1
+				decr      decr key-name					将键存储的值减1
+				incrby    incrby key-name amount			将键存储的值加上整数amount
+				decrby    decrby key-name amount			将键存储的值减去整数amount
+				incrbyfloat    incrbyfloat key-name amount   将键存储的值加上浮点数amount（redis2.6或者以上版本）
+				append   	append key-name value  			将值value追加到给定键key-name当前存储的值的末尾
+				getrange	getrange key-name	start end 	获取一个由偏移量start至偏移量end范围内多余字符串组成的字串，包括start和end 在内
+				setrange	setrange key-name offset value  将从start偏移量开始的字串设置给定值
+				getbit		getbit key-name offset 			将字符串看作是一个二进制串，并返回串中偏移量为offset的二进制的值
+				setbit		setbit key-name  offset  value	将字节串看作二进制位串，并且将位串中偏移量为offset的二进制位的值设置为value
+				bitcount	bitcount key-name [start end ] 	统计二进制位串里面的值为1 的二进制的数量，如果给定了可选的start偏移量和end偏移量，那么只对偏移量指定范围内的二进制位就行统计
+
+
+2，列表（list）
+		命令          实例											描述
+		rpush			rpush key-name value [value....]			将一个或者多个值推入列表的右端
+		lpush			lpush key-name value [value....]			将一个或者多个值推入列表的左端
+		rpop			rpop key-name								移除并且返回列表最右端的元素
+		lpop			lpop key-name								移除并且返回列表最左端的元素
+		lindex			lindex key-name offset 						返回列表里偏移量为offset的元素
+		lrange			lrange key-name start end 					返回列表从start偏移量到end偏移量的所有元素（偏移量都包含在内）
+		ltrim			ltrim	key-name start end 					对列表进行修剪，保留偏移量内的元素（偏移量元素在内）
+		blpop			blpop key-name  [key-name....] timeout		从第一个非空列表中弹出位于最左端的元素或者在timeout 秒内阻塞并等待可弹出的元素出现
+		brpop			brpop key-name  [key-name....] timeout		从第一个非空列表中弹出位于最右端的元素或者在timeout 秒内阻塞并等待可弹出的元素出现
+		rpoplpush		rpoplpush	source-key	dest-key			从source-key列表中弹出位于最右端的元素，然后将这个元素推入dest-key列表的最左端，并且返回这个元素
+		brpoplpush		brpoplpush	source-key	dest-key timeout		从source-key列表中弹出位于最右端的元素，然后将这个元素推入dest-key列表的最左端，并且返回这个元素，如果source-key为空，那么在timeout秒之内阻塞并等待可弹出的元素出现。
+3，集合	（set）
+		命令          实例											描述
+		sadd		sadd key-name item [item...]				将一个或者多个元素添加到集合里面，并且返回被添加元素当中原本不纯在与集合里面元素的数量
+		srem		srem key-name item [item...]				从集合里面移除一个或者多个元素，并且返回被移除元素的个数
+		sismember	sismember	key-name item					检查元素item是否存在于集合key-name里面
+		scard		scard	key-name 							返回集合包含的元素的数量
+		smembers	smsmbers key-name							返回集合包含的所有元素的数量
+		srandmember	srandmember	key-name [count]				从集合里面随机的返回一个或者多个元素，当count为正数时，命令返回的随机元素不会重复，当count为负数时，命令返回的随机元素可能会重复出现。
+		spop		spop	key-name							随机的移除集合中的一个元素，并返回被移除的元素
+		smove		smove	source-key	dest-key item			如果集合source-key包含元素item，那么从集合source-key里面移除元素item，并且将元素itemtjia到集合dest-key中，如果item被移除cg，那么命令返回1，否则返回0
+		sdiff		sdiff key-name	[key-name...]				返回那些纯在与第一个集合，不存在于其他集合中的元素
+
+4，散列（hash）
+		命令          实例											描述
+		hget			hget key-name field 							从散列里面获取一个对应字段的值
+		hset			hset key-name field value                       为散列里面的field 字段设置值
+		hmget			hmget key-name field [key...]					从散列里面获取一个或者多个键的值
+		hmset			hmset ky-name field  value [field value...]		为散列里面的一个或者多个键设置值（如：hmset book author "zhoujie" name "redis设计与实现"...）
+		hdel			hdel	key-name  key [key...]				删除散列里面的一个或者多个键值对，返回成功找到并删除的键值对数量。
+		hlen			hlen	key-name							返回散列包含的键值对数量
+		hexists			hexists	key-name key						检查散列包含的所有键
+		hvals			hvals	key-name 							获取散列包含的所有值
+		hkeys			hkeys	key-name							获取散列包含的所有的键
+		hgetall			hgetall	key-name							获取散列包含的所有键值对
+		hincrby			hincrby	key-name key increment				将键key存储的值加上整数increment
+		hincrbyfloat	hincrbyfloat  key-name key increment		将键key存储的值加上浮点数increment
+5，有序集合（zset）(用于对英雄的战力排名)
+		命令          		实例													描述
+		zadd   			zadd key-name source  member [source member....]	将带有给定分值的成员添加到有序集合里面
+		zrem		    zrem key-name member [member....]					从有序集合里面移除给定的成员，并返回被移除成员的数量
+		zcard			zcard key-name										返回有序集合包含的成员数量
+		zincrby			zincrby	 key-name increment member					将member成员的分值加上increment
+		zcount			zcount	key-name min max 							返回分值介于min与max之间的成员数量
+		zrank			zrank	key-name	member							返回成员member在有序集合中的排名
+		zscore			zscore	key-name	mamber							返回成员member的分值
+		zrange			zrange	key-name	start stop	[withscores]		返回有序集合中排序介于start和stop之间的成员，如果给定了可选的withscores选项，那么命令会将成员的分值也一并返回。
+		zrevrank		zrevrank	key-name	member						返回有序集合成员member的排名，成员按照分值从大到小排列
+		zrevrange		zrevrange	key-name    strat stop	[withscores]	=返回有序集合给定排名范围内地成员，成员按照分值从大到小排列
+		zrangebyscore	zrangebyscore	key min  max [withscores]  [limit offset count]		返回有序集合中分值介于min和max之间的所有成员
+		zremrangebyrank	zrenrangebyrank key-name start stop 				移除有序集合中排名介于start和stop之间的所有成员
+		zremrangebyscore zremrangescore key-name min max 					移除有序集合中分值介于min和max之间的所有成员
+
+help @list ...
+
+
+
+redis 数据库：
+		redisServer结构中有个db[],db[] 数组里面的每一个元素都是一个数据库redisDb，默认db[] 数组长度为16个，也就是是16个数据库。
+		redisDb结构：
+			里面有个dict字典（也叫键空间），存放的是数据库中的所有键值对，键空间里面的键都是一个字符串对象（SDS字符串），键空间里面的值是字符串对象（String），列表对象（list），哈希对象（hash），
+			集合对象（set）和有序集合对象（zset）。
+
+		过期键时间
+			命令：
+				1，设置过期键
+					expire pexpire  expireat pexpireat
+				2，移除过期键
+					persist
+			存放在redisDb的expores 字典里面暂且认为是一个map，每个元素的key都是一个指针，指向的是redisDb里面的dict字典（键空间）的一个键，value就是一个long类型毫秒精度的UNIX的时间戳。
+
+		过期键删除策略
+			1，定时删除（在设置过期时间的同时，创建一个定时器，让定时器在键过期时间来临时，立即执行对键的删除操作）
+			2，惰性删除（每次获取键的时候，检查键是否过期，过期就删除，不过期就返回）
+			3，定期删除（每隔一段时间，系统自动对数据库检查进行对过期键删除）
+			系统默认是惰性删除和定期删除搭配使用。
+
+
+
+		aof与rdb （由于AOF比RDB更新频率高，所以在AOF开启下服务器优先使用AOF文件来还原服务器数据）
+			rdb：如果执行SAVE或者BGSAVE命令，会生成rdb文件，过期键不会添加进rdb文件里面。
+					SAVE命令：
+						会生成rdb文件，save命令会阻塞Redis服务器进程，直到RDB文件创建完成，在此期间Redis服务器不能提供任何服务（在此之间的命令都会被忽略）。
+					BGSAVE命令：
+						会使用一个子进程，由子进程去生成RDB文件，不影响服务器提供服务
+				由于redis 把数据存放在内存里面的，如果服务器退出或者挂掉，就会丢失数据，所以会使用RDB持久化，也可以手动执行也可以配置在配置文件里面到指定时间点执行RDB持久化。
+			aof：当只要有键过期就会aof文件后面追加（append）一条DEL命令，aof文件会记录用户的操作的文件。执行aof重写的过程中，程序会对数据库中的键进行检查，已过期的键不会被保存到aof文件里面。
+
+
+redis 文件事件处理器
+			客户端通过应答处理器成功连接到服务器，服务器会将客户端套接字的AE_READABLE事件和命令请求处理器关联起来，---》当客户端向服务器发送请求时，套接字就会产生AE_READABLE事件
+			引发命令请求处理器执行，--》当服务器有命令回复需要传给客户端时，服务器会将客户端套接字的AE_WRITABLE事件和命令回复处理器关联起来，当客户端准备好接受服务器传回的命令回复时，
+			就会产生AE_WRITABLE事件引发命令回复处理器执行。当命令回复发送完毕时，服务器就会解除命令回复处理器与客户端套接字的AE_WRITABLE事件关联。
+
+redis 时间事件
+			分为两类:
+				1.定时事件
+				2.周期事件
+			一个时间事件主要由以下组成：
+				id：服务器为时间事件创建一个全局的唯一id，id按照从小到大的顺序递增。
+				when：毫秒精度的UNIX时间戳，记录时间事件到达的（arrive）时间
+				timeProc：时间事件处理器，一个函数，当时间到达之后就会触发。
+				（一个时间事件是定时还是周期事件取决于时间事件处理器返回值。如果返回的是AE_NOMORE，那么该事件是定时事件，该事件在到达一次之后就会删除。
+				否则是周期事件，服务器不会删除该事件，会根据时间事件处理器返回的值对时间事件when属性进行更新，让这个事件在一段时间之后再次到达，并且以这种方式运行下去）
+
+		服务器将所有的时间事件放入一个无序链表中，每当时间事件执行器运行时就会遍历改链表，查找已经到达的时间事件，并调用相应的时间事件处理器执行
+
+
+
+
+哨兵(Sentinel)总结
+
+	1、Sentinel的作用：
+
+		A、Master 状态监测
+
+		B、如果Master 异常，则会进行Master-slave 转换，将其中一个Slave作为Master，将之前的Master作为Slave
+
+		C、Master-Slave切换后，master_redis.conf、slave_redis.conf和sentinel.conf的内容都会发生改变，即master_redis.conf中会多一行slaveof的配置，sentinel.conf的监控目标会随之调换
+
+
+	2、Sentinel的工作方式:
+		1)：每个Sentinel以每秒钟一次的频率向它所知的Master，Slave以及其他 Sentinel 实例发送一个 PING 命令。
+
+		2)：如果一个实例（instance）距离最后一次有效回复 PING 命令的时间超过 down-after-milliseconds 选项所指定的值， 则这个实例会被 Sentinel 标记为主观下线。
+
+		3)：如果一个Master被标记为主观下线，则正在监视这个Master的所有 Sentinel 要以每秒一次的频率确认Master的确进入了主观下线状态。
+
+		4)：当有足够数量的 Sentinel（大于等于配置文件指定的值）在指定的时间范围内确认Master的确进入了主观下线状态， 则Master会被标记为客观下线 。
+
+		5)：在一般情况下， 每个 Sentinel 会以每 10 秒一次的频率向它已知的所有Master，Slave发送 INFO 命令 。
+
+		6)：当Master被 Sentinel 标记为客观下线时，Sentinel 向下线的 Master 的所有 Slave 发送 INFO 命令的频率会从 10 秒一次改为每秒一次 。
+
+		7)：若没有足够数量的 Sentinel 同意 Master 已经下线， Master 的客观下线状态就会被移除。
+
+		若 Master 重新向 Sentinel 的 PING 命令返回有效回复， Master 的主观下线状态就会被移除。
+
+
+
+
+
+
+
+
+
+
+

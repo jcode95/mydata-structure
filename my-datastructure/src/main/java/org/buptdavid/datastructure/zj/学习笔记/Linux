@@ -1,0 +1,99 @@
+1、查看cpu及其内存占用情况
+top
+   top -hp
+   load averagd  1分钟 10 分钟 15 分钟    如果这三个值想加除以3再乘以百分之百 ，如果大于百分之60  ，就说明系统压力重
+
+---------------------------演示------------------------------------------
+   top - 11:05:43 up 84 days, 14:50,  1 user,  load average: 0.00, 0.01, 0.05
+   Tasks:  70 total,   1 running,  69 sleeping,   0 stopped,   0 zombie
+   %Cpu(s):  0.3 us,  0.0 sy,  0.0 ni, 99.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+   KiB Mem :  1881688 total,    87472 free,  1077952 used,   716264 buff/cache
+   KiB Swap:        0 total,        0 free,        0 used.   613672 avail Mem
+
+     PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND
+       1 root      20   0  125364   3836   2596 S  0.0  0.2   0:14.70 systemd
+       2 root      20   0       0      0      0 S  0.0  0.0   0:00.00 kthreadd
+2、
+uptime 是top的精简版
+---------------------------演示------------------------------------------
+[root@hecs-x-medium-2-linux-20200629151746 ~]# uptime
+ 11:05:53 up 84 days, 14:50,  1 user,  load average: 0.00, 0.01, 0.05
+
+3、vmstat
+    vmstat 5  5 【在5秒时间内进行5次采样】
+---------------------------演示------------------------------------------
+[root@hecs-x-medium-2-linux-20200629151746 ~]# vmstat
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 2  0      0  87588 139812 576476    0    0     0     9    0    2  0  0 100  0  0
+
+  us sy 值想加>百分之80，说明cpu负载率高
+
+
+4、mpstat -P All   【所有cpu线程消耗数】
+
+5、pidstat -u 1 -p 进程数   【每秒钟采样一次】
+
+
+6、free -m  【查看系统内存使用情况，以m为单位】
+---------------------------演示------------------------------------------
+[root@hecs-x-medium-2-linux-20200629151746 ~]# free -m
+              total        used        free      shared  buff/cache   available
+Mem:           1837        1052          85          40         699         599
+Swap:             0           0           0
+
+7、pidstat -p 进程号 -r 采样间隔   【查看进程对内存的消耗】
+
+8、df -h 【查看系统硬盘使用情况】
+
+9、iostat 【磁盘io】
+    iostat -xdk 采样间隔 采样几次
+        例如： iostat -xdk 2 3     解释：采样2秒，总共采样3次
+
+10、pidstat -d 采样间隔 -p 进程号
+
+ot@6-22 ~]# pidstat -d 2 -p 29454
+Linux 2.6.32-696.el6.x86_64 (6-22) 	2022年06月08日 	_x86_64_	(4 CPU)
+
+17时12分04秒       PID   kB_rd/s   kB_wr/s kB_ccwr/s  Command
+17时12分06秒     29454      0.00      4.00      0.00  java
+17时12分08秒     29454      0.00      4.00      0.00  java
+
+11、ifstat 【网络io】
+
+
+
+
+
+
+
+
+
+问题
+1、如果生产上cup过高，如何定位及其解决？
+    1)使用top命令查看进程号 pid
+    2)ps -ef |grep pid
+    3)ps -mp 进程号 -o THREAD,tid,time  -->介绍命令  例如  ps -mp 16489 -o THREAD,tid,time  ，是为了查询对应进程号所有的线程id
+    4)将需要的线程id转换为16进制格式（英文小写格式  可以使用计算器转换）
+    5)jstack 进程id |grep 线程id（16进制英文字母小写） -A60     （-A60，打印60行）
+
+    如：
+        [root@hecs-x-medium-2-linux-20200629151746 test]# jstack 25846 | grep 6500 -A60
+        "t1" #8 prio=5 os_prio=0 tid=0x00007f416c0ca000 nid=0x6500 runnable [0x00007f417121a000]
+           java.lang.Thread.State: RUNNABLE
+        	at java.io.FileOutputStream.writeBytes(Native Method)
+        	at java.io.FileOutputStream.write(FileOutputStream.java:326)
+        	at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+        	at java.io.BufferedOutputStream.flush(BufferedOutputStream.java:140)
+        	- locked <0x00000000ecd6bc38> (a java.io.BufferedOutputStream)
+        	at java.io.PrintStream.write(PrintStream.java:482)
+        	- locked <0x00000000ecd63ae0> (a java.io.PrintStream)
+        	at sun.nio.cs.StreamEncoder.writeBytes(StreamEncoder.java:221)
+        	at sun.nio.cs.StreamEncoder.implFlushBuffer(StreamEncoder.java:291)
+        	at sun.nio.cs.StreamEncoder.flushBuffer(StreamEncoder.java:104)
+        	- locked <0x00000000ecd63a70> (a java.io.OutputStreamWriter)
+        	at java.io.OutputStreamWriter.flushBuffer(OutputStreamWriter.java:185)
+        	at java.io.PrintStream.newLine(PrintStream.java:546)
+        	- locked <0x00000000ecd63ae0> (a java.io.PrintStream)
+        	at java.io.PrintStream.println(PrintStream.java:696)
+        	at CPUTest$1.run(CPUTest.java:16)   //重点.............. 16 行

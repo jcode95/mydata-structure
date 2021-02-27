@@ -52,4 +52,97 @@ InnoDB为什么推荐使用自增ID作为主键？
 innodb引擎的4大特性
        插入缓冲（insert buffer),二次写(double write),自适应哈希索引(ahi),预读(read ahead)
 
-以上文章来自于：https://blog.csdn.net/qq_35642036/article/details/82820178
+
+
+
+
+SQL 语句性能优化策略
+地址：https://mp.weixin.qq.com/s?__biz=MjM5MzA0OTkwMA==&mid=2651200418&idx=1&sn=ffc9581943ee2923fc1eae0e01519897&chksm=bd6e47e18a19cef771688eff1324e1c92e6d2623e242f00c4654aa72081aa2e630a8e9e56560&mpshare=1&scene=23&srcid=1208s1jQ58alcJMM44Ti9O8v&sharer_sharetime=1614325346211&sharer_shareid=9bfb4994053a5e601756b95c9a69ea1f#rd
+
+1、对查询进行优化，应尽量避免全表扫描，首先应考虑在where及order by涉及的列上建立索引
+
+2、应尽量避免在where子句中对字段进行null值判断，创建表时NULL是默认值，但大多数时候应该使用NOT NULL，或者使用一个特殊的值，如0，-1作为默认值。
+
+3、应尽量避免在where子句中使用!=或<>操作符，MySQL只有对以下操作符才使用索引：<，<=，=，>，>=，BETWEEN，以及某些时候的LIKE。
+
+4、应尽量避免在where子句中使用or来连接条件，否则将导致引擎放弃使用索引而进行全表扫描，可以使用UNION合并查询：select id from t where num=10 union all select id from t where num=20。
+
+5、in和not in也要慎用，否则会导致全表扫描，对于连续的数值，能用between就不要用in了：Select id from t where num between 1 and 3。
+
+6、下面的查询也将导致全表扫描：select id from t where name like‘%abc%’或者select id from t where name like‘%abc’若要提高效率，可以考虑全文检索。而select id from t where name like‘abc%’才用到索引。
+
+7、如果在where子句中使用参数，也会导致全表扫描。
+
+8、应尽量避免在where子句中对字段进行表达式操作，应尽量避免在where子句中对字段进行函数操作。
+
+9、很多时候用exists代替in是一个好的选择：select num from a where num in(select num from b)。用下面的语句替换：select num from a where exists(select 1 from b where num=a.num)。
+
+10、索引固然可以提高相应的select的效率，但同时也降低了insert及update的效率，因为insert或update时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。
+
+11、应尽可能的避免更新clustered索引数据列， 因为clustered索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新clustered索引数据列，那么需要考虑是否应将该索引建为clustered索引。
+
+12、尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。
+
+13、尽可能的使用varchar/nvarchar代替char/nchar，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。
+
+14、最好不要使用”“返回所有：select from t ，用具体的字段列表代替“*”，不要返回用不到的任何字段。
+
+15、尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。
+
+15、尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。
+
+16、使用表的别名(Alias)：当在SQL语句中连接多个表时，请使用表的别名并把别名前缀于每个Column上。这样一来，就可以减少解析的时间并减少那些由Column歧义引起的语法错误。
+
+17、使用“临时表”暂存中间结果 ：
+简化SQL语句的重要方法就是采用临时表暂存中间结果，但是临时表的好处远远不止这些，将临时结果暂存在临时表，
+后面的查询就在tempdb中了，这可以避免程序中多次扫描主表，也大大减少了程序执行中“共享锁”阻塞“更新锁”，减少了阻塞，提高了并发性能。
+
+18、一些SQL查询语句应加上nolock，读、写是会相互阻塞的，为了提高并发性能，对于一些查询，可以加上nolock，这样读的时候可以允许写，但缺点是可能读到未提交的脏数据。
+使用nolock有3条原则：
+查询的结果用于“插、删、改”的不能加nolock；
+查询的表属于频繁发生页分裂的，慎用nolock ；
+使用临时表一样可以保存“数据前影”，起到类似Oracle的undo表空间的功能，能采用临时表提高并发性能的，不要用nolock
+19、常见的简化规则如下：
+不要有超过5个以上的表连接（JOIN），考虑使用临时表或表变量存放中间结果。少用子查询，视图嵌套不要过深，一般视图嵌套不要超过2个为宜。
+
+20、将需要查询的结果预先计算好放在表中，查询的时候再Select。这在SQL7.0以前是最重要的手段，例如医院的住院费计算。
+
+21、尽量使用exists代替select count(1)来判断是否存在记录，count函数只有在统计表中所有行数时使用，而且count(1)比count(*)更有效率。
+
+...
+
+
+
+
+
+
+
+explain使用+慢SQL分析
+
+一、开启慢查询日志，捕获慢SQL
+    1）查看mysql是否开启慢查询日志
+    SHOW VARIABLES LIKE '%slow_query_log%';
+    2）开启慢查询日志
+    set GLOBAL slow_query_log=1;
+    3) 查看慢查询日志阙值,也就是超时时间,这个值表示超过多长时间的SQL语句会被记录到慢查询日志中
+    show [GLOBAL] variables like '%long_query_time%';
+    4）设置慢查询日志阙值
+    SET GLOBAL long_query_time=3;
+    5）查看多少SQL语句超过了阙值
+    show GLOBAL status like '%Slow_queries%';
+    6）MySQL提供的日志分析工具mysqldumpslow
+         进入MySQL的安装目录中的bin目录下，执行 ./mysqldumpslow --help 查看帮助命令
+         常用参考：
+          得到返回记录集最多的10个SQL
+          mysqldumpslow -s r -t 10 slow.log
+          得到访问次数最多的10个SQL
+          mysqldumpslow -s c -t 10 slow.log
+          得到按照时间排序的前10条里面含有左连接的查询语句
+          mysqldumpslow -s t -t 10 -g "left join" slow.log
+          使用这些语句时结合| more使用
+
+
+
+二、explain+慢SQL分析
+使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是 如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈。
+使用方式：Explain+SQL语句
