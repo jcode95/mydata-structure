@@ -49,6 +49,16 @@ public class ThreadPoolExcecutorTest {
      */
     static class ExecutorsTest {
         public static void main(String[] args) {
+
+            /**
+             *  public ThreadPoolExecutor(int corePoolSize,
+             int maximumPoolSize,
+             long keepAliveTime,
+             TimeUnit unit,
+             BlockingQueue<Runnable> workQueue,
+             ThreadFactory threadFactory,
+             RejectedExecutionHandler handler)
+             */
             ExecutorService executorService = Executors.newCachedThreadPool();
         }
 
