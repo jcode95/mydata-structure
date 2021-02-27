@@ -50,7 +50,7 @@ public class ReentrantLockTest {
      // 仅在调用时锁未被另一个线程保持的情况下，才获取该锁。
      boolean tryLock()
      // 如果锁在给定等待时间内没有被另一个线程保持，且当前线程未被中断，则获取该锁。
-     boolean tryLock(long timeout, TimeUnit unit)
+     boolean tryLock(long timeout, TimeUnit unit)  //tryLock()方法申请锁，如果锁不可用则线程不会阻塞，转而可以去做其他工作
      // 试图释放此锁。
      void unlock()
      * @param args

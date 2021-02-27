@@ -13,7 +13,12 @@ import java.util.concurrent.LinkedTransferQueue;
  */
 public class BlockingQueueTest {
     public static void main(String[] args) {
-        ArrayBlockingQueue<Integer> arrayBlockingQueue = new ArrayBlockingQueue<>(3);//基于数组的有界阻塞队列，如果放入的元素个数大于临界值，抛出异常 java.lang.IllegalStateException: Queue full
+        /**
+         * add() //如果放入的元素个数大于临界值，抛出异常 java.lang.IllegalStateException: Queue full
+         * put() //如果放入的元素个数大于临界值，后面添加的阻塞等着，有空位置的时候就插入
+         * offer() //如果放入的元素成功，返回true，否则返回false
+         */
+        ArrayBlockingQueue<Integer> arrayBlockingQueue = new ArrayBlockingQueue<>(3);//基于数组的有界阻塞队列，
         for (int i = 0; i < 3; i++) {
             arrayBlockingQueue.add(i);
         }
