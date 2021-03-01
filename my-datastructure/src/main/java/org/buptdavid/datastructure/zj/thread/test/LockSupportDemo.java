@@ -36,4 +36,9 @@ public class LockSupportDemo {
         t2.join();
 
     }
+
+    /*
+    * Java锁消除和锁粗化
+    *
+    * */
 }

@@ -1,0 +1,16 @@
+github 搜索技巧
+Awesome + 关键字
+
+qt in:name：表示在项目名称中搜索 qt 关键字
+qt in:readme：表示在项目readme中搜索 qt 关键字
+qt in:description：表示在 项目描述中搜索 qt 关键字
+qt in:USERNAME：表示在USERNAME中搜索 qt 关键字
+qt in:ORGNAME：表示在组织或机构名中搜索 qt 关键字
+
+还可以按照项目大小来搜索：
+size:>=5000 Qt ：搜索大小超过5M 的包含 Qt 关键字项目
+
+
+language:C++ location:china
+搜索国内的开发者，语言限定为 C++
+
