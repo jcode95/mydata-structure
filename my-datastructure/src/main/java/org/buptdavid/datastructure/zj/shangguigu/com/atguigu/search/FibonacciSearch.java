@@ -24,7 +24,7 @@ public class FibonacciSearch implements ISearch {
             return -1;
         }
         int left = 0, right = arr.length - 1;
-        int k = 0;
+        int k = 0;//表示斐波那契分割数值的下标
         int[] F = createFibonacci(20);//创建一个斐波那契数组
         //计算arr.length位于斐波那契数列的位置
         while (arr.length > F[k] ) {
@@ -39,7 +39,7 @@ public class FibonacciSearch implements ISearch {
 
         //操作的时候就用temp来操作
         while (left <= right) {
-            int mid = left + F[k - 1] - 1;
+            int mid = left + F[k - 1] - 1;//存放mid值
             if (temp[mid] > value) {
                 right = mid - 1;
                 k -= 1;              //F[k-1]=F[k-1-1]+F[k-2-1]=F[k-2]+F[k-3],F[k-1]-->F[k-2]，看分解后的第一个 k要-1
