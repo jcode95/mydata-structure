@@ -15,9 +15,9 @@ public class ObserverPatternTest {
         new OctalObserver(subject);//创建一个具体的观察者
         new BinaryObserver(subject);//创建一个具体的观察者
         new DecimalismObserver(subject);//创建一个具体的观察者
-        System.out.println("First state change: 15");
+        System.out.println("******************First state change: 15*****************");
         subject.setState(15);//设置状态并且通知给其他
-        System.out.println("Second state change: 10");
+        System.out.println("******************Second state change: 10****************");
         subject.setState(10);
     }
 }
