@@ -81,6 +81,15 @@ public class ConsumerTest {
          *  总结：
          *          一句话，在事务未开启时，acknowledge()方法就会起作用
          *          在事务开启时，一切以commit() 为准。acknowledge()方法不会起作用
+         *
+         *
+         *
+         *
+         * 题：
+         *      怎么保证mq的消息可靠性？
+         *          1、持久性
+         *          2、事务
+         *          3、集群
          */
     }
 }
