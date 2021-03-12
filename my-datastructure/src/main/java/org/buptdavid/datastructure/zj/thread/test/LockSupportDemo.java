@@ -4,6 +4,9 @@ import java.util.concurrent.locks.LockSupport;
 
 /**
  * 线程阻塞工具
+ *
+ * LockSupport 底层是调用 UNSAFE类的native方法，只有一个许可证，当遇到park(),回去校验是否有许可证（许可证最大只有一个），有许可证就放行，并且消耗许可证
+ * unpark();为线程产生一个许可证（许可证最大只有一个）
  */
 public class LockSupportDemo {
 
@@ -18,16 +21,14 @@ public class LockSupportDemo {
 
         @Override
         public void run() {
-           synchronized (u){
-               System.out.println("in ："+super.getName());
+               System.out.println("in ："+super.getName()+"进入阻塞...");
                LockSupport.park();//park（阻塞线程）和unpark（启动唤醒线程）
-           }
+               System.out.println("in ："+super.getName()+"唤醒线程...");
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
         t1.start();
-        Thread.sleep(100);
         t2.start();
         LockSupport.unpark(t1);//park（阻塞线程）和unpark（启动唤醒线程）
         LockSupport.unpark(t2);//park（阻塞线程）和unpark（启动唤醒线程）

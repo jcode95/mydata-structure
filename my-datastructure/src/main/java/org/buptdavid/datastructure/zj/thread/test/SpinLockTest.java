@@ -15,6 +15,7 @@ public class SpinLockTest {
 
     public void myLock() {
         Thread thread = Thread.currentThread();
+        /*自旋核心代码*/
         while (!spin.compareAndSet(null, thread)) {
         }
         System.out.println("myLock   thread name :" + thread.getName());
