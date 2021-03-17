@@ -27,7 +27,7 @@ public class ProducerTest {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);//创建session   第一个参数是是否开启事务，false是不开启事务，true是开启事务   第二个参数  签收（自动签收，手动签收，允许重复签收消息）
 
         Destination destination = session.createQueue(defaultQueue_NAME);//创建目的地（队列或者topic）
-        MessageProducer producer = session.createProducer(destination);//创建生产者
+        final MessageProducer producer = session.createProducer(destination);//创建生产者
 //            producer.setDeliveryMode(DeliveryMode.PERSISTENT);//设置是否持久化
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
         ScheduledFuture<?> schedule = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
