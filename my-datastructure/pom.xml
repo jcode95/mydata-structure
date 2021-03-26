@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.buptdavid</groupId>
-  <artifactId>datastructure</artifactId>
+  <artifactId>my-datastructure</artifactId>
   <version>0.0.1-SNAPSHOT</version>
     <build>
         <plugins>
