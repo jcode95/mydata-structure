@@ -22,8 +22,8 @@ public class NotifyTest {
         String intern = s2.intern();//intern 方法会从字符串常量池中查询当前字符串是否存在，若不存在就会将当前字符串放入常量池中
         System.out.println(intern == s2);
         String s1 = new StringBuilder("go").append("od").toString();//只在堆里面存在字符串，常量池没有
-//        String s1 = new String("good");//堆，常量池都有
-//        String s1 = "good";
+//        String s11 = new String("good");//堆，常量池都有
+//        String s12 = "good";
         String intern1 = s1.intern();//当调用该方法时，发现常量池没有good，所以在常量池里面放置一个字符串为“good”的字面量，并且返回堆的引用
         System.out.println(intern1 == s1);
        /* String s1 = "ab123" ;
@@ -47,10 +47,12 @@ public class NotifyTest {
     * */
         /*测试  找到就返回常量池的地址，找不到就返回堆的地址，并且吧字符串放入常量池*/
 
-        String s7 = new StringBuilder("zhou").append("jie").toString();//s7 也是堆地址
-        String s8=s7.intern();//此时常量池里面有了，这里的s8是堆地址
-        String s9 = s8.intern();//这里就是常量池的地址
-        System.out.println(" ss : " + (s8==s7));
+        String s7 = new StringBuilder("zhou").append("jie").toString();//s7 是堆地址,常量池里面没有
+        String s8=s7.intern();//调用之前常量池里面没有，调用之后把s7的字符串放入常量池里面，此时常量池里面有了，这里的s8是堆地址
+        String s9 = s8.intern();//s9 这里就是常量池的地址
+        System.out.println(" s8==s7 : " + (s8==s7));
+        System.out.println(" s8==s9 : " + (s8==s9));
+        System.out.println(" s7==s9 : " + (s7==s9));
         System.out.println("(s9==\"zhoujie\") = " + (s9 == "zhoujie"));
 
 
