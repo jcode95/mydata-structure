@@ -28,9 +28,9 @@ public class JVMExpection {
          */
 
         JVMExpection test = new JVMExpection();
-//        test.GC_overhead_limit_exceeded();
+        test.GC_overhead_limit_exceeded();
 //        test.Direct_buffer_memory();
-        test.unable_to_create_new_native_thread();
+//        test.unable_to_create_new_native_thread();
 
     }
 
