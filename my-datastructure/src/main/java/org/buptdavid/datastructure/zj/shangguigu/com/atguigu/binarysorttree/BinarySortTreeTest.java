@@ -32,6 +32,9 @@ public class BinarySortTreeTest {
         sortTree.delNode(7);
         System.out.println("------------delNode--------------");
         sortTree.infixOrder();
+        //右左中遍历二叉树
+        System.out.println("------------RLIOrder--------------");
+        sortTree.RLIOrder();
 
 
     }
@@ -139,6 +142,16 @@ class BinarySortTree {
         }
         root.infixOrder();
     }
+    /**
+     * 右左中遍历
+     */
+    public void RLIOrder() {
+        if (root == null) {
+            System.out.println("BinarySortTree is null");
+            return;
+        }
+        root.RLIOrder();
+    }
 
     /**
      * 查找要删除的节点
@@ -235,6 +248,18 @@ class Node {
         if (this.right != null) {
             this.right.infixOrder();
         }
+    }
+    /**
+     * 右左中遍历 自己的遍历
+     */
+    public void RLIOrder() {
+        if (this.right != null) {
+            this.right.RLIOrder();
+        }
+        if (this.left != null) {
+            this.left.RLIOrder();
+        }
+        System.out.println(this.toString());
     }
 
 
