@@ -1,0 +1,12 @@
+官网：http://activemq.apache.org/components/classic/download/
+linux系统安装activemq：
+上传之后解压就完事了   默认端口61616
+启动：普通启动 ./activemq start  ，日志文件启动 ./activemq start > run.activemq.log  启动并且输出日志到run.activemq.log文件里面
+    查看是否启动：  1、netstat -anp |grep 61616 2、lsof -i:61616
+                    3、ps -ef |grep activemq 等
+
+启动：./activemq stop
+
+
+如果遇到启动之后，访问不了控制台，可以试着吧 127.0.0.1 改为0.0.0.0 重启再试试
+访问控制台：ip:8161

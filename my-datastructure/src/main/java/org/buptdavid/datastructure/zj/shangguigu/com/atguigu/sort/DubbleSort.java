@@ -11,7 +11,7 @@ public class DubbleSort {
     static int count = 0;
 
     public static void main(String[] args) {
-        int[] arr = {3, -10, 4, 20, 5, 8, 10, 23};
+        int[] arr = {3, -10, 4, 20, 5, 8, 10, 23, -2, 1, 87, 45};
         sort(arr);
         list(arr);
         System.out.println("循环次数：" + count);
@@ -35,18 +35,8 @@ public class DubbleSort {
     }
 
     public static void sort(int[] arr) {
-        /*for (int i = 0; i < arr.length; i++) {
-            for (int k = i + 1; k < arr.length; k++) {
-                count++;
-                if (arr[i] > arr[k]) {
-                    int tmp = arr[k];
-                    arr[k] = arr[i];
-                    arr[i] = tmp;
-                }
-            }
-        }*/
         /*{3, -10, 4, 20, 5, 8, 10, 23};*/
-        for (int i = 0; i < arr.length - 1; i++) {
+      for (int i = 0; i < arr.length - 1; i++) {
             boolean flg = true;
             for (int j = 0; j < arr.length - 1 - i; j++) {
                 count++;
@@ -61,6 +51,21 @@ public class DubbleSort {
                 return;
             }
         }
+        /*for (int i = 0; i < arr.length; i++) {
+            boolean flg = true;
+            for (int j = 0; j < arr.length - 1; j++) {
+                count++;
+                if (arr[j] > arr[j + 1]) {
+                    flg = false;
+                    int tmp = arr[j + 1];
+                    arr[j + 1] = arr[j];
+                    arr[j] = tmp;
+                }
+            }
+            if (flg) {
+                return;
+            }
+        }*/
 
     }
 }
