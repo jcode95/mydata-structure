@@ -12,7 +12,7 @@ import java.io.IOException;
  * @Description:
  * @date 2020/5/28/10:21
  */
-public class okHttpUtils {
+public class OkHttpUtils {
 
     public static void main(String[] args) {
         OkHttpClient okHttpClient = new OkHttpClient();
