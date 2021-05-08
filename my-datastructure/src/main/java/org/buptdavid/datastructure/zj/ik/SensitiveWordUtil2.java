@@ -1,6 +1,10 @@
 package org.buptdavid.datastructure.zj.ik;
+
+import org.wltea.analyzer.cfg.Configuration;
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
+import org.wltea.analyzer.dic.Dictionary;
+import org.wltea.analyzer.dic.Hit;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -129,7 +133,7 @@ public class SensitiveWordUtil2 {
     private static List segment(String text) throws IOException {
         List<String> list = new ArrayList<>();
         StringReader re = new StringReader(text);
-        IKSegmenter ik = new IKSegmenter(re, true);
+        IKSegmenter ik = new IKSegmenter(re, false);
         Lexeme lex;
         while ((lex = ik.next()) != null) {
             list.add(lex.getLexemeText());
@@ -147,6 +151,8 @@ public class SensitiveWordUtil2 {
         sensitiveWordSet.add("啦啦");
         sensitiveWordSet.add("感动");
         sensitiveWordSet.add("发呆");
+        sensitiveWordSet.add("高级会计实务");
+        sensitiveWordSet.add("础");
         //初始化敏感词库
         SensitiveWordUtil2.init(sensitiveWordSet);
 
@@ -178,11 +184,37 @@ public class SensitiveWordUtil2 {
         /**
          * 替换语句中的敏感词
          */
-        String filterStr = SensitiveWordUtil2.replaceSensitiveWord(string, '*');
+        String filterStr = SensitiveWordUtil2.replaceSensitiveWord(string, '_');
         System.out.println(filterStr);
 
-        String filterStr2 = SensitiveWordUtil2.replaceSensitiveWord(string, "[*敏感词*]");
-        System.out.println(filterStr2);
+//        String filterStr2 = SensitiveWordUtil2.replaceSensitiveWord(string, "[*敏感词*]");
+//        System.out.println(filterStr2);
+        System.out.println("---------------------------  ");
+        String s = "2012年高级会计实务基础班";
+        Configuration cfg = org.wltea.analyzer.cfg.DefaultConfig.getInstance();
+        cfg.setUseSmart(true);
+        org.wltea.analyzer.dic.Dictionary.initial(cfg);
+        Dictionary dictionary = Dictionary.getSingleton();
+
+        List<String> words = new ArrayList<String>();
+        words.add("基础班");
+        words.add("高级会计实务");
+        words.add("础");
+        dictionary.addWords(words);
+
+
+        System.out.println(cfg.getMainDictionary());
+        System.out.println(cfg.getQuantifierDicionary());
+
+        Hit hit = dictionary.matchInMainDict("基础班".toCharArray());
+        System.out.println(hit.isMatch());
+
+
+        System.out.println(segment(s));
+
+        String word = SensitiveWordUtil2.replaceSensitiveWord(s, '*');
+        System.out.println("word = " + word);
+
     }
 
 }
