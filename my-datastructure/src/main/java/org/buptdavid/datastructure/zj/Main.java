@@ -587,9 +587,16 @@ public class Main{
 }*/
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import scala.Int;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
     /*public static void main(String[] arg) {
@@ -647,23 +654,35 @@ public class Main {
         return F;
     }*/
     public static void main(String[] args) {
-        int a=1000;
+        /*int a=1000;
         int b=1000;
-        System.out.println(a==b);/*不考虑[-128,127] 始终返回true*/
+        System.out.println(a==b);*//*不考虑[-128,127] 始终返回true*//*
         Integer a1=128;
         Integer b1=128;
-        System.out.println(a1==b1);/*考虑[-128,127] 在区间之内返回true，否则返回false*/
+        System.out.println(a1==b1);*//*考虑[-128,127] 在区间之内返回true，否则返回false*//*
         Integer a2=new Integer(1000);
         int b2=1000;
-        System.out.println(a2==b2);/*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*/
+        System.out.println(a2==b2);*//*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*//*
         Integer a3=new Integer(8);
         Integer b3=8;
-        System.out.println(a3==b3);/*不考虑[-128,127] 始终返回false，Integer是包装类*/
+        System.out.println(a3==b3);*//*不考虑[-128,127] 始终返回false，Integer是包装类*//*
         Integer a4=new Integer(1000);
         Integer b4=new Integer(1000);
-        System.out.println(a4==b4);/*不考虑[-128,127] 始终返回false，Integer是包装类*/
+        System.out.println(a4==b4);*//*不考虑[-128,127] 始终返回false，Integer是包装类*//*
         Integer a5=1;
         int b5=1;
-        System.out.println(a5==b5);/*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*/
+        System.out.println(a5==b5);*//*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*/
+
+//        String s="[{\"donatenum\":400,\"id\":72132,\"num\":500}],[{\"donatenum\":500,\"id\":72132,\"num\":500}],[{\"donatenum\":600,\"id\":72132,\"num\":500}]";
+//
+//        Map<String, Integer> commonStrStrMap = JSON.parseObject(s, new TypeReference<Map<String, Integer>>() { });
+//        System.out.println("commonStrStrMap = " + commonStrStrMap);
+
+        String responseTemplate = "'{'code:\"{0}\",des:\"{1}\"'}'";
+        System.out.println(MessageFormat.format(responseTemplate, "w1","w2"));
+        String responseTemplate1 = "恭喜<font color=\"#00ff00\">\"{0}\"</font><font color=\"#ffff00\">完成首充</font>，获得<font color=\"#ffff00\">限定酷炫时装</font>、<font color=\"#ff8400\">高阶首充武器</font>等海量奖励，";
+        System.out.println(MessageFormat.format(responseTemplate1, "尿等待"));
+
+
     }
 }
