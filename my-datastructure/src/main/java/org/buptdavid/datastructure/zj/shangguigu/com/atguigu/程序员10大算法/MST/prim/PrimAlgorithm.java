@@ -81,7 +81,7 @@ class MinTree {
         int h1 = -1; //第一个点的下标
         int h2 = -1;//第二个点的下标
         int minWeight = 99999; //将 minWeight 初始成一个大数，后面在遍历过程中，会被替换
-        for (int k = 0; k < graph.verxs; k++) {//因为有 graph.verxs顶点，普利姆算法结束后，有 graph.verxs-1边
+        for (int k = 0; k < graph.verxs - 1; k++) {//因为有 graph.verxs顶点，普利姆算法结束后，有 graph.verxs-1边
             //这个是确定每一次生成的子图 ，和哪个结点的距离最近
             for (int i = 0; i < graph.verxs; i++) {// i结点表示被访问过的结点
                 for (int j = 0; j < graph.verxs; j++) {//j结点表示还没有访问过的结点
