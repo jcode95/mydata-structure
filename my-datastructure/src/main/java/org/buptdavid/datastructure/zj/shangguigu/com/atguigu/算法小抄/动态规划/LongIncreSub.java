@@ -10,7 +10,7 @@ package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.算法小抄.动�
 public class LongIncreSub {
     public static void main(String[] args) {
 
-        int res = new LongIncreSub().process(new int[]{1, 2, 5, 4, 2, 3,9});
+        int res = new LongIncreSub().process(new int[]{10,9,2,5,3,7,101,18});
 //        int res = new LongIncreSub().process(new int[]{2,3,2,3,4,2,4,6,5});
         System.out.println(res);
     }
