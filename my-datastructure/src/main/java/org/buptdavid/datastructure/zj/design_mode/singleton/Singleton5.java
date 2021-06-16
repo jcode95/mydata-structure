@@ -1,6 +1,6 @@
 package org.buptdavid.datastructure.zj.design_mode.singleton;
 
-import org.buptdavid.datastructure.designPatterns.singleton.staticInnerClass.Singleton;
+//import org.buptdavid.datastructure.designPatterns.singleton.staticInnerClass.Singleton;
 
 /**
  * @author jiezhou

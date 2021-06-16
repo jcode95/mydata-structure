@@ -27,7 +27,7 @@ procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
  r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
  2  0      0  87588 139812 576476    0    0     0     9    0    2  0  0 100  0  0
 
-  us sy 值想加>百分之80，说明cpu负载率高
+  us sy 值相加>百分之80，说明cpu负载率高
 
 
 4、mpstat -P All   【所有cpu线程消耗数】
