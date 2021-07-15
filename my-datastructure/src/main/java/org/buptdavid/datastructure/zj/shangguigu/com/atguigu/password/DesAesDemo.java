@@ -6,7 +6,9 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -22,12 +24,13 @@ public class DesAesDemo {
 
     public static void main(String[] args) throws Exception {
         // 原文
-        String input = "硅谷";
+        String input = "硅谷12";
         // des加密必须是8位
         String key = "12345678";
         // 算法
         String algorithm = "DES";
-        String transformation = "DES";
+//        String transformation = "DES";
+        String transformation = "DES/CBC/NoPadding"; // 设置加密模式和填充模式
         String encryptDESString = encryptDES(input, key, algorithm, transformation);
         System.out.println("加密:" + encryptDESString);
         String s = decryptDES(encryptDESString, key, algorithm, transformation);
@@ -48,12 +51,13 @@ public class DesAesDemo {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      */
-    private static String decryptDES(String encryptDESString, String key, String algorithm, String transformation) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    private static String decryptDES(String encryptDESString, String key, String algorithm, String transformation) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
         // 1、获取Cipher对象
         Cipher cipher = Cipher.getInstance(transformation);
         // 2、指定密钥规则
         SecretKeySpec sks = new SecretKeySpec(key.getBytes(), algorithm);
-        cipher.init(Cipher.DECRYPT_MODE, sks);
+        IvParameterSpec iv = new IvParameterSpec(key.getBytes());//加密模式和填充模式 需要设置这个
+        cipher.init(Cipher.DECRYPT_MODE, sks,iv);
         // 3、解密，上面使用的base64编码，下面直接用密文
         byte[] bytes = cipher.doFinal(Base64.decode(encryptDESString));
         //  因为是明文，所以直接返回
@@ -74,7 +78,7 @@ public class DesAesDemo {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      */
-    private static String encryptDES(String input, String key, String algorithm, String transformation) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    private static String encryptDES(String input, String key, String algorithm, String transformation) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
         // Cipher：密码，获取加密对象
         // transformation:参数表示使用什么类型加密
         Cipher cipher = Cipher.getInstance(transformation);
@@ -82,10 +86,14 @@ public class DesAesDemo {
         // 第一个参数表示：密钥，key的字节数组
         // 第二个参数表示：算法
         SecretKeySpec sks = new SecretKeySpec(key.getBytes(), algorithm);
+        //添加初始化向量用来加密，初始化向量必须长度是8个字节
+        IvParameterSpec iv = new IvParameterSpec(key.getBytes());//加密模式和填充模式 需要设置这个
+
         // 对加密进行初始化
         // 第一个参数：表示模式，有加密模式和解密模式
         // 第二个参数：表示秘钥规则
-        cipher.init(Cipher.ENCRYPT_MODE,sks);
+//        cipher.init(Cipher.ENCRYPT_MODE,sks);
+        cipher.init(Cipher.ENCRYPT_MODE,sks,iv);//加密模式和填充模式，不然走上面那个
         // 进行加密
         byte[] bytes = cipher.doFinal(input.getBytes());
         // 打印字节，因为ascii码有负数，解析不出来，所以乱码
