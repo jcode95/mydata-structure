@@ -192,7 +192,7 @@ public class SensitiveWordUtil2 {
         System.out.println("---------------------------  ");
         String s = "2012年高级会计实务基础班";
         Configuration cfg = org.wltea.analyzer.cfg.DefaultConfig.getInstance();
-        cfg.setUseSmart(true);
+        cfg.setUseSmart(false);
         org.wltea.analyzer.dic.Dictionary.initial(cfg);
         Dictionary dictionary = Dictionary.getSingleton();
 

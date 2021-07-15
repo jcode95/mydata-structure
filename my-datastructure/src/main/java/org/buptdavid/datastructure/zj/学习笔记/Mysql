@@ -146,3 +146,31 @@ explain使用+慢SQL分析
 二、explain+慢SQL分析
 使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是 如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈。
 使用方式：Explain+SQL语句
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SQL 语句：
+查询到多行并到一块，使用group by
+select pid,GROUP_CONCAT(name) as name FROM t_test GROUP BY pid
+
+
+
+
