@@ -45,13 +45,15 @@ public class DigestToFileDemo {
         System.out.println("密文的字节长度：" + digest.length);
         return toHex(digest);
     }
-    private static String getDigest(String input, String algorithm) throws Exception{
+
+    private static String getDigest(String input, String algorithm) throws Exception {
         // 获取消息摘要对象
         MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
         byte[] digest = messageDigest.digest(input.getBytes());
-        System.out.println("密文的字节长度："+digest.length);
+        System.out.println("密文的字节长度：" + digest.length);
         return toHex(digest);
     }
+
     private static String toHex(byte[] digest) {
         System.out.println(new String(digest));
         // 消息摘要进行表示的时候，是用16进制进行表示
@@ -60,12 +62,22 @@ public class DigestToFileDemo {
             // 转成16进制
             String s = Integer.toHexString(b & 0xff);//不清楚 看 org.buptdavid.datastructure.zj.zookeeper_book_my.LeftOperation
             // 保持数据的完整性，前面不够的用0补齐
-            if (s.length()==1){
-                s="0"+s;
+            if (s.length() == 1) {
+                s = "0" + s;
             }
             sb.append(s);
         }
-        System.out.println("16进制数据的长度:"+ sb.toString().getBytes().length);
+        System.out.println("16进制数据的长度:" + sb.toString().getBytes().length);
         return sb.toString();
     }
+
+
+    /*
+    *
+    *   总结:
+        MD5算法 : 摘要结果16个字节, 转16进制后32个字节
+        SHA1算法 : 摘要结果20个字节, 转16进制后40个字节
+        SHA256算法 : 摘要结果32个字节, 转16进制后64个字节
+        SHA512算法 : 摘要结果64个字节, 转16进制后128个字节
+    * */
 }
