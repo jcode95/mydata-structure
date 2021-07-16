@@ -18,10 +18,17 @@ public class LeftOperation {
         System.out.println("d:" + Integer.toBinaryString(d));
         System.out.println("e:" + Integer.toBinaryString(e));
 
+        //✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜运行查看结果就清楚了✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜
+        byte by = (byte) -9;
+        System.out.println("by = " + Integer.toBinaryString(by&0xff));
+        System.out.println("by = " + Integer.toBinaryString(-9));
+        String s = Integer.toHexString(by & 0xff);
+        System.out.println("s = " + s);
+        //✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜运行查看结果就清楚了✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜
         /***
          * 在计算机中都是用补码去表示（我们看的时候也是用补码去换算的）
          *  负数的补码=反码+1
-         *
+         *  正数的补码=原码
          *  左移几位就是乘2的几次方，右移就是除以2的几次方
          *
          * 11111111111111111111111111111001   -7的补码
