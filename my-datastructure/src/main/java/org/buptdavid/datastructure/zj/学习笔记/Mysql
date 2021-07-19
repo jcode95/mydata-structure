@@ -114,6 +114,65 @@ SQL 语句性能优化策略
 
 
 
+MYSQL 三大日志   原文地址：https://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&mid=2651497002&idx=2&sn=487a4c92a6c52d692e6e4d0edaec8ad8&chksm=bd25ce558a524743706f3440395f5cdefa5dc717a439372d5fe7a0b09dcadd7b63805389686d&mpshare=1&scene=23&srcid=0719Gy09tawdTcFhgSJhH9KO&sharer_sharetime=1626658519851&sharer_shareid=9bfb4994053a5e601756b95c9a69ea1f#rd
+    1、binlog
+        binlog 用于记录数据库的执行写入性操作，以二进制的形式记录到磁盘当中。
+        binlog 是逻辑日志，底层是server层进行记录，以任何存储引擎的mysql都会记录binlog日志
+
+        binlog 是以追加的方式进行写入的，每个binlog文件的大小可以通过设置max_binlog_size 参数来设置文件大小，超过这个大小会生成新的binlog文件。
+        ➤ binlog使用场景
+            1)在master端开启binlog，然后将binlog文件同步给slave端，slave端拿到binlog执行从而达到同步数据
+            2)数据恢复 ：通过使用 mysqlbinlog 工具来恢复数据。
+        ➤ binlog刷盘时机
+            对于 InnoDB 存储引擎而言，只有在事务提交时才会记录biglog ，此时记录还在内存中，那么 biglog是什么时候刷到磁盘中的呢？
+            mysql 通过 sync_binlog 参数控制 biglog 的刷盘时机，取值范围是 0-N：
+            0：不去强制要求，由系统自行判断何时写入磁盘；
+            1：每次 commit 的时候都要将 binlog 写入磁盘；
+            N：每N个事务，才会将 binlog 写入磁盘。
+            MySQL 5.7.7之后版本的默认值1
+        ➤ binlog日志格式
+               STATMENT：基于SQL 语句的复制( statement-based replication, SBR )，每一条会修改数据的sql语句会记录到binlog 中  。
+                   优点：不需要记录每一行的变化，减少了 binlog 日志量，节约了  IO  , 从而提高了性能；
+                   缺点：在某些情况下会导致主从数据不一致，比如执行sysdate() 、  slepp()  等 。
+               ROW：基于行的复制(row-based replication, RBR )，不记录每条sql语句的上下文信息，仅需记录哪条数据被修改了 。
+                   优点：不会出现某些特定情况下的存储过程、或function、或trigger的调用和触发无法被正确复制的问题 ；
+                   缺点：会产生大量的日志，尤其是` alter table ` 的时候会让日志暴涨
+               MIXED：基于STATMENT 和 ROW 两种模式的混合复制(mixed-based replication, MBR )，一般的复制使用STATEMENT 模式保存 binlog ，对于 STATEMENT 模式无法复制的操作使用 ROW 模式保存 binlog
+    2、redo log
+        ➤ 为什么需要redo log？
+            我们都知道，事务的四大特性里面有一个是 持久性 ，具体来说就是只要事务提交成功，那么对数据库做的修改就被永久保存下来了，不可能因为任何原因再回到原来的状态 。
+            那么 mysql是如何保证一致性的呢？
+                最简单的做法是在每次事务提交的时候，将该事务涉及修改的数据页全部刷新到磁盘中。但是这么做会有严重的性能问题，主要体现在两个方面：
+                    1)因为 Innodb 是以 页 为单位进行磁盘交互的，而一个事务很可能只修改一个数据页里面的几个字节，这个时候将完整的数据页刷到磁盘的话，太浪费资源了！
+                    2)一个事务可能涉及修改多个数据页，并且这些数据页在物理上并不连续，使用随机IO写入性能太差！
+                因此 mysql 设计了 redo log ， 具体来说就是只记录事务对数据页做了哪些修改，这样就能完美地解决性能问题了(相对而言文件更小并且是顺序IO)。
+
+        ➤ redo log基本概念
+            redo log 包括两部分：一个是内存中的日志缓冲( redo log buffer )，另一个是磁盘上的日志文件( redo logfile)。
+
+            Mysql 每执行一条 DML 语句，先将记录写入 redo log buffer，后续某个时间点再一次性将多个操作记录写到 redo log file。这种 先写日志，再写磁盘 的技术就是 MySQL
+            里经常说到的 WAL(Write-Ahead Logging) 技术。
+
+            mysql 支持三种将 redo log buffer 写入 redo log file 的时机，可以通过 innodb_flush_log_at_trx_commit 参数配置
+                ➀ 0 延迟写  事务提交时不会将redo log buffer  中日志写入到os buffer ，而是每秒写入os buffer 并调用fsync() 写入到redo log file 中，简单点就是每秒刷新写入磁盘
+                ➁ 1 实时写 实时刷   也就是事务提交就会实时刷到磁盘
+                ➂ 2 实时写延迟刷
+        ➤ redo log记录形式
+            redo log实际上记录数据页的变更，而这种变更记录是没必要全部保存，因此redo log实现上采用了大小固定，循环写入的方式，当写到结尾时，会回到开头循环写日志
+    3、undo log
+      数据库事务四大特性中有一个是原子性，具体来说就是 原子性是指对数据库的一系列操作，要么全部成功，要么全部失败，不可能出现部分成功的情况。
+      实际上，原子性底层就是通过undo log实现的。undo log主要记录了数据的逻辑变化，比如一条INSERT语句，对应一条DELETE的undo log，对于每个UPDATE语句，对应一条相反的UPDATE的undo log，这样在发生错误时，就能回滚到事务之前的数据状态。
+
+    binlog与 redo log 的区别
+                    binlog                                                   redo log
+        文件大小    可通过 max_binlog_size 参数设置                            固定大小
+
+        实现方式    通过底层的server来实现，所有引擎都有                     InnerDb 引擎才有
+
+        记录方式    通过在文件后面追加的方式                                采用循环写的方式记录，当写到结尾时，会回到开头循环写日志
+
+        使用场景    主从复制和数据恢复                                        适用于奔溃恢复
+
 
 
 
