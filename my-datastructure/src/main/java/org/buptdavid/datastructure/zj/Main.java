@@ -594,9 +594,7 @@ import com.alibaba.fastjson.TypeReference;
 import scala.Int;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     /*public static void main(String[] arg) {
@@ -653,25 +651,25 @@ public class Main {
         }
         return F;
     }*/
-    public static void main(String[] args) {
-        /*int a=1000;
+   /* public static void main(String[] args) {
+        *//*int a=1000;
         int b=1000;
-        System.out.println(a==b);*//*不考虑[-128,127] 始终返回true*//*
+        System.out.println(a==b);*//**//*不考虑[-128,127] 始终返回true*//**//*
         Integer a1=128;
         Integer b1=128;
-        System.out.println(a1==b1);*//*考虑[-128,127] 在区间之内返回true，否则返回false*//*
+        System.out.println(a1==b1);*//**//*考虑[-128,127] 在区间之内返回true，否则返回false*//**//*
         Integer a2=new Integer(1000);
         int b2=1000;
-        System.out.println(a2==b2);*//*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*//*
+        System.out.println(a2==b2);*//**//*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*//**//*
         Integer a3=new Integer(8);
         Integer b3=8;
-        System.out.println(a3==b3);*//*不考虑[-128,127] 始终返回false，Integer是包装类*//*
+        System.out.println(a3==b3);*//**//*不考虑[-128,127] 始终返回false，Integer是包装类*//**//*
         Integer a4=new Integer(1000);
         Integer b4=new Integer(1000);
-        System.out.println(a4==b4);*//*不考虑[-128,127] 始终返回false，Integer是包装类*//*
+        System.out.println(a4==b4);*//**//*不考虑[-128,127] 始终返回false，Integer是包装类*//**//*
         Integer a5=1;
         int b5=1;
-        System.out.println(a5==b5);*//*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*/
+        System.out.println(a5==b5);*//**//*不考虑[-128,127] 始终返回true，因为int与Integer有自动装箱和拆箱功能*//*
 
 //        String s="[{\"donatenum\":400,\"id\":72132,\"num\":500}],[{\"donatenum\":500,\"id\":72132,\"num\":500}],[{\"donatenum\":600,\"id\":72132,\"num\":500}]";
 //
@@ -684,5 +682,31 @@ public class Main {
         System.out.println(MessageFormat.format(responseTemplate1, "尿等待"));
 
 
+
+    }*/
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 100; i++) {
+            process();
+        }
+
+    }
+
+    private static void process() {
+        List<Integer> canAcceptHuiShouTask = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            canAcceptHuiShouTask.add(i);
+        }
+        int j = 2;
+        int i = randomHuishouTask(j, canAcceptHuiShouTask);
+        System.out.println("当前 是 ：" +j+ "随机出来的：" + i);
+    }
+
+    public static int randomHuishouTask(int taskId,List<Integer> canAcceptHuiShouTask) {
+        int i = new Random().nextInt(canAcceptHuiShouTask.size());
+        if (i == taskId) {
+            return randomHuishouTask(taskId, canAcceptHuiShouTask);
+        }
+        return i;
     }
 }
