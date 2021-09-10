@@ -24,6 +24,12 @@ public class LeftOperation {
         System.out.println("by = " + Integer.toBinaryString(-9));
         String s = Integer.toHexString(by & 0xff);
         System.out.println("s = " + s);
+
+
+        int bit = 2<<3;
+
+        long l = 0 | bit;
+        System.out.println("l = " + l);
         //✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜运行查看结果就清楚了✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜✜
         /***
          * 在计算机中都是用补码去表示（我们看的时候也是用补码去换算的）
