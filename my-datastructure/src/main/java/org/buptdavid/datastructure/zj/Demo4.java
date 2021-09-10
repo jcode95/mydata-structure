@@ -23,10 +23,26 @@ public class Demo4 {
         Set<Integer> set = new Demo4().tranMineSet(null);
 */
 //        new Demo4().a();
-        for (int i = 0; i < 100; i++) {
+       /* for (int i = 0; i < 100; i++) {
             System.out.println(refreshTaskByColor(2));
-        }
+        }*/
 
+//        Calendar instance1 = Calendar.getInstance();
+//        instance1.set(Calendar.DATE,11);
+//        instance1.set(Calendar.HOUR_OF_DAY, 0);
+//        instance1.set(Calendar.MINUTE, 4);
+//        instance1.set(Calendar.SECOND, 0);
+//        instance1.set(Calendar.MILLISECOND, 0);
+        long curr = System.currentTimeMillis();
+//        long curr=instance1.getTimeInMillis();
+        long lingdianTime = curr / (1000 * 3600 * 24) * (1000 * 3600 * 24) - TimeZone.getDefault().getRawOffset() + 23 * 1000 * 3600 + 55 * 1000 * 60;
+        long nextTime = curr / (1000 * 3600 * 24) * (1000 * 3600 * 24) - TimeZone.getDefault().getRawOffset() + 1000 * 3600 * 24 + 5 * 1000 * 60;
+        if(curr>lingdianTime&&curr<nextTime){
+            System.out.println("----------不能发---------------");
+            return;
+        }else{
+            System.out.println("--------------能发-------");
+        }
 
     }
 
