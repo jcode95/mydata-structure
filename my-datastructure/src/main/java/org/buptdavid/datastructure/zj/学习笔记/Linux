@@ -97,3 +97,13 @@ Linux 2.6.32-696.el6.x86_64 (6-22) 	2022年06月08日 	_x86_64_	(4 CPU)
         	- locked <0x00000000ecd63ae0> (a java.io.PrintStream)
         	at java.io.PrintStream.println(PrintStream.java:696)
         	at CPUTest$1.run(CPUTest.java:16)   //重点.............. 16 行
+
+
+
+
+
+
+
+
+
+另一种：arthas  官网：https://arthas.aliyun.com/doc/

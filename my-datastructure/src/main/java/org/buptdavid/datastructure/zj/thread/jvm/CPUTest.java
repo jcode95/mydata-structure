@@ -14,7 +14,6 @@ public class CPUTest {
             @Override
             public void run() {
                 while (true) {
-                    System.out.println();
                 }
             }
         };
