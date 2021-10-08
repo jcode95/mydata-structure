@@ -52,9 +52,11 @@ InnoDB为什么推荐使用自增ID作为主键？
 innodb引擎的4大特性
        插入缓冲（insert buffer),二次写(double write),自适应哈希索引(ahi),预读(read ahead)
 
-
-
-
+2. MVCC基础 MVCC (MultiVersion Concurrency Control) 叫做多版本并发控制。
+InnoDB的 MVCC ，是通过在每行记录的后面保存两个隐藏的列来实现的。这两个列，一个保存了行的创建时间，一个保存了行的过期时间，当然存储的并不是实际的时间值，而是系统版本号。
+MVCC在mysql中的实现依赖的是undo log与read view
+   ① undo log :undo log 中记录某行数据的多个版本的数据。
+   ② read view :用来判断当前版本数据的可见性
 
 SQL 语句性能优化策略
 地址：https://mp.weixin.qq.com/s?__biz=MjM5MzA0OTkwMA==&mid=2651200418&idx=1&sn=ffc9581943ee2923fc1eae0e01519897&chksm=bd6e47e18a19cef771688eff1324e1c92e6d2623e242f00c4654aa72081aa2e630a8e9e56560&mpshare=1&scene=23&srcid=1208s1jQ58alcJMM44Ti9O8v&sharer_sharetime=1614325346211&sharer_shareid=9bfb4994053a5e601756b95c9a69ea1f#rd
