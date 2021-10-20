@@ -52,7 +52,7 @@ public class LinkedListDemo {
 class LinkedList {
     private Node headNode;
 
-    //添加操作
+    //添加操作，添加的时候每次都要遍历一遍列表，耗时，（优化：可以记录一下最后一个node，这样对最后一个node操作就可以了）
     public void add(Node node) {
         Node temp = headNode;
         if (temp == null) {
