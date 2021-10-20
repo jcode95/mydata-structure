@@ -206,7 +206,7 @@ class CircularLinkedList {
             System.out.println("链表为空，删除失败！");
             return;
         }
-        CircularNode upNode = null;
+        CircularNode upNode = tmp;
         while (true) {
             if (tmp.next.equals(first)) {
                 if (tmp.equals(delNode)) {//找到要删除的节点了,此时是需要删除的最后一个节点（注意，如果是只有一个节点的情况要处理）
