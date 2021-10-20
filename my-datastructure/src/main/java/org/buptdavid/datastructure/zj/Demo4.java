@@ -44,6 +44,10 @@ public class Demo4 {
             System.out.println("--------------能发-------");
         }
 
+
+        Demo4 demo4 = new Demo4();
+        System.out.println("demo4.b(); = " + demo4.b());
+
     }
 
     /**
@@ -97,14 +101,7 @@ public class Demo4 {
     }
 
     public int a() {
-        /*int q=1;
-        try {
-            return q+1;
-        }catch (Exception e){
 
-        }finally {
-            return q;
-        }*/
 
         TreeSet<Demo5> set = new TreeSet<Demo5>();
         set.add(new Demo5(1));
@@ -118,6 +115,25 @@ public class Demo4 {
         }
 
         return 1;
+    }
+    public int b(){
+        for (int i = 1; i <= 17; i++) {
+            System.out.println("com/gamebase/zhuanpan/structs/ZhuanpanType$" + i+".class");
+        }
+
+
+       /* int q=1;
+        try {
+            q+=1;
+//            q/=0;
+            return q+1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return q+2;
+        }finally {
+            return q;
+        }*/
+       return 0;
     }
 
     class Demo5 implements Comparable{

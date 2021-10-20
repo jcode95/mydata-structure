@@ -31,8 +31,8 @@ public class SparseArray {
         }
         //创建稀疏数组
         int[][] sparseArr = new int[row + 1][3];//第一行记录的是原数组总共有多少列多少行，标记值
-        sparseArr[0][0] = chessArr1.length;
-        sparseArr[0][1] = chessArr1[0].length;
+        sparseArr[0][0] = chessArr1.length;//原数组行数
+        sparseArr[0][1] = chessArr1[0].length;//原数组列数
         sparseArr[0][2] = flg;//源数组不要放进稀疏数组里面的值
         int count = 1;//从第二行开始填充稀疏数组
         for (int i = 0; i < chessArr1.length; i++) {
