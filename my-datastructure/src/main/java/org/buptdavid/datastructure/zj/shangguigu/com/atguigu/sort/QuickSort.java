@@ -18,7 +18,7 @@ public class QuickSort {
 //        quickSort(arr1, 0, arr1.length - 1);
 //        sort(arr1, 0, arr1.length - 1);
 //        sort1(arr1, 0, arr1.length - 1);
-        sort2(arr1, 0, arr1.length - 1);
+        sort1(arr1, 0, arr1.length - 1);
         System.out.println(Arrays.toString(arr1));
         /*long s = System.currentTimeMillis();
         int[] arr = new int[80000000];
@@ -124,10 +124,10 @@ public class QuickSort {
             arr[i] = arr[j];
             arr[j] = tmp;
             if (arr[i] == pivot) {
-                i++;
+                j--;
             }
             if (arr[j] == pivot) {
-                j--;
+                i++;
             }
 
         }
@@ -210,10 +210,10 @@ public class QuickSort {
             arr[l] = arr[r];
             arr[r] = temp;
             if (arr[l] == povid) {
-                l++;
+                r--;
             }
             if (arr[r] == povid) {
-                r--;
+                l++;
             }
         }
         if (l == r) {
