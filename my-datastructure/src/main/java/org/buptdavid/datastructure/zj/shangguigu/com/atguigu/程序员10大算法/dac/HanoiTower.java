@@ -19,9 +19,9 @@ public class HanoiTower {
      *
      *  这个方法的目的就是 从a借助b移动到c
      * @param num 汉诺塔的盘的数量
-     * @param a   柱子a
-     * @param b   柱子b
-     * @param c   柱子c
+     * @param a   柱子a  原始柱子
+     * @param b   柱子b  辅助柱子
+     * @param c   柱子c  目标柱子
      */
     public static void move(int num, char a, char b, char c) {
 
