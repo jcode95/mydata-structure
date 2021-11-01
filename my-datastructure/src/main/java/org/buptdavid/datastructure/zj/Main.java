@@ -690,6 +690,12 @@ public class Main {
             process();
         }
 
+        System.out.println("(524288 & 2) = " + (524288 & 2));
+        long t = System.currentTimeMillis();
+        long lingdianTime = t / (1000 * 3600 * 24) * (1000 * 3600 * 24) - TimeZone.getDefault().getRawOffset() + (2 - 1) * (1000 * 3600 * 24);
+        System.out.println("lingdianTime = " + lingdianTime);
+
+
     }
 
     private static void process() {

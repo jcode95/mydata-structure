@@ -25,6 +25,7 @@ public class HeapSortTest {
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
             this.maxHeap(arr, i, arr.length);
         }
+        //由于做的是升序，吧最后一个与第一个交换位置。然后再对除去交换的后一剩下的再做大顶堆
         for (int j = arr.length - 1; j > 0; j--) {
             //交换
             temp = arr[j];
