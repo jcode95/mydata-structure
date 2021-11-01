@@ -259,6 +259,10 @@ public class HuffmanEncoding2Decoding {
         return root;
     }
 
+    /**
+     * 构造哈夫曼 编码表
+     * @param node
+     */
     private void processEncoding(HuffmanEncodeNode node) {
         if (node.left == null && node.right == null) {
             varMap.put(node.data, sb);
@@ -271,6 +275,51 @@ public class HuffmanEncoding2Decoding {
         processEncoding(node.right);
         sb = sb.substring(0, sb.length() - 1);//退回到当前节点的上级，相当于回到上一级
     }
+    /*构造哈夫曼编码表的另一个方法（韩老师课件代码）*/
+    //生成赫夫曼树对应的赫夫曼编码
+    //思路:
+    //1. 将赫夫曼编码表存放在 Map<Byte,String> 形式
+    //   生成的赫夫曼编码表{32=01, 97=100, 100=11000, 117=11001, 101=1110, 118=11011, 105=101, 121=11010, 106=0010, 107=1111, 108=000, 111=0011}
+    static Map<Byte, String> huffmanCodes = new HashMap<Byte,String>();
+    //2. 在生成赫夫曼编码表示，需要去拼接路径, 定义一个StringBuilder 存储某个叶子结点的路径
+    static StringBuilder stringBuilder = new StringBuilder();
+    private static Map<Byte, String> getCodes(HuffmanEncodeNode root) {
+        if(root == null) {
+            return null;
+        }
+        //处理root的左子树
+        getCodes(root.left, "0", stringBuilder);
+        //处理root的右子树
+        getCodes(root.right, "1", stringBuilder);
+        return huffmanCodes;
+    }
+    /**
+     * 功能：将传入的node结点的所有叶子结点的赫夫曼编码得到，并放入到huffmanCodes集合
+     * @param node  传入结点
+     * @param code  路径： 左子结点是 0, 右子结点 1
+     * @param stringBuilder 用于拼接路径
+     */
+    private static void getCodes(HuffmanEncodeNode node, String code, StringBuilder stringBuilder) {
+        StringBuilder stringBuilder2 = new StringBuilder(stringBuilder);
+        //将code 加入到 stringBuilder2
+        stringBuilder2.append(code);
+        if(node != null) { //如果node == null不处理
+            //判断当前node 是叶子结点还是非叶子结点
+            if(node.data == null) { //非叶子结点
+                //递归处理
+                //向左递归
+                getCodes(node.left, "0", stringBuilder2);
+                //向右递归
+                getCodes(node.right, "1", stringBuilder2);
+            } else { //说明是一个叶子结点
+                //就表示找到某个叶子结点的最后
+                huffmanCodes.put(node.data, stringBuilder2.toString());
+            }
+        }
+    }
+
+
+
 
     /**
      * 创建哈夫曼树
@@ -311,7 +360,7 @@ public class HuffmanEncoding2Decoding {
 }
 
 class HuffmanEncodeNode implements Comparable<HuffmanEncodeNode> {
-    public byte data; //字符
+    public Byte data; //字符
     public int weight;//权重
     public int flg = 0;//是左节点是0，是右节点是1
     public HuffmanEncodeNode left;
