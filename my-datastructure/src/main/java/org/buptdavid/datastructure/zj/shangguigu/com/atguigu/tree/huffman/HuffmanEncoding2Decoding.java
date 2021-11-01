@@ -12,10 +12,10 @@ import java.util.*;
  */
 public class HuffmanEncoding2Decoding {
     private static HashMap<Byte, String> varMap = new HashMap<Byte, String>();//如：a:100
-    private static String sb = "";
+    private static String sb = "";//构造哈夫曼编码表的辅助字符串
 
     public static void main(String[] args) {
-       /* String str = "i like like like java do you like a java";
+        String str = "i like like like java do you like a java";
         System.out.println("压缩之前的长度："+str.length());
         HuffmanEncodeNode root = new HuffmanEncoding2Decoding().encode(str.getBytes());
         for (Map.Entry<Byte, String> entry : varMap.entrySet()) {
@@ -27,18 +27,18 @@ public class HuffmanEncoding2Decoding {
             System.out.println(v[i]);
         }
         byte[] s = huffmanDecode(v,varMap);
-        System.out.println("解码之后的原字符串：" + new String(s));*/
+        System.out.println("解码之后的原字符串：" + new String(s));
 
 
         /* -------------------------文件压缩------------------------------*/
-        HuffmanEncoding2Decoding huffman = new HuffmanEncoding2Decoding();
+       /* HuffmanEncoding2Decoding huffman = new HuffmanEncoding2Decoding();
         String srcFile = "F:\\huffmanZip\\草稿.txt";
         String zipFile = "F:\\huffmanZip\\b.rar";
         String unzipFile = "F:\\huffmanZip\\c.txt";
         huffman.zip(srcFile, zipFile);
         System.out.println("压缩完成！");
         unZip(zipFile, unzipFile);
-        System.out.println("解压完成！");
+        System.out.println("解压完成！");*/
     }
 
     /**
@@ -238,6 +238,7 @@ public class HuffmanEncoding2Decoding {
      */
     public HuffmanEncodeNode encode(byte[] srcBytes) {
         HashMap<Byte, Integer> map = new HashMap<>();
+        //统计字符 的个数，存在map里面
         for (int i = 0; i < srcBytes.length; i++) {
             Integer integer = map.get(srcBytes[i]);
             if (integer == null) {
@@ -265,10 +266,10 @@ public class HuffmanEncoding2Decoding {
         }
         sb += node.left.flg;
         processEncoding(node.left);
-        sb = sb.substring(0, sb.length() - 1);
+        sb = sb.substring(0, sb.length() - 1);//退回到当前节点的上级，相当于回到上一级 所以,sb.length() - 1
         sb += node.right.flg;
         processEncoding(node.right);
-        sb = sb.substring(0, sb.length() - 1);
+        sb = sb.substring(0, sb.length() - 1);//退回到当前节点的上级，相当于回到上一级
     }
 
     /**

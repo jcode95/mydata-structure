@@ -18,6 +18,10 @@ public class HuffmanTreeTest {
     }
 
 
+    /**
+     * @param arr
+     * @return
+     */
     public HuffmanNode createTree(int[] arr) {
         ArrayList<HuffmanNode> nodes = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
