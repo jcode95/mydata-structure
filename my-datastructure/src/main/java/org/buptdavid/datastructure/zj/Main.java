@@ -691,9 +691,23 @@ public class Main {
         }
 
         System.out.println("(524288 & 2) = " + (524288 & 2));
-        long t = System.currentTimeMillis();
-        long lingdianTime = t / (1000 * 3600 * 24) * (1000 * 3600 * 24) - TimeZone.getDefault().getRawOffset() + (2 - 1) * (1000 * 3600 * 24);
+       /*
+        这个会有bug 如果需要获取指定时间零点，用下面那个
+       long t = System.currentTimeMillis();
+        long lingdianTime = t / (1000 * 3600 * 24) * (1000 * 3600 * 24) - TimeZone.getDefault().getRawOffset() + (1 - 1) * (1000 * 3600 * 24);
+        long l = lingdianTime / 1000;
         System.out.println("lingdianTime = " + lingdianTime);
+        System.out.println("l = " + l);
+
+        */
+        long t = System.currentTimeMillis();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(t);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date zero = calendar.getTime();
+
 
 
     }

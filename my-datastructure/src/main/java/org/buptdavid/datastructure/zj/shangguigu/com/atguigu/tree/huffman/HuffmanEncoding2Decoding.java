@@ -15,7 +15,7 @@ public class HuffmanEncoding2Decoding {
     private static String sb = "";//构造哈夫曼编码表的辅助字符串
 
     public static void main(String[] args) {
-        String str = "i like like like java do you like a java";
+       /* String str = "i like like like java do you like a java";
         System.out.println("压缩之前的长度："+str.length());
         HuffmanEncodeNode root = new HuffmanEncoding2Decoding().encode(str.getBytes());
         for (Map.Entry<Byte, String> entry : varMap.entrySet()) {
@@ -27,18 +27,18 @@ public class HuffmanEncoding2Decoding {
             System.out.println(v[i]);
         }
         byte[] s = huffmanDecode(v,varMap);
-        System.out.println("解码之后的原字符串：" + new String(s));
+        System.out.println("解码之后的原字符串：" + new String(s));*/
 
 
         /* -------------------------文件压缩------------------------------*/
-       /* HuffmanEncoding2Decoding huffman = new HuffmanEncoding2Decoding();
-        String srcFile = "F:\\huffmanZip\\草稿.txt";
-        String zipFile = "F:\\huffmanZip\\b.rar";
-        String unzipFile = "F:\\huffmanZip\\c.txt";
+        HuffmanEncoding2Decoding huffman = new HuffmanEncoding2Decoding();
+        String srcFile = "F:\\test\\abc.txt";
+        String zipFile = "F:\\test\\b.rar";
+        String unzipFile = "F:\\test\\c.txt";
         huffman.zip(srcFile, zipFile);
         System.out.println("压缩完成！");
         unZip(zipFile, unzipFile);
-        System.out.println("解压完成！");*/
+        System.out.println("解压完成！");
     }
 
     /**
