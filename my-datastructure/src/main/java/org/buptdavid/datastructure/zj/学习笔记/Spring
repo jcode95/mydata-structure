@@ -19,3 +19,63 @@ JDK动态代理和CGLIB字节码生成的区别？
  （1）JDK动态代理只能对实现了接口的类生成代理，而不能针对类
  （2）CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法
    因为是继承，所以该类或方法最好不要声明成final
+
+
+
+
+
+
+spring的3级缓存【DefaultSingletonBeanRegistry】
+ 所谓的3级缓存其实就是spring内部3个用来解决spring循环依赖的3个Map。
+源码：
+ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry {
+     protected static final Object NULL_OBJECT = new Object();
+     protected final Log logger = LogFactory.getLog(this.getClass());
+     private final Map<String, Object> singletonObjects = new ConcurrentHashMap(256);//---------1级缓存    放入的是已经经历了完整的生命周期的bean。
+     private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap(16);//---------3级缓存   放入的是生成bean的工厂。
+     private final Map<String, Object> earlySingletonObjects = new HashMap(16);//----------------2级缓存   表示bean的生命周期还没走完（bean的属性还没填充），就把这个bean存入缓存中，也就是bean实例化了，但是还没有初始化 这样的bean
+     private final Set<String> registeredSingletons = new LinkedHashSet(256);
+     private final Set<String> singletonsCurrentlyInCreation = Collections.newSetFromMap(new ConcurrentHashMap(16));
+     private final Set<String> inCreationCheckExclusions = Collections.newSetFromMap(new ConcurrentHashMap(16));
+     private Set<Exception> suppressedExceptions;
+     private boolean singletonsCurrentlyInDestruction = false;
+     private final Map<String, Object> disposableBeans = new LinkedHashMap();
+     private final Map<String, Set<String>> containedBeanMap = new ConcurrentHashMap(16);
+     private final Map<String, Set<String>> dependentBeanMap = new ConcurrentHashMap(64);
+     private final Map<String, Set<String>> dependenciesForBeanMap = new ConcurrentHashMap(64);
+
+     public DefaultSingletonBeanRegistry() {
+     }
+     ...
+
+
+     一级缓存：存放已经经历了完整的生命周期的Bean对象。
+     二级缓存：存放早期暴露出来的Bean对象，生命周期还没有结束。
+     三级缓存：存放可以生成Bean的工厂 。
+     注意：只有单利的Bean会通过3级缓存来解决循环依赖的问题，不是单利的，每次容器中都会从容器中获取到一个新的对象，重新创建，所以不是单利的bean是没有缓存的，不会将其放到3级缓存中去。
+
+
+@Autowired原理
+    用例子总结：
+    @Autowired
+    private BookService bookService;
+    总结：autowired 为组件自动赋值，自动查找ioc容器，找到就赋值，查找的方式是从类型寻找，有可能找到多个，比如说有一个继承于要查找的类，如果是多个就按照变量名作为id继续匹配
+    举例说：查找到多个相同的类是BookService 和 BookServiceExtend,这 个 时候会根据你要查找的bookservice 来查找id,BookService 的id默认是bookservice，BookServiceExtend的id默认是bookServiceExtend,一查找就只匹配上BookService 类了
+    如果现在把例子该了：改成bookService2了
+    @Autowired
+    private BookService bookService2;
+    Spring容器先查找BookService类，一找就找到两个类（BookService 和BookServiceExtend），然后查找id，发现都不匹配，会直接报错
+    这个时候诞生了@Qualifier注解，让spring不使用bookService2作为id去查找，而是使用一个比如说bookService去查找,作为新的id去查找
+    @Qualifier（"bookService"）
+    @Autowired
+    private BookService bookService2;
+    @Qualifier注解找不到就报错，找到就装配
+
+    所以发现Autowired标注的自动装配的属性默认是一定装配上的，找到就装配，找不到就拉倒
+    可以在Autowired(request = false)默认是true，找不到就会报错，置为false后，找不到会置为null
+    @Qualifier（"bookService"）
+    @Autowired（request=false）
+    private BookService bookService2;
+    方法上有@Autowired的话，对于参数的类型是引入进来的，import进来的：
+    1）、这个方法也会在bean创建的时候自动运行
+    2）、这个方法上的每一个参数都会自动注入值
