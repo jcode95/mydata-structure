@@ -229,9 +229,22 @@ explain使用+慢SQL分析
 
 
 SQL 语句：
-查询到多行并到一块，使用group by
-select pid,GROUP_CONCAT(name) as name FROM t_test GROUP BY pid
+    查询到多行并到一块，使用group by
+    select pid,GROUP_CONCAT(name) as name FROM t_test GROUP BY pid
 
 
+    两表公有
+    select * form t_a inner join t_b on t_a.id=t_b.id
+    左表独有
+    select * from t_a left join t_b on t_a.id=t_b.id where t_b.id is null
+    右表独有
+    select * from t_a left join t_b on t_a.id=t_b.id where t_a.id is null
+    两表独有
+    select * from t_a left join t_b on t_a.id=t_b.id where t_a.id is null
+    union
+    select * from t_a left join t_b on t_a.id=t_b.id where t_b.id is null
 
-
+    两表全有（笛卡尔积）
+    select * from t_a left join t_b on t_a.id=t_b.id
+    union
+    select * from t_a left join t_b on t_a.id=t_b.id
