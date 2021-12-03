@@ -248,3 +248,9 @@ SQL 语句：
     select * from t_a left join t_b on t_a.id=t_b.id
     union
     select * from t_a left join t_b on t_a.id=t_b.id
+
+
+
+索引
+    左链接加右表
+    右链接加左表
