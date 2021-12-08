@@ -1,4 +1,4 @@
-package org.buptdavid.datastructure.zj.学习笔记;
+package org.buptdavid.datastructure.zj;
 
 import java.util.*;
 import java.util.stream.Collectors;
