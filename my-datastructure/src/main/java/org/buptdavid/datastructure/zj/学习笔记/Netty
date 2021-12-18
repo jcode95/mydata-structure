@@ -1,0 +1,142 @@
+                                Netty 的学习笔记
+
+〖Netty 服务端创建〗
+NioSocketChannel 是注册方法和ServerSocketChannel的一致，也是将Channel注册到Reactor线程的多路复用器上。
+由于注册的操作位是0，也就是OP_ACCEPT,所以，此时的NioSocketChannel还不能读取客户端发送的消息，只有在监听了OP_READ操作位之后
+才能读取。
+那什么时候才能监听OP_READ操作位呢？
+    在执行完注册操作位之后，紧接着会触发ChannelReadComplete事件
+    ChannelReadComplete事件在ChannelPipeline中的处理流程：
+        1，Netty的Header和Tail本身不关心ChannelReadComplete事件就直接透传，执行完ChannelReadComplete之后，接着执行
+        PipeLine的read() 的方法最终会执行HeadHandler的read()方法。HeadHandler的read()方法就是将网络操作位修改为读操作
+        创建NioSocketChannel的时候已将AbstractNioChannel的readInterestOp设置为OP_READ，这样，执行selectionKey.interestOps(interestOps|readInterestOp)操作时
+        就会把操作位设置为OP_READ。源码如下：
+
+          protected AbstractNioByteChannel(Channel parent, EventLoop eventLoop, SelectableChannel ch) {
+                super(parent, eventLoop, ch, 1);
+          }
+
+
+
+〖Netty 客户端创建〗
+   客户端的创建相比服务端比较复杂，除了要考虑线程模型，异步连接，客户端连接超时等因素外，还需要对连接过程中的各种异常做考虑。
+
+   说到Netty的客户端，那就不能不聊聊Bootstrap工具类了，用户通过Bootstrap创建客户端并且发起异步的tcp连接操作。
+   Netty 客户端创建流程：
+   ➤ 用户线程创建Bootstrap实例，通过API设置创建客户端相关参数，异步发起客户端连接。
+   ➤ 创建处理客户端连接，I/O 读写的Reactor线程组（NioEventLoopGroup）,可以通过构造函数指定IO线程个数，默认是CPU内核数的2倍。
+   ➤ 通过Bootstrap的ChannelFactory和用户指定的Channel类型创建用于客户端连接的NioSocketChannel，它的功能类似于JDK NIO
+        类库提供的SocketChannel。
+   ➤ 创建默认的Channel Handler Pipeline。用于调度和执行网络事件。
+   ➤ 异步发起TCP连接，判断是否成功，如果成功，则直接将NIoSocketChannel注册到多路复用器上，监听读操作位(OP_READ)。用于数据的读取和发送操作，
+                                    如果没有连接成功，则注册到监听连接（OP_ACCEPT）操作位上，等待连接结果。
+   ➤ 注册对应的网络监听状态位到多路复用器上。
+   ➤ 由多路复用器在IO线程中轮询各个Channel，处理连接结果。
+   ➤ 如果连接成功，设置Future结果，发送成功事件，触发ChannelPipeline的执行
+   ➤ 由ChannelPipeline调度执行系统或者用户的ChannelHandler ,执行业务逻辑。
+
+〖Netty 源码分析〗
+    〔ByteBuf〕
+        ByteBuf 是重写了JDK NIO 里面的ByteBuffer，原因是ByteBuffer有局限性，如下:
+                ✐ ByteBuffer长度固定，一旦分配完成，它的容量不能动态扩展和收缩，当编码的数据大于ByteBuffer的容量时，就会发生索引越界异常。
+                ✐ ByteBuffer只有一个标志位置的指针position,读写的是时候需要开发人员手动的调用flip()方法和rewind()方法。
+
+        🙈
+            JDK ByteBuff 图解示意图
+            先看一下代码
+            ByteBuffer byteBuffer = ByteBuffer.allocate(88);
+            String str="hello world";
+            byteBuffer.put(str.getBytes());
+            byteBuffer.put("nihaoya".getBytes());
+            byteBuffer.flip();
+            byte[] bytes = new byte[byteBuffer.remaining()];
+            byteBuffer.get(bytes);
+            try {
+                String readStr = new String(bytes, "UTF-8");
+                System.out.println(readStr);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            执行flip()方法之前
+            写入的数据区域   (position-limit可读区域)  (limit-capacity可写区域)
+            |________________|__________________|________________________________|
+            0             position              limit                         capacity(最大开辟的空间，写入的数据不能超过这个值，否则会抛出数组越界异常)
+
+            执行flip()方法之后 position=0，
+              写入的数据区域
+            |________________|___________________________________________________|
+            0              limit                                              capacity(最大开辟的空间，写入的数据不能超过这个值，否则会抛出数组越界异常)
+         position=0
+            JDK ByteBuffer 总是读取是从position到limit 之间的数据，如果读取之前不调用flip()方法，就可能会出问题,写也是一样。
+
+        🙈
+            |________________|___________________________|________________________|
+            0           readIndex                    writIndex                 capacity
+           readIndex和writIndex的取值一开始都是0，当有数据写入，writIndex开始增加，readIndex位置不变，当读取数据是，readIndex开始增加，writIndex位置不动
+           0到readIndex之间的区域是已读的区域，readIndex到writIndex之间的区域为可读区域，writIndex到capacity之间的区域为可写区域
+
+         🙈 Netty内存管理
+          【1】 PoolArena Netty 的内存池实现类。
+               Netty的PoolArena是由多个Chunk组成的大块内存区域，而每一个Chunk由一个或者多个page组成。
+               源码：
+                    abstract class PoolArena<T> {
+                        final PooledByteBufAllocator parent;
+                        private final int pageSize;
+                        private final int maxOrder;
+                        private final int pageShifts;
+                        private final int chunkSize;
+                        private final int subpageOverflowMask;
+                        private final PoolSubpage<T>[] tinySubpagePools;
+                        private final PoolSubpage<T>[] smallSubpagePools;
+                        private final PoolChunkList<T> q050;
+                        private final PoolChunkList<T> q025;
+                        private final PoolChunkList<T> q000;
+                        private final PoolChunkList<T> qInit;
+                        private final PoolChunkList<T> q075;
+                        private final PoolChunkList<T> q100;
+
+          【2】 Chunk主要用来管理page的内存的分配与释放。page被构建成一颗二叉树，对树的遍历采用深度优先遍历，但是选择左节点还是右节点完全是随机的。
+
+          【3】 对于小于一个page内存的，page会被切割成大小相等的多个存储块。存储块的大小由第一次申请内存的大小决定
+        🙈
+            ① NioSocketChannel分析
+                当服务端接收到一个新的客户端NioSocketChannel连接时，都会调用childEventLoopGroup()方法获取EventLoopGroup线程组
+            用于给NioSocketChannel 分配React线程EventLoop。
+            ② NioServerSocketChannel分析
+                首先创建的ChannelMatadata成员变量，此类用final修饰，然后定义ServerSocketChannelConfig用于配置ServerSocketChannel的tcp参数
+            静态的newSocket方法用于通过ServerSocketChannel的open()打开新的ServerSocketChannel通道。
+
+        🙈
+            ChannelPipeline和 ChannelHandler 分析
+                Netty的Channel过滤器实现原理与Servlet Filter机制一样，它将Channel的数据管道抽象为ChannelPipeline，消息在ChannelPipeline中流动和传递。
+
+                ☆ ChannelPipeline
+                       （1）当有接收到数据时，底层的SocketChannel#read()方法读取ByteBuf，触发ChannelRead事件，
+                            由线程NioEventLoop调用ChannelPipeline#fireChannelRead(Object msg)方法，将消息(ByteBuf)传递到ChannelPipeline中。
+                       （2）消息依次被HeadHandler、ChannelHandler1、ChannelHandler2...TailHandler拦截处理。
+                       （3）当调用ChannelHandlerContext#writ方法发送消息时，消息从TailHandler、ChannelHandlerN....ChannelHandler1、HeadHandler,最终被提交到消息的发送缓冲区
+                            等待属性和发送（flush())
+                    Netty的事件分为inbound事件和outbound事件。
+                        inbound事件通常由I/O线程触发，edg，TCP 链路建立事件、链路关闭，读事件，异常通知事件等。
+                        outbound事件通常由用户主动发起的网络I/O操作，edg， 用户发起的连接操作，绑定操作，消息发送等操作。
+                ☆ ChannelHandler
+
+        🙈
+            ◆ NioEventLoop 设计原理
+                Netty的NioEventLoop并不是一个纯粹的IO线程，他除了负责IO读写之外，还处理了系统Task（通过NioEventLoop#execute()方法）、定时任务（通过NioEventLoop#schedule()方法）等。
+
+
+
+〖Http与Https〗
+ⓐ 什么是 SSL TLS HTTPS X.509？
+     SNI概述：
+
+
+ⓑ SSL 只能用在HTTP上吗？
+ⓒ Https底层原理，对称加密与非对称加密
+ⓓ CA机构参与与CA伪造
+ⓔ HTTPS真的安全吗？模拟如何破解？
+
+
+具体代码可看netty_book 项目
