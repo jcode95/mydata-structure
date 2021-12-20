@@ -140,3 +140,10 @@ NioSocketChannel 是注册方法和ServerSocketChannel的一致，也是将Chann
 
 
 具体代码可看netty_book 项目
+
+Netty 的内存池实现：PoolArena
+PoolArena 是有多个Chunk组成的一大块内存区域，每一个Chunk由一个或者多个page组成，在netty 中，chunk的page被构建为一颗二叉树。
+PoolSubpage 对于小于一个page的内存，Netty在page中完成分配，每个page会被切分为大小相等的多个存储块，大小由第一次申请的内存快大小决定
+
+内存回收策略
+    无论是chunk还是page，都是表示状态位来标识内存是否可以回收
