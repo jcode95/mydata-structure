@@ -79,3 +79,9 @@ spring的3级缓存【DefaultSingletonBeanRegistry】
     方法上有@Autowired的话，对于参数的类型是引入进来的，import进来的：
     1）、这个方法也会在bean创建的时候自动运行
     2）、这个方法上的每一个参数都会自动注入值
+
+
+
+
+
+ 【18 道经典 Spring 面试题】 需要看  https://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&mid=2651507399&idx=2&sn=786189d4dffb85ffe8cfaa64159d73c5&chksm=bd25a6b88a522fae9977a7fc202b9cbdb17081b654a7ad0cfc02725dff092fe0452a74d34ea9&mpshare=1&scene=23&srcid=1224Dtsh2NOhaWFSpIKYVcgF&sharer_sharetime=1640327441347&sharer_shareid=9bfb4994053a5e601756b95c9a69ea1f#rd
