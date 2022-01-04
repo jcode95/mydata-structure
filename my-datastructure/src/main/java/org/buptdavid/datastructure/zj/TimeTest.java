@@ -16,10 +16,6 @@ import java.util.Date;
  */
 public class TimeTest {
 
-    public static void main(String[] args) {
-        getWeekStartDate();
-    }
-
     /**
      * 获取下周一
      * @return
@@ -41,5 +37,43 @@ public class TimeTest {
         }
         System.out.println("下周一  = " + format0.format(date));
         return date;
+    }
+
+    public static void main(String[] args) {
+        int result=0;
+        int day=1;
+        long startTime = 1639620953000L;//2021-12-16 10:15:53
+        if (day == -1) {
+            if (startTime == 0) {
+//				return 0;
+                result=0;
+            }
+            Calendar cal1 = Calendar.getInstance();
+            cal1.setTimeInMillis(startTime);
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTimeInMillis(System.currentTimeMillis());
+            int day1 = cal1.get(Calendar.DAY_OF_YEAR);
+            int day2 = cal2.get(Calendar.DAY_OF_YEAR);
+//			return day2 - day1 + 1;
+            result=day2 - day1 + 1;
+        } else {
+            if (startTime == 0) {
+//				return day * 86400;
+                result=day * 86400;
+            }
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(startTime);
+            int i = cal.get(Calendar.DAY_OF_YEAR);
+            cal.set(Calendar.DAY_OF_YEAR, i + day);
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            int i1 = (int) (cal.getTimeInMillis() / 1000);
+//			System.out.println("i1 = " + i1);
+//			return i1;
+            result = i1;
+        }
+        System.out.println("result = " + result);
+
     }
 }

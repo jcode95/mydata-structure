@@ -28,3 +28,6 @@ eg:  当面试官问你为什么需要有三次握手、三次握手的作用、
 2、指定自己的初始化序列号，为后面的可靠传送做准备。
 
 
+
+为什么要设计 TIME_WAIT 状态？（重要）
+地址：https://mp.weixin.qq.com/s?__biz=MzIzNTUyMDE2Nw==&mid=2247564479&idx=1&sn=85422d92ce8cf7b212d30e59299d1dce&chksm=e8e65577df91dc615817da58382cddf698be3be2b2e2cf7ee30fb9f3898d8963b67127ac16ce&mpshare=1&scene=23&srcid=0104HsIg0scpZNMeKYqleseI&sharer_sharetime=1641300390343&sharer_shareid=9bfb4994053a5e601756b95c9a69ea1f#rd
