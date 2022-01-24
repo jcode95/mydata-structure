@@ -61,17 +61,18 @@ public class ArrayStackTest {
                     operatorStack.push(str.charAt(index) + "");
                 } else {
                     String currOP = str.charAt(index) + "";
-                    String stackOP = operatorStack.pop();
-                    operatorStack.push(currOP);
+                    String stackOP = operatorStack.peek();
                     if (chackOP(stackOP, currOP)) {
                         //取出数字栈的两个数
+                        stackOP = operatorStack.pop();
                         double a = Double.parseDouble(numStack.pop());
                         double b = Double.parseDouble(numStack.pop());
                         double result = processOP(a, b, stackOP);//做运算(注意“/“和“-” 运算，var1必须是第一个参数)
                         //将结果压入数字栈里面
                         numStack.push(result + "");
+                        operatorStack.push(currOP);
                     } else {
-                        operatorStack.push(stackOP);
+                        operatorStack.push(currOP);
                     }
                 }
             }
@@ -162,6 +163,19 @@ class ArrayStack {
         }
         String value = arr[top];
         top--;
+        return value;
+    }
+
+    /**
+     * 返回栈顶元素，不出栈
+     * @return
+     */
+    public String peek(){
+        //判断栈是否为空
+        if (isEmpty()) {
+            throw new RuntimeException("栈为空，不能出栈！");
+        }
+        String value = arr[top];
         return value;
     }
 
