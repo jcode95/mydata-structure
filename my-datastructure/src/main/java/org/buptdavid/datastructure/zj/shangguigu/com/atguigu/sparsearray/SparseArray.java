@@ -29,11 +29,12 @@ public class SparseArray {
                 }
             }
         }
-        //创建稀疏数组
+        //创建稀疏数组  稀疏数组的格式固定3列，值+1行 第一行第一列记录行，第一行第二列记录列，第一行第三列记录值
         int[][] sparseArr = new int[row + 1][3];//第一行记录的是原数组总共有多少列多少行，标记值
         sparseArr[0][0] = chessArr1.length;//原数组行数
         sparseArr[0][1] = chessArr1[0].length;//原数组列数
-        sparseArr[0][2] = flg;//源数组不要放进稀疏数组里面的值
+//        sparseArr[0][2] = flg;//源数组不要放进稀疏数组里面的值
+        sparseArr[0][2] = row;//
         int count = 1;//从第二行开始填充稀疏数组
         for (int i = 0; i < chessArr1.length; i++) {
             for (int j = 0; j < chessArr1[i].length; j++) {
