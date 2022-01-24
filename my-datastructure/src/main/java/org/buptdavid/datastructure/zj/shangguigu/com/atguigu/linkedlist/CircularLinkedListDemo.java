@@ -16,6 +16,8 @@ public class CircularLinkedListDemo {
         CircularLinkedList linkedList = new CircularLinkedList();
         linkedList.create(5);
         linkedList.list();
+        CircularNode HNode = linkedList.getNode(0);
+        System.out.println("HNode = " + HNode);
         System.out.println("----------------");
         linkedList.del1(3);
         CircularNode node = new CircularNode(5, 5 + "", 5 + "");
@@ -125,11 +127,11 @@ class CircularLinkedList {
             return null;
         }
         while (true) {
-            if (tmp.next == first) {
-                break;
-            }
             if (tmp.id == id) {
                 return tmp;
+            }
+            if (tmp.next == first) {
+                break;
             }
             tmp = tmp.next;
         }
