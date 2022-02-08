@@ -184,7 +184,7 @@ class AvlTree {
         root.data = root.left.data;
         /*5、把根节点的左子树设置为根节点的左子树的左子树*/
         root.left = root.left.left;
-        /*6、把根节点的左子树设置为新节点*/
+        /*6、把根节点的右子树设置为新节点*/
         root.right = newNode;
     }
     /**
