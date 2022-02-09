@@ -159,7 +159,7 @@ public class Graph {
     }
 
     /**
-     * 深度优先遍历
+     * 深度优先遍历,只对一个节点的处理逻辑
      *
      * @param bs     节点是否被访问过的存储数组
      * @param indexx 当前节点的下标
