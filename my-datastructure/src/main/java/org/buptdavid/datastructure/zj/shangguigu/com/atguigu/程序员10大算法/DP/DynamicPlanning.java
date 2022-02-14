@@ -43,7 +43,8 @@ public class DynamicPlanning {
             Integer vi = entry.getValue();
             for (int j = 1; j < v[i].length; j++) {//得到列 1 2 3 4 磅 也就是背包假如取的容量
                 if (j >= wi) {//如果当前背包容量大于要添加物品的容量
-                    v[i][j] = Math.max(v[i - 1][j], vi + v[i - 1][j - wi]);//v[i-1][j-wi]  这个的解释：我的理解: 使用当前背包的容量(j)-当前添加的物品的重量  用这个值作为列 ，行(hang)的话就使用当前的上一行
+                    v[i][j] = Math.max(v[i - 1][j], vi + v[i - 1][j - wi]);
+                    //v[i-1][j-wi]  也就是在当前背包容量下j 下，装入v[i] 价值的东西后，还剩余多少榜容量（j-w[i]），也就是装完v[i] 之后，再看看能不能装上一次对应的剩余容量的商品
                 } else {//背包容量小于要添加物品的容量 直接使用上个单元格的值
                     v[i][j] = v[i - 1][j];
                 }

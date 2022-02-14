@@ -227,7 +227,7 @@ public class Graph {
                 while (f != -1) {
                     //判断是否访问过
                     if (!isVisit[f]) {
-                        System.out.println(getPointByIndex(f) + "-->");
+                        System.out.print(getPointByIndex(f) + "-->");
                         //设置为已经访问过
                         isVisit[f] = true;
                         bq.put(f);
@@ -248,7 +248,7 @@ public class Graph {
         //设置当前节点为已经访问过
         isVisit[currIndexx] = true;
         //找到当前节点所有的邻接节点，取没有访问过里面最小的
-        int min = getMaxNeighbor(currIndexx);
+        int min = getMinNeighbor(currIndexx);
         while (0 != min) {
             //找到，就递归
             dfsMy(isVisit, min);
@@ -256,7 +256,7 @@ public class Graph {
             Integer pop = stack.pop();
             System.out.print(pointList.get(pop) + "<--");
             //找出p栈顶pop的节点所有的邻接节点，取没有访问过里面最小的
-            min = getMaxNeighbor(stack.peek());
+            min = getMinNeighbor(stack.peek());
         }
     }
 
@@ -315,7 +315,7 @@ public class Graph {
     }
 
     /**
-     * //找到当前节点所有的邻接节点，取没有访问过里面最小的
+     * //找到当前节点所有的邻接节点，取没有访问过里面最大的
      *
      * @param currIndexx 当前节点下标
      * @return
@@ -377,7 +377,7 @@ public class Graph {
         graph.addEdge(5, 7, 1);
         graph.addEdge(6, 5, 1);
         graph.addEdge(7, 8, 1);*/
-        graph.addEdge(0, 1, 1);
+       /* graph.addEdge(0, 1, 1);
         graph.addEdge(0, 2, 1);
         graph.addEdge(1, 3, 1);
         graph.addEdge(1, 4, 1);
@@ -385,30 +385,41 @@ public class Graph {
         graph.addEdge(2, 6, 1);
         graph.addEdge(3, 7, 1);
         graph.addEdge(4, 7, 1);
+        graph.addEdge(5, 6, 1);*/
+
+        graph.addEdge(0, 1, 1);
+        graph.addEdge(0, 2 ,1);
+        graph.addEdge(1, 3, 1);
+        graph.addEdge(1, 4, 1);
+        graph.addEdge(2, 5, 1);
+        graph.addEdge(2, 6, 1);
+        graph.addEdge(3, 7, 1);
+        graph.addEdge(4, 7, 1);
         graph.addEdge(5, 6, 1);
+
        /* graph.addEdge(0, 1, 1);
         graph.addEdge(0, 2, 1);
         graph.addEdge(0, 3, 1);
         graph.addEdge(1, 4, 1);
         graph.addEdge(1, 5, 1);*/
-        System.out.println("-----------");
         graph.showGraph();
 //        System.out.println(graph.getPointByIndex(4));
         System.out.println("-----------dfs---------");
         graph.dfs();
-//        System.out.println();
+        System.out.println("\r\n");
         System.out.println("-----------bfs---------");
         graph.bfs();
-//        System.out.println();
+        System.out.println("\r\n");
         System.out.println("-----------dfsMy---------");
         graph.dfsMy();
         while (!graph.stack.isEmpty()) {
             System.out.println(graph.pointList.get(graph.stack.pop()));
         }
-
+        System.out.println("\r\n");
         System.out.println("-----------bfsMy---------");
         graph.bfsMy();
-        System.out.println("-----------ssss---------");
+        System.out.println("\r\n");
+
         int[][] edges = graph.edges;
         for (int i = 0; i < edges.length; i++) {
             for (int k = 0; k < edges.length; k++) {
