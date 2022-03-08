@@ -105,23 +105,34 @@ public class LRUCacheDemo {
 
         }
     }
+    public static void print(Node node){
+        if(node==null){
+            return;
+        }
+        do {
+            System.out.print("node = " + node.key);
+            System.out.print(",");
+            node = node.next;
+        }
+        while (node.next != null);
+        System.out.println(" ");
+    }
 
     public static void main(String[] args) {
         LRUCacheDemo lruCacheDemo = new LRUCacheDemo(3);
         lruCacheDemo.put(1, 1);
         lruCacheDemo.put(2, 2);
         lruCacheDemo.put(3, 3);
-        System.out.println(lruCacheDemo.map.keySet());
+        print(lruCacheDemo.doubleLinkedList.head.next);
         lruCacheDemo.put(4, 1);
-        System.out.println(lruCacheDemo.map.keySet());
-
+        print(lruCacheDemo.doubleLinkedList.head.next);
         lruCacheDemo.put(3, 1);
-        System.out.println(lruCacheDemo.map.keySet());
+        print(lruCacheDemo.doubleLinkedList.head.next);
         lruCacheDemo.put(3, 1);
-        System.out.println(lruCacheDemo.map.keySet());
+        print(lruCacheDemo.doubleLinkedList.head.next);
         lruCacheDemo.put(3, 1);
-        System.out.println(lruCacheDemo.map.keySet());
+        print(lruCacheDemo.doubleLinkedList.head.next);
         lruCacheDemo.put(5, 1);
-        System.out.println(lruCacheDemo.map.keySet());
+        print(lruCacheDemo.doubleLinkedList.head.next);
     }
 }
