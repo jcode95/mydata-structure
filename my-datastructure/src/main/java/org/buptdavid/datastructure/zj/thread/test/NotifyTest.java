@@ -46,14 +46,16 @@ public class NotifyTest {
     * 找到就返回常量池的地址，找不到就返回堆的地址，并且吧字符串放入常量池
     * */
         /*测试  找到就返回常量池的地址，找不到就返回堆的地址，并且吧字符串放入常量池*/
-
+//        String s="zhoujie";
         String s7 = new StringBuilder("zhou").append("jie").toString();//s7 是堆地址,常量池里面没有
         String s8=s7.intern();//调用之前常量池里面没有，调用之后把s7的字符串放入常量池里面，此时常量池里面有了，这里的s8是堆地址
         String s9 = s8.intern();//s9 这里就是常量池的地址
         System.out.println(" s8==s7 : " + (s8==s7));
         System.out.println(" s8==s9 : " + (s8==s9));
         System.out.println(" s7==s9 : " + (s7==s9));
+//        String s="zhoujie";
         System.out.println("(s9==\"zhoujie\") = " + (s9 == "zhoujie"));
+//        System.out.println("s = " + (s==s8));
 
 
     }

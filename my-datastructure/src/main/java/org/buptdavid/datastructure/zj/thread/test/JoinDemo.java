@@ -37,5 +37,10 @@ public class JoinDemo extends Thread{
 //            joinDemos.start();
         }
         System.out.println("开始运行");
+
+        /*
+        * join(long) 底层使用 wait(long)来实现，具有释放锁的特点
+        *
+        * */
     }
 }
