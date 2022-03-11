@@ -82,7 +82,8 @@ public class ReentrantLockTest {
                 try {
                     lock.lock();
                     System.out.println("signal start ...");
-                    condition.signal();
+                    condition.signal();//执行完本线程下面的逻辑之后才去执行其他的线程的逻辑
+                    Thread.sleep(3000);
                     System.out.println("signal end ...");
                 }catch (Exception e){
                     e.printStackTrace();
