@@ -21,7 +21,7 @@ public class BlockingQueueTest {
         ArrayBlockingQueue<Integer> arrayBlockingQueue = new ArrayBlockingQueue<>(3);//基于数组的有界阻塞队列，
         for (int i = 0; i < 3; i++) {
             arrayBlockingQueue.add(i);//超过临界值会爆出异常
-//            arrayBlockingQueue.put(i);//超过临界值就会阻塞，有位置就再插入    消息队列里面思想
+//            arrayBlockingQueue.put(i);//超过临界值就会阻塞，有位置就再插入（里面有个while 循环，判断是否有坑位，没有就一直在循环（就使用ReentrantLock 的 Condition 阻塞），有坑位的时候就使用ReentrantLock 的 Condition 唤醒）    消息队列里面思想
             arrayBlockingQueue.offer(i);//不报异常，成功返回true,失败返回false
         }
         //打印
