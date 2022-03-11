@@ -20,7 +20,9 @@ public class BlockingQueueTest {
          */
         ArrayBlockingQueue<Integer> arrayBlockingQueue = new ArrayBlockingQueue<>(3);//基于数组的有界阻塞队列，
         for (int i = 0; i < 3; i++) {
-            arrayBlockingQueue.add(i);
+            arrayBlockingQueue.add(i);//超过临界值会爆出异常
+//            arrayBlockingQueue.put(i);//超过临界值就会阻塞，有位置就再插入    消息队列里面思想
+            arrayBlockingQueue.offer(i);//不报异常，成功返回true,失败返回false
         }
         //打印
         arrayBlockingQueue.forEach(e -> System.out.println("e = " + e));

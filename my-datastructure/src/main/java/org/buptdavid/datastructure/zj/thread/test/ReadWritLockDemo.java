@@ -77,10 +77,13 @@ public class ReadWritLockDemo {
 
         for (int i = 0; i < 18; i++) {
             new Thread(runnableRead).start();
+            if(i/2==0){
+                new Thread(runnableWrit).start();
+            }
         }
 
         for (int i = 18; i < 30; i++) {
-            new Thread(runnableWrit).start();
+
         }
 
         long millis3 = System.currentTimeMillis();
