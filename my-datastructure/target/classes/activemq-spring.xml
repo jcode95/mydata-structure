@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <context:component-scan base-package="activemq.spring_activemq"/>
+    <bean id="jmsFactor" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+        <property name="connectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="tcp://124.70.74.189:61616"/>
+            </bean>
+        </property>
+        <property name="maxConnections" value="100"/>
+    </bean>
+    <bean class="org.apache.activemq.command.ActiveMQQueue" id="activeMQQueue">
+        <constructor-arg index="0" value="spring-active-queue"/>
+    </bean>
+    <bean class="org.springframework.jms.core.JmsTemplate" id="template">
+        <property name="connectionFactory" ref="jmsFactor"/>
+        <property name="defaultDestination" ref="activeMQQueue"/>
+        <property name="messageConverter">
+            <bean class="org.springframework.jms.support.converter.SimpleMessageConverter" id="messageConverter"/>
+        </property>
+    </bean>
+
+</beans>

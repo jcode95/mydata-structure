@@ -1,0 +1,3 @@
+blue=cor.my.spi.dubbo.IOC.SPIDubboIOCBlueImpl
+red=cor.my.spi.dubbo.IOC.SPIDubboIOCRedImpl
+cor.my.spi.dubbo.IOC.Wrapper
