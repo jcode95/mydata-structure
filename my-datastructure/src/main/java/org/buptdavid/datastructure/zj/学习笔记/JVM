@@ -10,7 +10,7 @@
 -Xmx 初始堆空间最大值 =-XX:MaxHeapSize    默认是根据系统运行内存的4分之一
 -Xss 初始栈空间
 jinfo -flag 参数名 进程号
-java -XX:+PrintFlagsInitial 出厂初始化的
+java -XX:+PrintFlagsInitial 出厂初始化的(非常重要)
 java -XX:+PrintFlagsFinal   自己改过的   有冒号的代表人为改过的值
 
 java -XX:+PrintCommandLineFlags -version

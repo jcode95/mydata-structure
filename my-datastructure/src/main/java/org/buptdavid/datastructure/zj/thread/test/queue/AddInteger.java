@@ -30,7 +30,7 @@ public class AddInteger {
             try {
                 lock.lock();
                 while (number!=0){
-                    tc.await();
+                    tc.await();//一定要放在while 循环里面
                 }
                 number++;
                 System.out.println(Thread.currentThread().getName()+"number = " + number);
@@ -45,7 +45,7 @@ public class AddInteger {
             try {
                 lock.lock();
                 while (number==0){
-                    tc.await();
+                    tc.await();//如果是多个线程 对同一个Condition 做await 一定要放在while 循环里面
                 }
                 number--;
                 System.out.println(Thread.currentThread().getName()+"number = " + number);
