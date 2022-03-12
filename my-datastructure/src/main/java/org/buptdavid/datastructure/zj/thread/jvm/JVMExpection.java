@@ -1,7 +1,11 @@
 package org.buptdavid.datastructure.zj.thread.jvm;
 
+import org.springframework.cglib.proxy.Enhancer;
+import org.springframework.cglib.proxy.MethodInterceptor;
+import org.springframework.cglib.proxy.MethodProxy;
 import sun.misc.VM;
 
+import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,9 +32,10 @@ public class JVMExpection {
          */
 
         JVMExpection test = new JVMExpection();
-        test.GC_overhead_limit_exceeded();
+//        test.GC_overhead_limit_exceeded();
 //        test.Direct_buffer_memory();
 //        test.unable_to_create_new_native_thread();
+        test.matespace_memory();
 
     }
 
@@ -103,5 +108,27 @@ public class JVMExpection {
         * */
     }
 
+    //matespace 元空间内存溢出  -XX:MetaspaceSize=8m -XX:MaxMetaspaceSize=8m
+    public void matespace_memory(){
+        while (true){
+            Enhancer enhancer = new Enhancer();
+            enhancer.setSuperclass(OOMTest.class);
+            enhancer.setUseCache(false);
+            enhancer.setCallback(new MethodInterceptor() {
+                @Override
+                public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+                    return methodProxy.invokeSuper(o,objects);
+                }
+            });
+            enhancer.create();
+        }
 
+        /*
+        * Caused by: java.lang.OutOfMemoryError: Metaspace
+	            at java.lang.ClassLoader.defineClass1(Native Method)
+        *
+        * */
+    }
+    static class OOMTest{
+    }
 }
