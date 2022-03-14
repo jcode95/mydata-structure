@@ -178,7 +178,11 @@ redis 时间事件
 
 1.1 生产上你们的redis内存设置多大？
     如果不设置最大内存大小，或者设置最大内存大小为0，在64位操作系统下不限制内存的大小，在32位操作系统下最多使用3GB大小的内存。一般推荐为最大物理内存的3/4。
-
+    如何修改redis内存设置?
+        修改配置文件redis.conf的maxmemory参数，如：maxmemory 104857600
+        通过命令修改
+        config set maxmemory 1024
+        config get maxmemory
 
 1.2 redis中zSet排序原理,skipList跳跃表
     skip List是一种随机化的数据结构，基于并联的链表，实现简单，插入、删除、查找的复杂度均为O(logN)（大多数情况下），因为其性能匹敌红黑树且实现较为简单，因此在很多著名项目都用跳表来代替红黑树，例如LevelDB、Reddis的底层存储结构就是用的SkipList。
