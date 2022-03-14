@@ -85,3 +85,25 @@ spring的3级缓存【DefaultSingletonBeanRegistry】
 
 
  【18 道经典 Spring 面试题】 需要看  https://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&mid=2651507399&idx=2&sn=786189d4dffb85ffe8cfaa64159d73c5&chksm=bd25a6b88a522fae9977a7fc202b9cbdb17081b654a7ad0cfc02725dff092fe0452a74d34ea9&mpshare=1&scene=23&srcid=1224Dtsh2NOhaWFSpIKYVcgF&sharer_sharetime=1640327441347&sharer_shareid=9bfb4994053a5e601756b95c9a69ea1f#rd
+
+  小结
+  spring4 AOP执行顺序：
+      正常情况下：环绕方法前->@Before前置通知--->执行方法-->环绕方法后-->@After后置通知----->@AfterRunning正常返回
+      异常情况下：环绕方法前->@Before前置通知----->执行方法(异常)-->@After后置通知----->@AfterThrowing方法异常
+
+  spring5 AOP执行顺序：
+        正常情况下：
+           我是环绕通知之前AAA
+           ********@Before我是前置通知
+           ===>CalcServiceImpl被调用，计算结果为：5
+           ********@AfterReturning我是返回后通知
+           ********@After我是后置通知
+           我是环绕通知之后BBB
+        异常情况下：
+            我是环绕通知之前AAA
+            ********@Before我是前置通知
+            ********@AfterThrowing我是异常通知
+            ********@After我是后置通知
+            java.lang.ArithmeticException: / by zero
+ 面试题
+    你肯定知道spring，那说说aop的全部通知顺序springboot或springboot2对aop的执行顺序影响？
