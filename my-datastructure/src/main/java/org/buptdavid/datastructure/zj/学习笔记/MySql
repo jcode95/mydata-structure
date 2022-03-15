@@ -240,14 +240,14 @@ SQL 语句：
     右表独有
     select * from t_a left join t_b on t_a.id=t_b.id where t_a.id is null
     两表独有
-    select * from t_a left join t_b on t_a.id=t_b.id where t_a.id is null
-    union
     select * from t_a left join t_b on t_a.id=t_b.id where t_b.id is null
+    union
+    select * from t_a right join t_b on t_a.id=t_b.id where t_a.id is null
 
     两表全有（笛卡尔积）
     select * from t_a left join t_b on t_a.id=t_b.id
     union
-    select * from t_a left join t_b on t_a.id=t_b.id
+    select * from t_a right join t_b on t_a.id=t_b.id
 
 
 
