@@ -126,7 +126,7 @@ MYSQL 三大日志   原文地址：https://mp.weixin.qq.com/s?__biz=MjM5NzMyMjA
             1)在master端开启binlog，然后将binlog文件同步给slave端，slave端拿到binlog执行从而达到同步数据
             2)数据恢复 ：通过使用 mysqlbinlog 工具来恢复数据。
         ➤ binlog刷盘时机
-            对于 InnoDB 存储引擎而言，只有在事务提交时才会记录biglog ，此时记录还在内存中，那么 biglog是什么时候刷到磁盘中的呢？
+            对于 InnoDB 存储引擎而言，只有在事务提交时才会记录binlog ，此时记录还在内存中，那么 biglog是什么时候刷到磁盘中的呢？
             mysql 通过 sync_binlog 参数控制 biglog 的刷盘时机，取值范围是 0-N：
             0：不去强制要求，由系统自行判断何时写入磁盘；
             1：每次 commit 的时候都要将 binlog 写入磁盘；
