@@ -17,7 +17,7 @@ public class TopK1 {
     public static void main(String[] args) {
         TopK1 topK1 = new TopK1();
         int[] nums = {1, 2, 7, 9, 4, 3, 6, 53, 3, 54, 45, 6, 3, 45, 6, 47, 56, 7, 567, 568,675, 67, 8, 67, 4, 56, 54, 64, 3, 56, 54, 765, 67, 56, 75, 675};
-        int k = 4;
+        int k = 10;
         int value = topK1.findKValue(nums, k);
         Arrays.sort(nums);
         System.out.println("nums = " + Arrays.toString(nums));
@@ -39,7 +39,7 @@ public class TopK1 {
         PriorityQueue<Integer> priorityQueue = new PriorityQueue(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
-                return o2 - o1;
+                return o1 - o2;
             }
         });
 

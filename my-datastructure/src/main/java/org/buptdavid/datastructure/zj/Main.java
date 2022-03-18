@@ -707,8 +707,11 @@ public class Main {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         Date zero = calendar.getTime();
-
-
+        Integer combineNum=null;
+        if(combineNum==null){
+            combineNum=0;
+        }
+        System.out.println("combineNum = " + combineNum);
 
     }
 
