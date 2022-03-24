@@ -54,6 +54,9 @@ public class ChatServer {
                             //注册到select。监听读事件
                             sc.register(selector, SelectionKey.OP_READ);
                             System.out.println("玩家："+sc.getRemoteAddress()+"  上线...");
+                            //转发消息给其他玩家
+                            String msg="玩家："+sc.getRemoteAddress()+"  上线...";
+                            sendMsgOtherClients(msg,sc);
                         }
                         //如果是读事件
                         if(key.isReadable()){
@@ -91,11 +94,15 @@ public class ChatServer {
         }catch (Exception e){
 //            e.printStackTrace();
             try {
+                String msg="玩家："+channel.getRemoteAddress()+"下线...";
                 System.out.println("玩家："+channel.getRemoteAddress()+"下线...");
+                //转发消息给其他玩家
+                sendMsgOtherClients(msg,channel);
                 //删除注册
                 key.cancel();
                 //关闭通道
                 channel.close();
+
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

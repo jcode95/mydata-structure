@@ -64,6 +64,8 @@ public class ChatClient {
                         System.out.println(new String(buffer.array()));
                     }
                 }
+                //删除key，防止重复操作
+                keyIterator.remove();
             } else {
 //                System.out.println(" 无可用通道...");
             }
