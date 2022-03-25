@@ -135,6 +135,9 @@ NioSocketChannel 是注册方法和ServerSocketChannel的一致，也是将Chann
 
 ⓑ SSL 只能用在HTTP上吗？
 ⓒ Https底层原理，对称加密与非对称加密
+    大家可能都听说过 HTTPS 协议之所以是安全的是因为 HTTPS 协议会对传输的数据进行加密，
+    而加密过程是使用了非对称加密实现。但其实：HTTPS 在内容传输的加密上使用的是对称加密，
+    非对称加密只作用在证书验证阶段。
 ⓓ CA机构参与与CA伪造
 ⓔ HTTPS真的安全吗？模拟如何破解？
 
@@ -147,3 +150,9 @@ PoolSubpage 对于小于一个page的内存，Netty在page中完成分配，每�
 
 内存回收策略
     无论是chunk还是page，都是表示状态位来标识内存是否可以回收
+
+NIO 零拷贝  new FileInputStream().getChannel().transferTo()
+    mmap 和 sendFile 的区别
+        1) mmap（内存映射优化） 适合小数据量读写，sendFile 适合大文件传输。
+        2) mmap 需要 4 次上下文切换，3 次数据拷贝；sendFile 需要 3 次上下文切换，最 少 2 次数据拷贝。
+        3) sendFile 可以利用 DMA 方式（dma 直接内存拷贝，不经过cpu），减少 CPU 拷贝，mmap 则不能（必须从内核拷贝 到 Socket 缓冲区）。
