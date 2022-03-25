@@ -202,3 +202,9 @@ redis 时间事件
     5、每个节点包含key及其对应的value和一个指向该节点第n层的下个节点的指针数组
     x->next[level]表示第level层的x的下一个节点
     详细学习地址：https://mp.weixin.qq.com/s?__biz=MzI5MzYwODI1Mw==&mid=2247500265&idx=1&sn=5be294af3b2f90741fe87992e1d5d2d3&chksm=ec6d0fbbdb1a86adcb541dd77768942e6202eabe5642fb967a723096ea1b19df788345747142&mpshare=1&scene=23&srcid=1214RQht7s0X2gNwVbZVnCVy&sharer_sharetime=1639485918329&sharer_shareid=9bfb4994053a5e601756b95c9a69ea1f#rd
+
+Redis为什么用skiplist而不用平衡树？
+    有几个原因:
+    1)它们的内存消耗不是很大。 这基本上取决于你。 改变关于节点拥有给定级别的概率的参数将使其比btree占用更少的内存。
+    2)一个排序集通常是许多ZRANGE或ZREVRANGE操作的目标，也就是说，作为一个链表遍历跳跃表。 通过这种操作，跳跃表的缓存局部性至少与其他类型的平衡树一样好。
+    3)它们更容易实现、调试等等。 例如，由于跳跃列表的简单性，我收到了一个补丁(已经在Redis master中)，该补丁包含了在O(log(N))中实现ZRANK的增强跳跃列表。 它只需要对代码做少许更改。
