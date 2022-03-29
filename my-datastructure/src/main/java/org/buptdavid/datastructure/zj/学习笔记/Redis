@@ -208,3 +208,14 @@ Redis为什么用skiplist而不用平衡树？
     1)它们的内存消耗不是很大。 这基本上取决于你。 改变关于节点拥有给定级别的概率的参数将使其比btree占用更少的内存。
     2)一个排序集通常是许多ZRANGE或ZREVRANGE操作的目标，也就是说，作为一个链表遍历跳跃表。 通过这种操作，跳跃表的缓存局部性至少与其他类型的平衡树一样好。
     3)它们更容易实现、调试等等。 例如，由于跳跃列表的简单性，我收到了一个补丁(已经在Redis master中)，该补丁包含了在O(log(N))中实现ZRANK的增强跳跃列表。 它只需要对代码做少许更改。
+
+
+
+redis 发布订阅的原理
+    每个 Redis 服务器进程都维持着一个表示服务器状态的 redis.h/redisServer 结构， 结构的 pubsub_channels 属性是一个字典，
+    其中，字典的键为正在被订阅的频道， 而字典的值则是一个链表， 链表中保存了所有订阅这个频道的客户端。
+    比如说，在下图展示的这个 pubsub_channels 示例中， client2 、 client5 和 client1 就订阅了 channel1 ， 而其他频道也分别被别的客户端所订阅：
+    当客户端调用 SUBSCRIBE 命令时， 程序就将客户端和要订阅的频道在 pubsub_channels 字典中关联起来。
+    举个例子，如果客户端 client10086 执行命令 SUBSCRIBE channel1 channel2 channel3 ，那么前面展示的 pubsub_channels 将变成下面这个样子：
+    发送信息到频道
+        了解了 pubsub_channels 字典的结构之后， 解释 PUBLISH 命令的实现就非常简单了： 当调用 PUBLISH channel message 命令， 程序首先根据 channel 定位到字典的键， 然后将信息发送给字典值链表中的所有客户端。
