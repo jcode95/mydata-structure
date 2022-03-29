@@ -6,6 +6,9 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
+
+import java.util.Scanner;
 
 /**
  * @author jiezhou
@@ -16,7 +19,7 @@ import io.netty.handler.codec.string.StringDecoder;
  */
 public class NettyGroupChatServer {
 
-    private static final int PORT = 9999;
+    private static final int PORT = 8888;
 
     public void run() {
         EventLoopGroup boss = new NioEventLoopGroup(1);
@@ -31,7 +34,7 @@ public class NettyGroupChatServer {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             ChannelPipeline pipeline = socketChannel.pipeline();
-                            pipeline.addLast("StringDecoder", new StringDecoder())
+                            pipeline.addLast("StringEncoder", new StringEncoder())
                                     .addLast("StringDecoder", new StringDecoder())
                                     .addLast("GroupChatServerHandler", new GroupChatServerHandler());
                         }

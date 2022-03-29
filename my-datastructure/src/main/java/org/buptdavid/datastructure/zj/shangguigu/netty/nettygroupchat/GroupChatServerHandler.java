@@ -21,9 +21,10 @@ public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> 
 
     @Override
     protected void messageReceived(ChannelHandlerContext ctx, String msg) throws Exception {
+        System.out.println("msg = " + msg);
         channelGroup.forEach(e -> {
             if (e != ctx.channel()) {
-                e.writeAndFlush("[客户端 说]: " + msg);
+                e.writeAndFlush("[客户端"+e.localAddress()+" 说]: " + msg);
             }
         });
     }
@@ -32,6 +33,7 @@ public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         channelGroup.writeAndFlush("[客户端] " + ctx.channel().remoteAddress() + " 上线...");
+        channelGroup.add(ctx.channel());
     }
 
     //不活跃
@@ -39,19 +41,20 @@ public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> 
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
     }
 
+    //断开
+    @Override
+    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        channelGroup.writeAndFlush("[客户端] " + ctx.channel().remoteAddress() + " 下线...");
+        channelGroup.remove(ctx.channel());
+    }
+
     //读取事件
 
     @Override
     public void close(ChannelHandlerContext ctx, ChannelPromise promise) throws Exception {
-        channelGroup.writeAndFlush("[客户端] " + ctx.channel().remoteAddress() + " 下线...");
 
     }
 
-    //报错会走这个
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        cause.printStackTrace();
-    }
 
     //channel 加入首先会走这个方法
     @Override
