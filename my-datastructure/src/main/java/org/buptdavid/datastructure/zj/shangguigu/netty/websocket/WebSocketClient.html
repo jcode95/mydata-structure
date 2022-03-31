@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var ws = null;
+
+    function connect() {
+        if ("WebSocket" in window) {
+            // alert("您的游览器支持websocket");
+            ws = new WebSocket("ws://localhost:7000/hello");
+            //打开
+            ws.onopen = function () {
+                document.getElementById("clientInfo").value = "链接已经建立"+"\r\n";
+                // ws.send("我是游览器");
+
+            }
+            //读取
+            ws.onmessage = function (ev) {
+                document.getElementById("clientInfo").value += ev.data+"\r\n";
+            }
+
+            //关闭
+            ws.onclose = function () {
+                document.getElementById("clientInfo").value += "链接已关闭"+"\r\n";
+            }
+
+        } else {
+            alert("您的游览器不支持websocket");
+        }
+    }
+
+
+    function send() {
+        if (ws != null) {
+            var value = document.getElementById('serverinfo').value;
+            ws.send(value);
+        }
+    }
+
+</script>
+<textarea id="serverinfo" rows="10" cols="10"></textarea>
+<input id="send" type="button" value="发送" width="50" onclick="send()"/>
+<input type="button" value="链接" width="50" onclick="connect()"/>
+<textarea id="clientInfo" rows="10" cols="50"></textarea>
+
+
+</body>
+</html>
