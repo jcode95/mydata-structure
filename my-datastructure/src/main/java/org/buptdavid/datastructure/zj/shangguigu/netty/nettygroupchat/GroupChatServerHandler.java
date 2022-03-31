@@ -34,6 +34,8 @@ public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> 
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         channelGroup.writeAndFlush("[客户端] " + ctx.channel().remoteAddress() + " 上线...");
         channelGroup.add(ctx.channel());
+        System.out.println("channelGroup.size " + channelGroup.size());
+
     }
 
     //不活跃
@@ -45,7 +47,7 @@ public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         channelGroup.writeAndFlush("[客户端] " + ctx.channel().remoteAddress() + " 下线...");
-        channelGroup.remove(ctx.channel());
+        System.out.println("channelGroup.size " + channelGroup.size());
     }
 
     //读取事件
