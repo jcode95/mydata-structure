@@ -40,6 +40,8 @@
         if (ws != null) {
             var value = document.getElementById('serverinfo').value;
             ws.send(value);
+        }else{
+            document.getElementById("clientInfo").value = "链接未建立"+"\r\n";
         }
     }
 
