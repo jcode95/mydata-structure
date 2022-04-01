@@ -214,3 +214,4 @@ forName和loaderClass区别?
                     3）方法区中常量引用的对象
                     4）本地方法栈JNI（Native方法）引用的对象
 
+线上服务的FGC问题排查，看这篇就够了！https://mp.weixin.qq.com/s?__biz=Mzg2NzYyNjQzNg==&mid=2247484858&idx=1&sn=84d2082dfdbf06e2d5fa8a459f7a3e3b&source=41#wechat_redirect
