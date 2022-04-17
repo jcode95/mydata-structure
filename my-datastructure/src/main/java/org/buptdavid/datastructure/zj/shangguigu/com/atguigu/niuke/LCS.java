@@ -19,10 +19,14 @@ public class LCS {
         int maxLength = 0;//最长公共子串长度
         int maxLengthIndex = 0;//最长公共子串最后一个元素在str1 中的下标
         int[][] dp = new int[str1.length() + 1][str2.length() + 1];
-        for (int i = 1; i < str1.length(); i++) {
-            for (int j = 1; j < str2.length(); j++) {
+        for (int i = 0; i < str1.length(); i++) {
+            for (int j = 0; j < str2.length(); j++) {
                 if (str1.charAt(i) == str2.charAt(j)) {
-                    dp[i][j] = dp[i-1][j-1] + 1;
+                    if (i == 0 && j == 0) {
+                        dp[i][j] =1;
+                    }else {
+                        dp[i][j] = dp[i - 1][j - 1] + 1;
+                    }
                     if (dp[i][j] > maxLength) {
                         maxLength = dp[i][j];
                         maxLengthIndex = i;

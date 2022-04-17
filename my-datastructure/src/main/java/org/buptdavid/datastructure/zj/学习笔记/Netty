@@ -156,3 +156,15 @@ NIO 零拷贝  new FileInputStream().getChannel().transferTo()
         1) mmap（内存映射优化） 适合小数据量读写，sendFile 适合大文件传输。
         2) mmap 需要 4 次上下文切换，3 次数据拷贝；sendFile 需要 3 次上下文切换，最 少 2 次数据拷贝。
         3) sendFile 可以利用 DMA 方式（dma 直接内存拷贝，不经过cpu），减少 CPU 拷贝，mmap 则不能（必须从内核拷贝 到 Socket 缓冲区）。
+
+
+select pool epool 的区别?
+       1 select的几大缺点：
+           （1）每次调用select，都需要把fd集合从用户态拷贝到内核态，这个开销在fd很多时会很大
+           （2）同时每次调用select都需要在内核遍历传递进来的所有fd，这个开销在fd很多时也很大
+           （3）select支持的文件描述符数量太小了，默认是1024
+       2 poll实现
+       　　  poll的实现和select非常相似，只是描述fd集合的方式不同，poll使用pollfd结构而不是select的fd_set结构，其他的都差不多。
+       3 epoll
+            select和poll都只提供了一个函数——select或者poll函数。而epoll提供了三个函数，epoll_create,epoll_ctl和epoll_wait，epoll_create是创建一个epoll句柄；epoll_ctl是注册要监听的事件类型；epoll_wait则是等待事件的产生。
+               
