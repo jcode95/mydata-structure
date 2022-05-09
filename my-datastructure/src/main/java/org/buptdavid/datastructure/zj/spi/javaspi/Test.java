@@ -1,5 +1,7 @@
 package org.buptdavid.datastructure.zj.spi.javaspi;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
@@ -13,9 +15,15 @@ public class Test {
         Iterator<MySPIJavaInterface> iterator = loader.iterator();
         while (iterator.hasNext()){
             MySPIJavaInterface my = iterator.next();
+            String name = my.getClass().getName();
+            name=name.substring(name.lastIndexOf(".")+1);
             my.blue();
             my.read();
         }
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
+        long l = System.currentTimeMillis();
+        Date date = new Date(l);
+        System.out.println("date = " + date);
     }
 
 

@@ -10,7 +10,8 @@ import org.buptdavid.datastructure.zj.spi.javaspi.MySPIJavaInterface;
  * @Description:
  * @date 2020/7/16/10:39
  */
-public class MySPIInterfaceBlueImpl implements MySPIJavaInterface {
+public abstract class MySPIInterfaceBlueImpl implements MySPIJavaInterface {
+    int rid;
     @Override
     public void read() {
 
@@ -19,5 +20,13 @@ public class MySPIInterfaceBlueImpl implements MySPIJavaInterface {
     @Override
     public void blue() {
         System.out.println("blue....");
+    }
+
+    public int getRid() {
+        return rid;
+    }
+
+    public void setRid(int rid) {
+        this.rid = rid;
     }
 }
