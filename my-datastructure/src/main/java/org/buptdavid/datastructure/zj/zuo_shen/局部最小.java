@@ -9,6 +9,7 @@ package org.buptdavid.datastructure.zj.zuo_shen;
  */
 public class 局部最小 {
 
+
     public static void main(String[] args) {
 
         int[] arr = {7, 6, 5, 4, 3, 2, 5, 4, 3, 2, 9};
