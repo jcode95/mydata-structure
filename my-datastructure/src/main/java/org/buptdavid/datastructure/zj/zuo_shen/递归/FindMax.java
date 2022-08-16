@@ -31,4 +31,15 @@ public class FindMax {
         int rightMax = getMax(arr, mid + 1, R);
         return Math.max(leftMax, rightMax);
     }
+    /**
+     *
+     * 递归行为：master 公式： T(N)=a*T(n/b)+O(N^d)
+     * 子问题必须一致才能满足master公式求时间复杂度
+         *  不满足eg:T(N)=a*T(n/b)+s*T(n/c)+O(N^d)
+         *  满足eg:T(N)=a*T(n/b)+s*T(n/b)+O(N^d)
+     *
+     *      log b^a<d  时间复杂度 O(N^d)
+     *      log b^a>d  时间复杂度 O(N^log b^a)
+     *      log b^a=d  时间复杂度 O(N^d*log^N)
+     */
 }
