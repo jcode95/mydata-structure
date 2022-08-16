@@ -35,4 +35,22 @@ public class InsertValueSearch implements ISearch {
         int i = new InsertValueSearch().search(arr, 8);
         System.out.println(i);
     }
+
+    //左神 视频思路
+    public static void sort2(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {//插入排序，可分为两层。从左边开始，每次都要保证左边有序（保证下标0 位置左边有序，保证下标1 位置左边有序，保证下标2 位置左边有序...）。
+            for (int j = i; j >= 0; j--) {//j 就是当前位置，向左边（前比较，比左边小就交换，继续向左边找直到没有值或者是当前值比左边大就退出小循环）
+                if (j - 1 >= 0 && arr[j] <= arr[j - 1]) {
+                    //交换 arr[j] 与  arr[j - 1] 交换
+                    arr[j] = arr[j] ^ arr[j - 1];
+                    arr[j - 1] = arr[j] ^ arr[j - 1];
+                    arr[j] = arr[j] ^ arr[j - 1];
+                } else {
+                    //找不到了退出
+                    break;
+                }
+            }
+        }
+    }
+
 }
