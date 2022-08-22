@@ -98,7 +98,7 @@ public class ZuoShen_MergeSort {
         while (l <= mid && r <= R) {
             //填充help
             result += arr[l] < arr[r] ? arr[l] * (R - r + 1) : 0;
-            help[i++] = arr[l] < arr[r] ? arr[l++] : arr[r++];
+            help[i++] = arr[l] < arr[r] ? arr[l++] : arr[r++];//如果相等，先处理右边的数
         }
         while (l <= mid) {
             help[i++] = arr[l++];
