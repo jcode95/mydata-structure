@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @author jiezhou
  * @CalssName: MergetSort
  * @Package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sparsearray.sort
- * @Description: 归并排序 O(log~n)
+ * @Description: 归并排序 O(nlog^n) 由 master 公式推出来
  * 分而治之的思想（分：就把大问题递归分解为小问题，治：把各个小问题合并得到原问题的解）
  * @date 2020/8/18/14:55
  */
