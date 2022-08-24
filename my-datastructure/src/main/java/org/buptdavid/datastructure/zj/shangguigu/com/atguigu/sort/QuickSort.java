@@ -1,6 +1,7 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * @author jiezhou
@@ -18,7 +19,7 @@ public class QuickSort {
 //        quickSort(arr1, 0, arr1.length - 1);
 //        sort(arr1, 0, arr1.length - 1);
 //        sort1(arr1, 0, arr1.length - 1);
-        sort1(arr1, 0, arr1.length - 1);
+//        sort1(arr1, 0, arr1.length - 1);
         System.out.println(Arrays.toString(arr1));
         /*long s = System.currentTimeMillis();
         int[] arr = new int[80000000];
@@ -29,6 +30,9 @@ public class QuickSort {
         sort(arr, 0, arr.length - 1);
         long s1 = System.currentTimeMillis();
         System.out.println((s1 - s) / 1000);*/
+
+        quickSort3(arr1, 0, arr1.length - 1);
+        System.out.println(Arrays.toString(arr1));
     }
 
     /**
@@ -224,5 +228,55 @@ public class QuickSort {
             sort2(arr, left, r);
         if (right > r)
             sort2(arr, l, right);
+    }
+
+
+    /**
+     * 左神--快排 思路
+     * @param arr
+     * @param L
+     * @param R
+     */
+    public static void quickSort3(int[] arr, int L, int R) {
+        if (L < R) {
+            int[] p = partition(arr, L, R);
+            quickSort(arr, L, p[0] - 1);
+            quickSort(arr, p[1], R);
+        }
+    }
+
+    /**
+     * @param arr
+     * @param left
+     * @param right
+     */
+    public static int[] partition(int[] arr, int left, int right) {
+        int leftIndex = left - 1;
+        int mid = left + ((right - left) >> 1);
+        swap(arr, mid, right);
+        int rightIndex = right;//基准值
+        int curr = left;
+        while (curr < rightIndex) {
+            if (arr[curr] < arr[right]) {
+                swap(arr, leftIndex + 1, curr);
+                leftIndex++;
+                curr++;
+            } else if (arr[curr] > arr[right]) {
+                swap(arr, rightIndex - 1, curr);
+                rightIndex--;
+            } else if (arr[curr] == arr[right]) {
+                curr++;
+            }
+        }
+        //交换rightIndex 与 right 的值
+        swap(arr, rightIndex, right);
+        return new int[]{leftIndex + 1, rightIndex};
+    }
+
+    public static void swap(int[] arr, int l, int r) {
+        //交换
+        int temp = arr[l];
+        arr[l] = arr[r];
+        arr[r] = temp;
     }
 }
