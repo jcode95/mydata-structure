@@ -18,7 +18,7 @@ public class HeapSortTest {
     }
 
     /*
-    *  arr.length / 2 - 1   从左到右，从下到上第一个不是叶子节点的节点对应数组的下标
+    *  arr.length / 2 - 1   从右到左，从下到上第一个不是叶子节点的节点对应数组的下标
     * */
     public void maxHeap(int[] arr) {
         int temp = 0;
@@ -40,7 +40,7 @@ public class HeapSortTest {
      * 通过arr数组构建大顶堆，长度到数组的length
      *
      * @param arr
-     * @param i      从左到右，从下到上第一个不是叶子节点的节点对应数组的下标
+     * @param i      从右到左（视频里面说左到右是错误的），从下到上第一个不是叶子节点的节点对应数组的下标 ，
      * @param length 当前要排序的长度
      */
     public void maxHeap(int[] arr, int i, int length) {
