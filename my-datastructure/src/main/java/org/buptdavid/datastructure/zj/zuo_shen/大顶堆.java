@@ -34,14 +34,20 @@ public class 大顶堆 {
      */
     private static void heapSort(int[] arr) {
         //首先吧整个数组构建为大顶堆
-        for (int i = 0; i < arr.length; i++) {//从数组第一个数开始构建大顶堆
-            buildMaxHeap(arr, i, arr.length);
+//        for (int i = 0; i < arr.length; i++) {//从数组第一个数开始构建大顶堆
+//            buildMaxHeap(arr, i, arr.length);
+//        }
+        //上面的for循环可优化,之前是对每个节点处理，现在是只对非叶子节点堆化处理即可
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            heapify(arr, i, arr.length);
         }
+
+
         //再去掉最大值，继续吧剩下的构建大顶堆，直到完成
         int heapSize = arr.length;
         ArrayUtils.swap(arr, 0, --heapSize);
         while (heapSize > 0) {
-            heapF(arr, 0, heapSize);
+            heapify(arr, 0, heapSize);
 //            maxHeap(arr, 0, heapSize);
             ArrayUtils.swap(arr, 0, heapSize - 1);
             heapSize--;
@@ -55,7 +61,7 @@ public class 大顶堆 {
      * @param index
      * @param heapSize
      */
-    public static void heapF(int[] arr, int index, int heapSize) {
+    public static void heapify(int[] arr, int index, int heapSize) {
         int left = index * 2 + 1;
         while (left < heapSize) {
             if (left + 1 < heapSize && arr[left] < arr[left + 1]) {
