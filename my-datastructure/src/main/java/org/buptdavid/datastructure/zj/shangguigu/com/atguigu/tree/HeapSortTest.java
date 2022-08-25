@@ -17,7 +17,7 @@ public class HeapSortTest {
     public static void main(String[] args) {
         int[] arr = new int[]{4, 6, 8, 5, 9};
         HeapSortTest test = new HeapSortTest();
-        int[] arr2 = generateArray(15, 100);
+        int[] arr2 = generateArray(50, 100);
         test.maxHeap(arr2);
         System.out.println(Arrays.toString(arr2));
     }
@@ -81,6 +81,6 @@ public class HeapSortTest {
                 break;
             }
         }
-        arr[i] = temp;
+//        arr[i] = temp; 这里不需要这一行是因为我在比较的时候就交换了，韩老师代码是最后比较的时候并没有都交换，所以他放到最后才交换temp 的值
     }
 }
