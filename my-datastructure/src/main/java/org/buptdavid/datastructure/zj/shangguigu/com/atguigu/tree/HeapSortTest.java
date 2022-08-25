@@ -44,7 +44,7 @@ public class HeapSortTest {
      * */
     public void maxHeap(int[] arr) {
         int temp = 0;
-        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {//这个循环：有几个非叶子节点
             this.maxHeap(arr, i, arr.length);
         }
         //由于做的是升序，吧最后一个与第一个交换位置。然后再对除去交换的后一剩下的再做大顶堆
