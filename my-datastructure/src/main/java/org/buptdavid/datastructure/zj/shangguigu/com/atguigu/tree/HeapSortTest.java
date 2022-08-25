@@ -2,21 +2,18 @@ package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.tree;
 
 import org.buptdavid.datastructure.zj.ArrayUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * @author jiezhou
  * @CalssName: HeapSort
  * @Package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sparsearray.tree
- * @Description: 堆排序
+ * @Description: 堆排序O(nlogn)
  * @date 2020/8/22/10:22
  */
 public class HeapSortTest {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{4, 6, 8, 5, 9};
         HeapSortTest test = new HeapSortTest();
         int[] arr2 = ArrayUtils.generateArray(50, 100);
         test.maxHeap(arr2);
