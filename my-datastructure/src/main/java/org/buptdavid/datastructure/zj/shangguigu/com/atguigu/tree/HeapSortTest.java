@@ -47,7 +47,7 @@ public class HeapSortTest {
      *
      * @param arr
      * @param i      从右到左（视频里面说左到右是错误的），从下到上第一个不是叶子节点的节点对应数组的下标 ，
-     * @param length 当前要排序的长度
+     * @param length 当前要排序的长度 构建大顶堆的长度（数组length 长度之前构建大顶堆，后面的不用构建）
      */
     public void maxHeap(int[] arr, int i, int length) {
 
@@ -60,7 +60,7 @@ public class HeapSortTest {
             if (arr[j] > temp) {//如果当前节点小于左右子节点，就让最大的一个左右节点与当前i节点交换数据
                 arr[i] = arr[j];
                 arr[j] = temp;
-                i = j;
+                i = j;//交换完之后，再判断左or右节点的树是否为大顶堆，如果不是继续处理成大顶堆，直到break
             } else {
                 break;
             }

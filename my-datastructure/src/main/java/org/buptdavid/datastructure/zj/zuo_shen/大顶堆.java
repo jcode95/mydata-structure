@@ -29,6 +29,7 @@ public class 大顶堆 {
 
     /**
      * 参照左神堆排序思想写的代码
+     *
      * @param arr
      */
     private static void heapSort(int[] arr) {
@@ -38,10 +39,49 @@ public class 大顶堆 {
         }
         //再去掉最大值，继续吧剩下的构建大顶堆，直到完成
         int heapSize = arr.length;
+        ArrayUtils.swap(arr, 0, --heapSize);
         while (heapSize > 0) {
-            ArrayUtils.swap(arr, 0, --heapSize);
-            for (int i = 0; i < heapSize; i++) {//从数组第一个数开始构建大顶堆
-                buildMaxHeap(arr, i, heapSize);
+            heapF(arr, 0, heapSize);
+//            maxHeap(arr, 0, heapSize);
+            ArrayUtils.swap(arr, 0, heapSize - 1);
+            heapSize--;
+        }
+    }
+
+    /**
+     * 该方法其实就是  maxHeap 方法的变换而已
+     *
+     * @param arr
+     * @param index
+     * @param heapSize
+     */
+    public static void heapF(int[] arr, int index, int heapSize) {
+        int left = index * 2 + 1;
+        while (left < heapSize) {
+            if (left + 1 < heapSize && arr[left] < arr[left + 1]) {
+                left++;
+            }
+            if (arr[index] < arr[left]) {
+                ArrayUtils.swap(arr, index, left);
+                index = left;
+                left = index * 2 + 1;//获取index 的左节点
+            } else {
+                break;
+            }
+        }
+    }
+
+    public static void maxHeap(int[] arr, int i, int length) {
+        for (int j = i * 2 + 1; j < length; j = j * 2 + 1) {//j = i * 2 + 1 得到左节点在数组里面的下标 j+1就是右子节点的下标
+            //找当前节点的左右节点，找出最大的节点的i
+            if (j + 1 < length && arr[j] < arr[j + 1]) {//左节点小于右节点
+                j++;//让j指向右节点
+            }
+            if (arr[j] > arr[i]) {//如果当前节点小于左右子节点，就让最大的一个左右节点与当前i节点交换数据
+                ArrayUtils.swap(arr, i, j);
+                i = j;//交换完之后，再判断左or右节点的树是否为大顶堆，如果不是继续处理成大顶堆，直到break
+            } else {
+                break;
             }
         }
     }
