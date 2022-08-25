@@ -1,5 +1,7 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.tree;
 
+import org.buptdavid.datastructure.zj.ArrayUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -12,31 +14,13 @@ import java.util.Random;
  * @date 2020/8/22/10:22
  */
 public class HeapSortTest {
-    static Random random = new Random();
 
     public static void main(String[] args) {
         int[] arr = new int[]{4, 6, 8, 5, 9};
         HeapSortTest test = new HeapSortTest();
-        int[] arr2 = generateArray(50, 100);
+        int[] arr2 = ArrayUtils.generateArray(50, 100);
         test.maxHeap(arr2);
         System.out.println(Arrays.toString(arr2));
-    }
-
-    /**
-     * 生成无序数组
-     *
-     * @return
-     */
-    private static int[] generateArray(int length, int randomLength) {
-        ArrayList<Integer> integers = new ArrayList<>();
-        for (int i = 0; i < length; i++) {
-            integers.add(random.nextInt(randomLength));
-        }
-        int[] arr2 = new int[integers.size()];
-        for (int i = 0; i < integers.size(); i++) {
-            arr2[i] = integers.get(i);
-        }
-        return arr2;
     }
 
     /*
