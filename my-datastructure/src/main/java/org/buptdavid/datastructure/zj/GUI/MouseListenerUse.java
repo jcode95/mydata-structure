@@ -1,4 +1,4 @@
-package org.buptdavid.datastructure.zj.gui;
+package org.buptdavid.datastructure.zj.GUI;
 
 import javax.swing.*;
 import java.awt.event.*;
