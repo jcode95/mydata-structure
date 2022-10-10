@@ -1,10 +1,7 @@
 package org.buptdavid.datastructure.zj.泛型;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author jiezhou
@@ -44,11 +41,54 @@ public class Test {
         for (MemberInfo2 memberInfo2 : page2) {
             System.out.println("memberInfo2 = " + memberInfo2.toString());
         }
+
+        List<MemberInfo2> pageList = getPageList(ls2, 999, 20);
+        System.out.println("pageList = " + pageList);
     }
 
 
     public <E> List<E> getPage(List<E> list, int start, int end) {
         List<E> es = list.subList(start, end);
         return es;
+    }
+
+
+    /**
+     * 获取list对应的page
+     * @param list
+     * @param pageNum
+     * @param pageSize
+     * @param <T>
+     * @return
+     */
+    public static  <T> List<T> getPageList(List<T> list, int pageNum, int pageSize) {
+        if (list == null) {
+            return null;
+        }
+        if (list.size() == 0) {
+            return list;
+        }
+        int count = list.size(); // 记录总数
+        int pageCount = 0; // 页数,一共多少页
+
+        if (count % pageSize == 0) {//取余计算总页数
+            pageCount = count / pageSize;
+        } else {
+            pageCount = count / pageSize + 1;
+        }
+        int fromIndex = 0; // 开始索引
+        int toIndex = 0; // 结束索引
+        if (pageNum > pageCount) {
+            return Collections.EMPTY_LIST;
+        }
+
+        if (pageNum != pageCount) {
+            fromIndex = (pageNum - 1) * pageSize; //从第几个数据开始查
+            toIndex = fromIndex + pageSize;
+        } else {
+            fromIndex = (pageNum - 1) * pageSize;
+            toIndex = count;
+        }
+        return list.subList(fromIndex, toIndex);
     }
 }
