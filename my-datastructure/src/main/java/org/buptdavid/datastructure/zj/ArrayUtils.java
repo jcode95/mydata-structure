@@ -1,6 +1,5 @@
 package org.buptdavid.datastructure.zj;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -19,13 +18,9 @@ public class ArrayUtils {
      * @return
      */
     public static int[] generateArray(int length, int randomLength) {
-        ArrayList<Integer> integers = new ArrayList<>();
+        int[] arr2 = new int[length];
         for (int i = 0; i < length; i++) {
-            integers.add(random.nextInt(randomLength));
-        }
-        int[] arr2 = new int[integers.size()];
-        for (int i = 0; i < integers.size(); i++) {
-            arr2[i] = integers.get(i);
+            arr2[i] = random.nextInt(randomLength);
         }
         return arr2;
     }
