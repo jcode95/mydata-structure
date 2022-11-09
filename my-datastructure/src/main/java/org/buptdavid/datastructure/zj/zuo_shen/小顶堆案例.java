@@ -34,7 +34,7 @@ public class 小顶堆案例 {
      * @param k
      */
     public static void heapsort(int[] arr, int k) {
-        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        PriorityQueue<Integer> heap = new PriorityQueue<>();//优先级队列（默认小顶堆）
         for (int i = 0; i < Math.min(arr.length, k); i++) {
             heap.add(arr[i]);
         }
