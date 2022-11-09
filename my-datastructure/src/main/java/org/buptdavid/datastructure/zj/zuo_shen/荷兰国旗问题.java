@@ -64,16 +64,17 @@ public class 荷兰国旗问题 {
         int i = 0;//遍历数组的下标
         while (i <= arr.length - 1) {
             if (i >= right) {
+                //i与有边界碰撞，结束
                 break;
             }
             if (arr[i] < num) {
                 //i 跳到下一个.判断i位置的数是否比num小，小就让小于区域的下一个数和此值交换，然后小于区域右扩一位
                 swep(arr, left + 1, i);
-                left++;
+                left++;//左边界右扩
                 i++;
             } else if (arr[i] > num) {
                 swep(arr, right - 1, i);
-                right--;
+                right--;//右边界左扩
             } else if (arr[i] == num) {
                 i++;
             }

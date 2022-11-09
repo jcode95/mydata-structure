@@ -1,5 +1,7 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
 
+import org.buptdavid.datastructure.zj.ArrayUtils;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -15,6 +17,7 @@ public class QuickSort {
     public static void main(String[] args) {
 //        int[] arr1 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, -1};
         int[] arr1 = {8, 8, 8, 7, 2, 3, 4, 4, 4, 0, -1};
+        arr1 = ArrayUtils.generateArray(20, 10);
 //        int[] arr1 = {8, 8, 1, 7, 2};
 //        quickSort(arr1, 0, arr1.length - 1);
 //        sort(arr1, 0, arr1.length - 1);
@@ -233,6 +236,7 @@ public class QuickSort {
 
     /**
      * 左神--快排 思路
+     *
      * @param arr
      * @param L
      * @param R
@@ -240,8 +244,8 @@ public class QuickSort {
     public static void quickSort3(int[] arr, int L, int R) {
         if (L < R) {
             int[] p = partition(arr, L, R);
-            quickSort(arr, L, p[0] - 1);
-            quickSort(arr, p[1], R);
+            quickSort3(arr, L, p[0]);
+            quickSort3(arr, p[1], R);
         }
     }
 
@@ -250,27 +254,30 @@ public class QuickSort {
      * @param left
      * @param right
      */
-    public static int[] partition(int[] arr, int left, int right) {
-        int leftIndex = left - 1;
+    public static int[] partition(int[] arr, int left, int right) {//其实就是荷兰国旗问题
+        int leftIndex = left - 1;//右边界
+        int rightIndex = right + 1;//右边界
         int mid = left + ((right - left) >> 1);
         swap(arr, mid, right);
-        int rightIndex = right;//基准值
+        int midV = arr[right];//基准值
         int curr = left;
-        while (curr < rightIndex) {
-            if (arr[curr] < arr[right]) {
+        while (curr < right) {
+            if (curr >= rightIndex) {
+                //i与有边界碰撞，结束
+                break;
+            }
+            if (arr[curr] < midV) {
                 swap(arr, leftIndex + 1, curr);
                 leftIndex++;
                 curr++;
-            } else if (arr[curr] > arr[right]) {
+            } else if (arr[curr] > midV) {
                 swap(arr, rightIndex - 1, curr);
                 rightIndex--;
-            } else if (arr[curr] == arr[right]) {
+            } else if (arr[curr] == midV) {
                 curr++;
             }
         }
-        //交换rightIndex 与 right 的值
-        swap(arr, rightIndex, right);
-        return new int[]{leftIndex + 1, rightIndex};
+        return new int[]{leftIndex, rightIndex};
     }
 
     public static void swap(int[] arr, int l, int r) {
