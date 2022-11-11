@@ -1,5 +1,6 @@
 package org.buptdavid.datastructure.zj;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -22,6 +23,7 @@ public class ArrayUtils {
         for (int i = 0; i < length; i++) {
             arr2[i] = random.nextInt(randomLength);
         }
+        System.out.println("生成的原始数组 = " + Arrays.toString(arr2));
         return arr2;
     }
 

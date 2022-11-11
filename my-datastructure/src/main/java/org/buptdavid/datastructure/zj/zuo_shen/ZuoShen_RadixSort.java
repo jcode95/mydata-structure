@@ -1,5 +1,7 @@
 package org.buptdavid.datastructure.zj.zuo_shen;
 
+import org.buptdavid.datastructure.zj.ArrayUtils;
+
 import java.util.Arrays;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Arrays;
 public class ZuoShen_RadixSort {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{53, 3, 4, 746, 0, 8, 90, 0,2,6457,34,55,53,3,3,3,3};
+        int[] arr = ArrayUtils.generateArray(10,100000);
 //        int digitValue = getDigitValue(-36, 1);
 //        System.out.println("digitValue = " + digitValue);
         sort(arr);
