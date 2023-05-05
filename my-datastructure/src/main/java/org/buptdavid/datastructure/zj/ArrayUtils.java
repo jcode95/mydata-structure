@@ -1,5 +1,6 @@
 package org.buptdavid.datastructure.zj;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -33,6 +34,11 @@ public class ArrayUtils {
         int temp = arr[j];
         arr[j] = arr[i];
         arr[i] = temp;
+    }
+
+    public static void print(int[] arr){
+        String s = Arrays.toString(arr);
+        System.out.println("arr = " + s);
     }
 
 }
