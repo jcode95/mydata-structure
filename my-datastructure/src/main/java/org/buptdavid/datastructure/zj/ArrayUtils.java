@@ -37,4 +37,9 @@ public class ArrayUtils {
         arr[i] = temp;
     }
 
+    public static void print(int[] arr){
+        String s = Arrays.toString(arr);
+        System.out.println("arr = " + s);
+    }
+
 }
