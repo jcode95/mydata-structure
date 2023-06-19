@@ -13,4 +13,9 @@ public class RedCircle implements DrawAPI {
         System.out.println("Drawing Circle[ color: red, radius: "
                 + radius +", x: " +x+", "+ y +"]");
     }
+
+    @Override
+    public void drawSquare(int x, int y) {
+
+    }
 }

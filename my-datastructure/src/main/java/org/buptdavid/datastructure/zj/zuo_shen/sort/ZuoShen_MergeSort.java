@@ -1,4 +1,4 @@
-package org.buptdavid.datastructure.zj.zuo_shen;
+package org.buptdavid.datastructure.zj.zuo_shen.sort;
 
 import java.util.Arrays;
 
