@@ -1,9 +1,8 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
 
-import org.buptdavid.datastructure.zj.ArrayUtils;
+import org.buptdavid.datastructure.comm.ArrayUtils;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * @author jiezhou

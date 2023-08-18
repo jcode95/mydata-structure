@@ -1,6 +1,6 @@
 package org.buptdavid.datastructure.zj.zuo_shen.sort;
 
-import org.buptdavid.datastructure.zj.ArrayUtils;
+import org.buptdavid.datastructure.comm.ArrayUtils;
 
 /**
  * 冒泡排序：每次通过对相邻两个元素进行比较和交换，将待排序序列中的最大(或最小)元素逐个沉淀到序列底部

@@ -1,6 +1,6 @@
 package org.buptdavid.datastructure.zj.zuo_shen.sort;
 
-import org.buptdavid.datastructure.zj.ArrayUtils;
+import org.buptdavid.datastructure.comm.ArrayUtils;
 
 /**
  * 选择排序：每次从剩余未排序的元素中选择最小的元素，与当前位置进行交换

@@ -1,4 +1,4 @@
-package org.buptdavid.datastructure.zj;
+package org.buptdavid.datastructure.comm;
 
 import java.util.Arrays;
 import java.util.Random;

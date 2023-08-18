@@ -1,6 +1,6 @@
 package org.buptdavid.datastructure.zj.zuo_shen.sort;
 
-import org.buptdavid.datastructure.zj.ArrayUtils;
+import org.buptdavid.datastructure.comm.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;

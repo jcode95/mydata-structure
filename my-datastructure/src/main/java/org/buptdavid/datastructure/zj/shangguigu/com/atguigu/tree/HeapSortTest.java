@@ -1,6 +1,6 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.tree;
 
-import org.buptdavid.datastructure.zj.ArrayUtils;
+import org.buptdavid.datastructure.comm.ArrayUtils;
 
 import java.util.Arrays;
 
