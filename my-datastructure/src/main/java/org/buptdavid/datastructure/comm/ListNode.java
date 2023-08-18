@@ -1,4 +1,4 @@
-package org.buptdavid.datastructure.zj.刷;
+package org.buptdavid.datastructure.comm;
 
 /**
  * @author jiezhou
