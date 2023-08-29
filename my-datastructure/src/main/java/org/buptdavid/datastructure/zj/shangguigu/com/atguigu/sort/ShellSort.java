@@ -1,5 +1,7 @@
 package org.buptdavid.datastructure.zj.shangguigu.com.atguigu.sort;
 
+import org.buptdavid.datastructure.comm.ArrayUtils;
+
 import java.util.Arrays;
 
 /**
@@ -11,9 +13,9 @@ import java.util.Arrays;
  */
 public class ShellSort {
     public static void main(String[] args) {
-        int[] arr1 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, -1};
-        sort3(arr1);
-        System.out.println(Arrays.toString(arr1));
+        int[] array = ArrayUtils.generateArray(10, 8);
+        sort3(array);
+        System.out.println(Arrays.toString(array));
         /*long s = System.currentTimeMillis();
         int[] arr=new int[800000];
         for (int i = 0; i < 800000; i++) {
