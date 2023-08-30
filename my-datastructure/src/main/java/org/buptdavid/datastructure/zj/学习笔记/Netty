@@ -158,6 +158,7 @@ NIO 零拷贝  new FileInputStream().getChannel().transferTo()
         3) sendFile 可以利用 DMA 方式（dma 直接内存拷贝，不经过cpu），减少 CPU 拷贝，mmap 则不能（必须从内核拷贝 到 Socket 缓冲区）。
 
      零拷贝补充：
+     DMA 拷贝 又称 直接内存拷贝
         传统 拷贝 (4 次拷贝 4 次上下文切换)：
             第一次拷贝 hard drive 拷贝到 kemel buffer (DMA 拷贝 )
             第二次拷贝 kemel buffer 拷贝到 user buffer (CPU 拷贝 )
