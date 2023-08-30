@@ -26,7 +26,7 @@ public class BinaryTreeTest {
         /*---------------------测试数组转二叉树-----------------------*/
         int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7};
         HeroNode node = new ArrBinaryTree().castArrToArrBinaryTree(arr);
-         /*---------------------测试数组转二叉树-----------------------*/
+        /*---------------------测试数组转二叉树-----------------------*/
         binaryTree.setRoot(node);
         System.out.println("-------前序遍历---------");
         binaryTree.preOrder();
@@ -51,7 +51,6 @@ public class BinaryTreeTest {
 
 
 }
-
 
 
 /**
@@ -149,13 +148,12 @@ class BinaryTree {
         if (root == null) {
             System.out.println("binaryTree is null");
             return;
-        } else {
-            if (root.no == no) {
-                root = null;
-                return;
-            }
-            this.root.removeNodeByNo(no);
         }
+        if (root.no == no) {
+            root = null;
+            return;
+        }
+        this.root.removeNodeByNo(no);
     }
 
 

@@ -157,7 +157,19 @@ NIO 零拷贝  new FileInputStream().getChannel().transferTo()
         2) mmap 需要 4 次上下文切换，3 次数据拷贝；sendFile 需要 3 次上下文切换，最 少 2 次数据拷贝。
         3) sendFile 可以利用 DMA 方式（dma 直接内存拷贝，不经过cpu），减少 CPU 拷贝，mmap 则不能（必须从内核拷贝 到 Socket 缓冲区）。
 
-
+     零拷贝补充：
+        传统 拷贝 (4 次拷贝 4 次上下文切换)：
+            第一次拷贝 hard drive 拷贝到 kemel buffer (DMA 拷贝 )
+            第二次拷贝 kemel buffer 拷贝到 user buffer (CPU 拷贝 )
+            第三次拷贝 user buffer 拷贝到 socket buffer (CPU 拷贝 )
+            第四次拷贝 socket buffer 拷贝到 protocol engine 协议栈 (DMA 拷贝 )
+        mmap 拷贝 是 传统拷贝的优化 (3 次拷贝 3 次上下文切换)：
+            第一次拷贝 hard drive 拷贝到 kemel buffer (DMA 拷贝 )  由于 kemel buffer 与 user buffer 实现共享 所以这里少一次拷贝
+            第二次拷贝 kemel buffer 拷贝到 socket buffer (CPU 拷贝 )
+            第三次拷贝 socket buffer 拷贝到 protocol engine 协议栈 (DMA 拷贝 )
+         Nio 的零拷贝 sendFile（没有cpu 拷贝）(2 次拷贝 2 次上下文切换)：
+            第一次拷贝 hard drive 拷贝到 kemel buffer (DMA 拷贝 )
+            第二次拷贝 kemel buffer 拷贝到 protocol engine 协议栈 (DMA 拷贝 )
 select pool epool 的区别?
        1 select的几大缺点：
            （1）每次调用select，都需要把fd集合从用户态拷贝到内核态，这个开销在fd很多时会很大
