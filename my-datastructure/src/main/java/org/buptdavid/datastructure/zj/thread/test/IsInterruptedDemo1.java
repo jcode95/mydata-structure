@@ -48,19 +48,13 @@ public class IsInterruptedDemo1 {
 
         boolean interrupted4 = Thread.interrupted();//获取当前线程（无论是谁调用都是获取获取的当前线程）的中断状态,相比于isInterrupted()，interrupted()会清除中断标识
         System.out.println(interrupted4);
-        boolean interrupted5 = Thread.currentThread().isInterrupted();//获取当前线程（无论是谁调用都是获取获取的当前线程）的中断状态
+        boolean interrupted5 = Thread.currentThread().isInterrupted();//返回对象调用者的中断标识
         System.out.println(interrupted5);*/
-        try {
-            byte[] bytes = input2byte(new FileInputStream("F:\\ideawork\\zookeeper_paxos\\zookeeper_book\\src\\main\\java\\book\\test\\velocity\\VelocityGenerate.java"));
-            System.out.println(" bytes ："+bytes.length);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     /**
      * 总结：
      * interrupt(),直接为调用的线程对象设置中断标识
-     * interrupted(),不管是哪个对象调用，都是返回当前线程的中断标识，如果发现当前线程被中断，会清除中断标识
+     * interrupted(),不管是哪个对象调用，都是返回当前线程的中断标识，如果发现当前线程被中断，会清除中断标识  因为这个方法是静态的，与谁调用没有关系，具体点应该是 这样 Thread.interrupted()
      * isInterrupted(),返回对象调用者的中断标识
      */
 
